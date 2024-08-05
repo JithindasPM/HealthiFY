@@ -10,7 +10,7 @@ class UserProfile_model(models.Model):
 
     name=models.CharField(max_length=100)
 
-    age=models.IntegerField()
+    age=models.PositiveIntegerField()
 
     height=models.IntegerField()
 
