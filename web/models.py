@@ -22,7 +22,7 @@ class UserProfile_model(models.Model):
 
     user=models.OneToOneField(User,on_delete=models.CASCADE)
 
-    created_date=models.DateField(auto_now_add=True)
+    created_date=models.DateField(auto_now_add=True)  
 
     updated_date=models.DateField(auto_now=True)
 

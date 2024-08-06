@@ -12,9 +12,9 @@ class Registration_Form(forms.ModelForm):
             'username':forms.TextInput(attrs={'class':'form-control',
                                               'placeholder': 'Enter your username'}),
             'email':forms.TextInput(attrs={'class':'form-control',
-                                              'placeholder': 'Enter your email'}),
+                                            'placeholder': 'Enter your email'}),
             'password':forms.PasswordInput(attrs={'class':'form-control',
-                                              'placeholder': 'Enter password'})
+                                                  'placeholder': 'Enter password'})
         }
 
 class UserProfile_Model_Form(forms.ModelForm):
@@ -25,5 +25,15 @@ class UserProfile_Model_Form(forms.ModelForm):
 
         widgets={
             'name':forms.TextInput(attrs={'class':'form-control',
-                                              'placeholder': 'Enter your name'})
-        }
+                                          'placeholder': 'Enter your name'}),
+            'age':forms.NumberInput(attrs={'class':'form-control',
+                                            'placeholder':'Enter Your age'}),
+            'height':forms.NumberInput(attrs={'class':'form-control',
+                                               'placeholder':'Enter Your height in cm'}),
+            'weight':forms.NumberInput(attrs={'class':'form-control',
+                                               'placeholder':'Enter your weight in Kg'}),
+            'gender':forms.RadioSelect(attrs={'class':'form-control'}),
+
+            'profile_picture':forms.FileInput(attrs={'class':'form-control-file',
+                                                      'id':'profile_image'})   #id is given because it will be useful for JavaScript interactions or CSS.
+        } 
