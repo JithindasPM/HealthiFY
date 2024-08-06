@@ -3,10 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
-
-
-class UserProfile_model(models.Model):
+class UserProfile_Model(models.Model):
 
     name=models.CharField(max_length=100)
 
