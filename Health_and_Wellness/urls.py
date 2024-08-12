@@ -19,7 +19,20 @@ from django.urls import path
 from django.conf import settings  
 from django.conf.urls.static import static 
 
+from web.views import Registration_View
+from web.views import Home_View
+from web.views import Update_UserProfile_View
+from web.views import Login_View
+from web.views import Logout_View
+from web.views import Food_Add_View
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+
+    path('',Home_View.as_view(),name='home'),
+    path('reg/', Registration_View.as_view(),name='reg'),
+    path('upuser/<int:pk>', Update_UserProfile_View.as_view(),name='upuser'),
+    path('login/', Login_View.as_view(),name='login'),
+    path('logout/', Logout_View.as_view(),name='logout'),
+    path('food/', Food_Add_View.as_view(),name='food'),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  
