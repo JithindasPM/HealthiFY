@@ -2,6 +2,7 @@ from django import forms
 
 from web.models import User
 from web.models import UserProfile_Model
+from web.models import Foods
 
 class Registration_Form(forms.ModelForm):
     class Meta:
@@ -56,3 +57,11 @@ class BMRForm(forms.Form):
     weight = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your weight in kg . . '}))
     age = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your age . . .'}))
     gender = forms.ChoiceField(choices=choice,widget=forms.Select(attrs={'class': 'form-control . . .'}))
+
+
+class FoodForm(forms.ModelForm):
+
+    class Meta:
+        model=Foods
+        fields="__all__"
+        

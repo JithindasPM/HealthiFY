@@ -36,3 +36,12 @@ class UserProfile_Model(models.Model):
         if created:      
             UserProfile_Model.objects.update_or_create(user=instance)
     post_save.connect(sender=User,receiver=create_profile)
+
+
+
+class Foods(models.Model):
+
+    name=models.CharField(max_length=50,db_index=True,unique=True)
+    calorie=models.PositiveIntegerField()
+
+

@@ -95,3 +95,4 @@ class Food_Add_View(View):
         data=UserProfile_Model.objects.get(user_id=request.user)
         return render(request,'food.html',{'data':data})
 
+
