@@ -93,6 +93,7 @@ class Logout_View(View):
 class Food_Add_View(View):
     def get(self,request,*args,**kwargs):
         data=UserProfile_Model.objects.get(user_id=request.user)
+        print(data)
         return render(request,'food.html',{'data':data})
 
 
