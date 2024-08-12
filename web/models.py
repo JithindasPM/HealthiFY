@@ -44,4 +44,7 @@ class Foods(models.Model):
     name=models.CharField(max_length=50,db_index=True,unique=True)
     calorie=models.PositiveIntegerField()
 
+    def __str__(self):
+        return self.name
+
 

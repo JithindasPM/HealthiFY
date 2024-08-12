@@ -64,4 +64,4 @@ class FoodForm(forms.ModelForm):
     class Meta:
         model=Foods
         fields="__all__"
-        
+
