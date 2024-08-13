@@ -46,5 +46,8 @@ class Foods(models.Model):
 
     def __str__(self):
         return self.name
+    
+class my_model(models.Model):
+    name=models.CharField(max_length=100)
 
 
