@@ -53,7 +53,7 @@ class Update_UserProfile_View(View):
         id = kwargs.get('pk')
         data=UserProfile_Model.objects.get(id=id)
         form = UserProfile_Form(instance=data)
-        return render(request, 'profile.html', {'form': form})
+        return render(request, 'profile_update.html', {'form': form})
     
     def post(self, request, *args, **kwargs):
         id = kwargs.get('pk')
@@ -64,7 +64,7 @@ class Update_UserProfile_View(View):
             return redirect('cal')
         else:
             form = UserProfile_Form(instance=data)
-            return render(request, 'profile.html', {'form': form})
+            return render(request, 'profile_update.html', {'form': form})
         
 class Login_View(View):
     def get(Self,request,*args,**kwargs):
@@ -90,10 +90,9 @@ class Logout_View(View):
         logout(request)
         return redirect('home')
     
-class Food_Add_View(View):
+class Profile_View(View):
     def get(self,request,*args,**kwargs):
         data=UserProfile_Model.objects.get(user_id=request.user)
-        print(data)
-        return render(request,'food.html',{'data':data})
+        return render(request,'profile.html',{'data':data})
 
 
