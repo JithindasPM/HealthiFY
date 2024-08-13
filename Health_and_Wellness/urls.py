@@ -33,6 +33,6 @@ urlpatterns = [
     path('upuser/<int:pk>', Update_UserProfile_View.as_view(),name='upuser'),
     path('login/', Login_View.as_view(),name='login'),
     path('logout/', Logout_View.as_view(),name='logout'),
-    path('food/', Profile_View.as_view(),name='food'),
+    path('profile/', Profile_View.as_view(),name='profile'),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

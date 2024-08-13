@@ -34,8 +34,33 @@
 
         /* navbar  ends */
 
-        .fom_heading {
+        /* block1  */
+
+        .block1 {
+            padding-top: 30px;
+        }
+
+        /* .block1_heading{
             text-align: center;
+        } */
+
+        .block1_div1 {
+            border: 2px solid black;
+            padding: 40px;
+            border-radius: 10px;
+            width: max-content;
+        }
+
+        .block1_image{
+            background-image: url('https://as1.ftcdn.net/v2/jpg/01/21/79/06/1000_F_121790612_FN9IodcNfQfO6jcOP6YgKc1YbIOo7JXC.jpg');
+            height: 400px;
+            background-position: center;
+            background-size: cover;
+        }
+        .profile_pic{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -75,7 +100,8 @@
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
-                            <a href="" class="btn btn-dark">Update Profile</a>
+                            <a href="" class="btn btn-dark">Add Food</a>
+                            <a href="{% url 'upuser' data.id %}" class="btn btn-dark ms-2">Update Profile</a>
                             <div><a href="{% url 'logout' %}"
                                     class="btn btn-light border border-2 border-dark ms-2"><b><i>Log
                                             Out</i></b></a></div>
@@ -90,29 +116,71 @@
 
     <!-- block1  -->
 
-    <div class="container">
+    <div class="container block1">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="d-flex">
-                    <h3>Name : </h3><h3 class="ms-1">{{data.name}}</h3>
-                </div>
-                <div class="d-flex">
-                    <h3>Height : </h3><h3 class="ms-1">{{data.height}}</h3>
-                </div>
-                <div class="d-flex">
-                    <h3>Weight : </h3><h3 class="ms-1">{{data.weight}}</h3>
-                </div>
-                <div class="d-flex">
-                    <h3>Age : </h3><h3 class="ms-1">{{data.age}}</h3>
-                </div>
-                <div class="d-flex">
-                    <h3>Gender : </h3><h3 class="ms-1">{{data.gender}}</h3>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="block1_div1">
+                    <h2 class="block1_heading pb-2">Your Profile</h2>
+
+                    <div class="pb-4">
+                        <img class="profile_pic" src="{{data.profile_picture.url}}"  alt="...">
+                    </div>
+                    <div class="d-flex">
+                        <h4>Name : </h4>
+                        <h4 class="ms-1">{{data.name}}</h4>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Height : </h4>
+                        <h4 class="ms-1">{{data.height}}</h4>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Weight : </h4>
+                        <h4 class="ms-1">{{data.weight}}</h4>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Age : </h4>
+                        <h4 class="ms-1">{{data.age}}</h4>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Gender : </h4>
+                        <h4 class="ms-1">{{data.gender}}</h4>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                <div class="container">
+                    <h1 class="block1_heading">Welcome <span class="text-warning">{{request.user}}</span> !
+                    </h1>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12 pt-4">
+                            <p class="">If you want a relaxed body, you can do it by relaxing your mind. If you want a
+                                relaxed mind, relax your body.</p>
+                            <div class="w-100 d-flex mt-4">
+                                
+                                <h5>Your BMR : </h5>
+                                {% if bmr is not None %}
+                                <h5 class="ms-2"> {{ bmr|floatformat:2 }} kcal / day</h5>
+                                {% endif %}
+                                <br>
+                            </div>
+                            <div class="w-100 d-flex">
+                                <h5>Your BMI : </h5>
+                                {% if bmr is not None %}
+                                <h5 class="ms-2"> {{ bmi|floatformat:2 }}</h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12 block1_image">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- block1 ends  -->
 
 </body>
 
