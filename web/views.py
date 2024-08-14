@@ -61,7 +61,7 @@ class Update_UserProfile_View(View):
         form = UserProfile_Form(request.POST,request.FILES, instance=data)
         if form.is_valid():
             form.save()
-            return redirect('cal')
+            return redirect('profile')
         else:
             form = UserProfile_Form(instance=data)
             return render(request, 'profile_update.html', {'form': form})
@@ -80,7 +80,7 @@ class Login_View(View):
             user_obj=authenticate(username=u_name,password=pswd)
             if user_obj:
                 login(request,user_obj)
-                return redirect('food')
+                return redirect('profile')
             else:
                 form=Login_Form()
                 return render(request,'login.html',{'form':form})
@@ -93,6 +93,19 @@ class Logout_View(View):
 class Profile_View(View):
     def get(self,request,*args,**kwargs):
         data=UserProfile_Model.objects.get(user_id=request.user)
-        return render(request,'profile.html',{'data':data})
+        height = data.height
+        weight = data.weight
+        age = data.age
+        gender = data.gender
+        bmr = None
+        bmi = None
+        if gender == 'male':
+            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+        else:
+            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+            
+        height_in_meters = height / 100  # convert cm to meters
+        bmi = weight / (height_in_meters ** 2)
+        return render(request,'profile.html',{'data':data, 'bmr': bmr,'bmi': bmi})
 
 
