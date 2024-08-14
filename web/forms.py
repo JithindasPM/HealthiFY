@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from web.models import User
 from web.models import UserProfile_Model

@@ -45,10 +45,14 @@ class Registration_View(View):
     
     def post(self,request,*args,**kwargs):
         form=Registration_Form(request.POST)
-        if form.is_valid():
-            User.objects.create_user(**form.cleaned_data)
-            form=Registration_Form()
-            return redirect('login')
+        try:
+            if form.is_valid():
+               User.objects.create_user(**form.cleaned_data)
+               form=Registration_Form()
+               return redirect('login')
+        except Exception as e:
+            print(e,"===========")
+        return render(request,'reg.html',{'form':form})
         
 class Update_UserProfile_View(View):
     def get(self, request, *args, **kwargs):
