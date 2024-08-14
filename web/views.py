@@ -6,9 +6,11 @@ from web.forms import Registration_Form
 from web.forms import UserProfile_Form
 from web.forms import Login_Form
 from web.forms import BMRForm
+from web.forms import FoodForm
 
 from web.models import User
 from web.models import UserProfile_Model
+from web.models import Foods
 
 # Create your views here.
 
@@ -46,7 +48,7 @@ class Registration_View(View):
         if form.is_valid():
             User.objects.create_user(**form.cleaned_data)
             form=Registration_Form()
-            return redirect('log')
+            return redirect('login')
         
 class Update_UserProfile_View(View):
     def get(self, request, *args, **kwargs):
@@ -109,3 +111,39 @@ class Profile_View(View):
         return render(request,'profile.html',{'data':data, 'bmr': bmr,'bmi': bmi})
 
 
+class Add_Food(View):
+    def get(self,request,*args,**kwargs):
+        form=FoodForm
+        data=Foods.objects.all()
+        return render(request,"food.html",{"form":form,'data':data})
+    
+    def post(self,request,*args,**kwargs):
+        form=FoodForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form=FoodForm()
+        data=Foods.objects.all()
+        return render(request,"food.html",{"form":form,"data":data})
+    
+class Update_food(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        data=Foods.objects.get(id=id)
+        form=FoodForm(instance=data)
+        data=Foods.objects.all()
+        return render(request,"food.html",{"form":form,"data":data})
+        
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        data=Foods.objects.get(id=id)
+        form=FoodForm(request.POST,instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect("addfood")
+
+
+class Delete_Food(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        Foods.objects.get(id=id).delete()
+        return redirect("addfood")

@@ -64,4 +64,10 @@ class FoodForm(forms.ModelForm):
     class Meta:
         model=Foods
         fields="__all__"
+        widgets={
+                 'name':forms.TextInput(attrs={'class':'form-control',
+                                          'placeholder': 'Foodname'}),
+                 'calorie':forms.NumberInput(attrs={'class':'form-control',
+                                            'placeholder':'Calorie'}),
+        }
 
