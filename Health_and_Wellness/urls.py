@@ -25,6 +25,9 @@ from web.views import Update_UserProfile_View
 from web.views import Login_View
 from web.views import Logout_View
 from web.views import Profile_View
+from web.views import Add_Food
+from web.views import Update_food
+from web.views import Delete_Food
 
 urlpatterns = [
 
@@ -34,5 +37,8 @@ urlpatterns = [
     path('login/', Login_View.as_view(),name='login'),
     path('logout/', Logout_View.as_view(),name='logout'),
     path('profile/', Profile_View.as_view(),name='profile'),
+    path('addfood/',Add_Food.as_view(),name='addfood'),
+    path('updatefood/<int:pk>',Update_food.as_view(),name='updatefood'),
+    path('deletefood/<int:pk>',Delete_Food.as_view(),name='deletefood'),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

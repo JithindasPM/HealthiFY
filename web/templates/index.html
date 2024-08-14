@@ -10,6 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>Healthify</title>
 
@@ -24,6 +27,7 @@
 
         .header {
             background-color: white;
+
         }
 
         .navbar-brand {
@@ -35,10 +39,10 @@
         /* block1  */
 
         .block1 {
-            padding-top: 150px;
+            padding-top: 0px;
         }
 
-        .block1_fom{
+        .block1_fom {
             box-shadow: 4px 0px 5px rgb(197, 196, 196);
             border-radius: 4px;
         }
@@ -72,6 +76,27 @@
         }
 
         /* block2 ends  */
+
+        .white {
+            color: white;
+        }
+
+        .logo {
+            max-width: 180px;
+
+        }
+
+        .image2 {
+            background-image: url("https://static.vecteezy.com/system/resources/previews/010/719/367/non_2x/people-living-a-healthy-lifestyle-vector.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            border-radius: 7px;
+        }
+
+        .decoration{
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -79,11 +104,11 @@
 
     <!-- navbar  -->
 
-    <div class="container-fluid">
+    <div class="container-fluid sticky-top">
         <div class="row">
-            <nav class="navbar navbar-expand-lg header fixed-top border shadow">
+            <nav class="navbar navbar-expand-lg header border shadow">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Healthify</a>
+                    <a class="navbar-brand font-monospace" href="#"><span style="color: #008efb;">Healthi</span>FY </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -124,6 +149,15 @@
 
     <!-- block1  -->
 
+
+    <div class="container">
+        <div class="text-center">
+            <p class="pt-4 fst-italic"><span style="font-weight: 400;font-size: 30px;">Welcome to HealthiFY! </span>
+
+                Your journey to better health starts here</p>
+        </div>
+    </div>
+
     <div class="container block1">
         <div class="row">
             <div class="container">
@@ -136,8 +170,10 @@
                                 <div class="block1_fom p-3">
                                     {{ form.as_p }}
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-warning border border-dark mt-3"
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button class="btn btn-outline-dark border w-50 border-dark mt-3"
+                                        type="reset"><b>Reset</b></button>
+                                    <button class="btn btn-outline-primary border w-50 border-dark mt-3"
                                         type="submit"><b>Calculate</b></button>
                                 </div>
                             </div>
@@ -179,18 +215,209 @@
         <div class="row">
             <div class="col-lg-6 col-md 6 col-sm-12 col-12 block2_text">
                 <div>
-                    <h1 class="block2_heading">Healthify</h1>
-                    <p>Health is a state of complete physical, mental and social well-being and not merely the absence
-                        of disease or infirmity.</p>
+                    <h1 class="block2_heading">HealthiFY</h1>
+                    <h3>Welcome to Your journey of you being HealthiFY!</h3>
+
+                    <p>Embark on a journey towards a healthier you with our comprehensive health and wellness platform.
+                        Whether you're looking to manage your diet, track your fitness progress, or monitor your sleep,
+                        we've got you covered. Our platform offers personalized tools to calculate your Basal Metabolic
+                        Rate (BMR) and Body Mass Index (BMI), helping you understand your body's needs. Discover
+                        tailored diet plans, log your food and calorie intake, and keep an eye on your exercise routines
+                        with ease.</p>
+
+                    <p>Visualize your progress with detailed graphs and charts, stay motivated with our food
+                        recommendations, and receive expert exercise guidance every step of the way. Your path to a
+                        balanced and healthy lifestyle starts here. Let’s achieve your wellness goals together!</p>
+
+
+
                 </div>
             </div>
             <div class="col-lg-6 col-md 6 col-sm-12 col-12 block2_image"></div>
+
         </div>
     </div>
 
     <!-- block2 ends  -->
 
-    <div style="height: 600px;"></div>
+    <!-- <block3 starts -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>The basal metabolic rate (BMR) is the amount of energy needed while resting in a temperate
+                    environment when the digestive system is inactive. It is the equivalent of figuring out how much
+                    gas an idle car consumes while parked. In such a state, energy will be used only to maintain
+                    vital organs, which include the heart, brain, kidneys, nervous system, intestines, liver, lungs,
+                    sex organs, muscles, and skin. For most people, upwards of ~70% of total energy (calories)
+                    burned each day is due to upkeep. Physical activity makes up ~20% of expenditure and ~10% is
+                    used for the digestion of food, also known as thermogenesis.</p>
+
+                <p>The BMR is measured under very restrictive circumstances while awake. An accurate BMR
+                    measurement requires that a person's sympathetic nervous system is inactive, which means the
+                    person must be completely rested. Basal metabolism is usually the largest component of a
+                    person's total caloric needs. The daily caloric need is the BMR value multiplied by a factor
+                    with a value between 1.2 and 1.9, depending on activity level.</p>
+                <p>In most situations, the BMR is estimated with equations summarized from statistical data. The
+                    Harris-Benedict Equation was one of the earliest equations introduced. It was revised in 1984 to
+                    be more accurate and was used up until 1990, when the Mifflin-St Jeor Equation was introduced.
+                    The Mifflin-St Jeor Equation has been shown to be more accurate than the revised Harris-Benedict
+                    Equation. The Katch-McArdle Formula is slightly different in that it calculates resting daily
+                    energy expenditure (RDEE), which takes lean body mass into account, something that neither the
+                    Mifflin-St Jeor nor the Harris-Benedict Equation does. Of these equations, the Mifflin-St Jeor
+                    Equation is considered the most accurate equation for calculating BMR with the exception that
+                    the Katch-McArdle Formula can be more accurate for people who are leaner and know their body fat
+                    percentage. You can pick the equation to be used in the calculation by expanding the settings.</p>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md 6 col-sm-12 col-12 image2">
+
+                    </div>
+                    <div class="col-lg-6 col-md 6 col-sm-12 col-12 text-start ps-5">
+                        <div class="row">
+                            <div class="col-lg-1 col-md-0 col-sm-0 col-0"></div>
+                            <div class="col-lg-10 col-md 6 col-sm-12 col-12 ps-5">
+                                <p>The three equations used by the calculator are listed below:</p>
+
+                                <div>
+                                    <h5>Mifflin-St Jeor Equation:</h5>
+                                    <p><span style="font-weight: bolder;">For men:</span> BMR = 10W + 6.25H - 5A + 5</p>
+                                    <p><span style="font-weight: bolder;">For women:</span> BMR = 10W + 6.25H - 5A - 161
+                                    </p>
+                                </div>
+                                <div>
+                                    <h5>Revised Harris-Benedict Equation:</h5>
+                                    <p><span style="font-weight: bolder;">For men:</span>BMR = 13.397W + 4.799H - 5.677A
+                                        + 88.362</p>
+
+                                    <p><span style="font-weight: bolder;">For women:</span>BMR = 9.247W + 3.098H -
+                                        4.330A + 447.593</p>
+                                </div>
+
+                                <div>
+                                    <h5>Katch-McArdle Formula:</h5>
+                                    <p class="lh-base"><span style="font-weight: bold;">BMR = 370 + 21.6(1 - F)W </span>
+                                        <br>where: <br>
+                                        W is body weight in kg <br>
+                                        H is body height in cm <br>
+                                        A is age <br>
+                                        F is body fat in percentage
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-0 col-sm-0 col-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>BMR Variables</h3>
+                <p><span style="font-weight: bold;">Muscle Mass</span> – Aerobic exercises, such as running or cycling,
+                    have no effect on BMR. However,
+                    anaerobic exercises, such as weight-lifting, indirectly lead to a higher BMR because they build
+                    muscle mass, increasing resting energy consumption. The more muscle mass in the physical
+                    composition of an individual, the higher the BMR required to sustain their body at a certain
+                    level.</p>
+
+                <p><span style="font-weight: bold;">Age</span> – The more elderly and limber an individual, the lower
+                    their BMR, or the lower the minimum
+                    caloric intake required to sustain the functioning of their organs at a certain level.</p>
+
+                <p> <span style="font-weight: bold;">Genetics</span> – Hereditary traits passed down from ancestors
+                    influence BMR.</p>
+
+                <p><span>Weather</span> – Cold environments raise BMR because of the energy required to create a
+                    homeostatic
+                    body temperature. Likewise, too much external heat can raise BMR as the body expends energy to
+                    cool off internal organs. BMR increases approximately 7% for every increase of 1.36 degrees
+                    Fahrenheit in the body's internal temperature.</p>
+
+                <p><span style="font-weight: bold;">Diet</span> – Small, routinely dispersed meals increase BMR. On the
+                    other hand, starvation can reduce
+                    BMR by as much as 30%. Similar to a phone that goes into power-saving mode during the last 5% of
+                    its battery, a human body will make sacrifices such as energy levels, moods, upkeep of bodily
+                    physique, and brain functions in order to more efficiently utilize what little caloric energy is
+                    being used to sustain it.</p>
+
+                <p><span style="font-weight: bold;">Pregnancy</span> – Ensuring the livelihood of a separate fetus
+                    internally increases BMR. This is why
+                    pregnant women tend to eat more than usual. Also, menopause can increase or decrease BMR
+                    depending on hormonal changes.</p>
+
+                <p><span>Supplements</span> – Certain supplements or drugs raise BMR, mostly to fuel weight loss.
+                    Caffeine is a
+                    common one.</p>
+
+                <h3>BMR Tests</h3>
+                <p>Online BMR tests with rigid formulas are not the most accurate method of determining an
+                    individual's BMR. It is better to consult a certified specialist or measure BMR through a
+                    calorimetry device. These handheld devices are available in many health and fitness clubs,
+                    doctor offices, and weight-loss clinics.</p>
+
+                <p>Resting Metabolic Rate
+                    While the two are used interchangeably, there is a key difference in their definitions. Resting
+                    metabolic rate, or RMR for short, is the rate at which the body burns energy in a relaxed, but
+                    not fully inactive state. It is also sometimes defined as resting energy expenditure, or REE.
+                    BMR measurements must meet total physiological equilibrium while RMR conditions of measurement
+                    can be altered and defined by contextual limitations.</p>
+
+                <h3>Modern Wisdom</h3>
+                <p>A 2005 meta-analysis study on BMR* showed that when controlling all factors of metabolic rate,
+                    there is still a 26% unknown variance between people. Essentially, an average person eating an
+                    average diet will likely have expected BMR values, but there are factors that are still not
+                    understood that determines BMR precisely.</p>
+
+                <p>Therefore, all BMR calculations, even using the most precise methods through specialists, will
+                    not be perfectly accurate in their measurements. Not all human bodily functions are well
+                    understood just yet, so calculating total daily energy expenditure (TDEE) derived from BMR
+                    estimates are just that, estimates. When working towards any sort of health or fitness goal, BMR
+                    can aid in laying down the foundations, but from there on, it has little else to offer. A
+                    calculated BMR and thus TDEE may result in unsatisfactory results because of their rough
+                    estimates, but maintaining a daily journal of exercise, food consumption, etc., can help track
+                    the factors that lead to any given results and help determine what works, as well as what needs
+                    to be improved upon. Tracking progress in said journal and making adjustments over time as
+                    needed is generally the best indication of progress towards reaching personal goals.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer starts -->
+
+    <div class="container-fluid">
+                <div class="row bg-dark pt-4">
+                    <div class="col-1"></div>
+                    <div class="col-3 text-center">
+                        <a href="" class="decoration">about_us</a>
+                        <p class="white text-start container">Calculate your <br>
+                            BMR and BMI, <br>
+                            explore personalized diet plans, <br>
+                            track your calories, <br>
+                            exercise, <br>
+                            and sleep—all in one place.</p>
+
+                    </div>
+                    <div class="col-3 text-center">
+                        <h4 class="white">HealthiFY</h4>
+                        <p class="white">private content <br>
+                            <i class="fa-solid fa-envelope" style="color: #74C0FC;"></i> healthify@gmail.com <br>
+                            2024
+                        </p>
+                    </div>
+                    <div class="col-4 text-center pe-2">
+                        <a href="" class=" decoration">contact_us</a><br>
+                        <a href=""><i class="fa-brands fa-instagram" style="color: #74C0FC;"></i></a>
+                        <a href=""><i class="fa-brands fa-x-twitter" style="color: #74C0FC;"></i></a>
+                        <a href=""><i class="fa-brands fa-facebook" style="color: #74C0FC;"></i></a><br>
+                        <p class="white">@healthify</p>
+                        <p class="white">Stay motivated with progress charts, tailored recommendations,
+                            and expert guidance. Let’s achieve your wellness goals together with Healthify!</p>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+    </div>
 </body>
 
 </html>
