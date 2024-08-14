@@ -101,7 +101,7 @@
                         </ul>
                         <form class="d-flex" role="search">
                             <a href="" class="btn btn-dark">Add Food</a>
-                            <a href="" class="btn btn-dark ms-2">Update Profile</a>
+                            <a href="{% url 'upuser' data.id %}" class="btn btn-dark ms-2">Update Profile</a>
                             <div><a href="{% url 'logout' %}"
                                     class="btn btn-light border border-2 border-dark ms-2"><b><i>Log
                                             Out</i></b></a></div>
@@ -120,33 +120,7 @@
         <div class="row">
 
             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                <div class="block1_div1">
-                    <h2 class="block1_heading pb-2">Your Profile</h2>
-
-                    <div class="pb-4">
-                        <img class="profile_pic" src="{{data.profile_picture.url}}"  alt="...">
-                    </div>
-                    <div class="d-flex">
-                        <h4>Name : </h4>
-                        <h4 class="ms-1">{{data.name}}</h4>
-                    </div>
-                    <div class="d-flex">
-                        <h4>Height : </h4>
-                        <h4 class="ms-1">{{data.height}}</h4>
-                    </div>
-                    <div class="d-flex">
-                        <h4>Weight : </h4>
-                        <h4 class="ms-1">{{data.weight}}</h4>
-                    </div>
-                    <div class="d-flex">
-                        <h4>Age : </h4>
-                        <h4 class="ms-1">{{data.age}}</h4>
-                    </div>
-                    <div class="d-flex">
-                        <h4>Gender : </h4>
-                        <h4 class="ms-1">{{data.gender}}</h4>
-                    </div>
-                </div>
+                
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-12">
                 <div class="container">

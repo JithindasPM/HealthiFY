@@ -98,21 +98,29 @@ class Logout_View(View):
     
 class Profile_View(View):
     def get(self,request,*args,**kwargs):
-        # data=UserProfile_Model.objects.get(user_id=request.user)
-        # height = data.height
-        # weight = data.weight
-        # age = data.age
-        # gender = data.gender
-        # bmr = None
-        # bmi = None
-        # if gender == 'male':
-        #     bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
-        # else:
-        #     bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
-            
-        # height_in_meters = height / 100  # convert cm to meters
-        # bmi = weight / (height_in_meters ** 2)
-        return render(request,'profile.html')
+        data=UserProfile_Model.objects.get(user_id=request.user)
+        height = data.height
+        weight = data.weight
+        age = data.age
+        gender = data.gender
+
+        if height is None or weight is None or age is None:
+            return render(request,'profile.html',{'data':data})
+        else:
+            height = float(height)
+            weight = float(weight)
+            age = int(age)
+            bmr = None
+            bmi = None
+            if gender == 'male':
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+            else:
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+
+            height_in_meters = height / 100  # convert cm to meters
+            bmi = weight / (height_in_meters ** 2)
+            return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi})
+
 
 
 class Add_Food(View):

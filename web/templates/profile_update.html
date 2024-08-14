@@ -78,7 +78,6 @@
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
-                            <a href="" class="btn btn-dark">Add Food</a>
                             <div><a href="{% url 'logout' %}"
                                     class="btn btn-light border border-2 border-dark ms-2"><b><i>Log
                                             Out</i></b></a></div>
@@ -103,7 +102,7 @@
                     {%csrf_token%}
                     {{form.as_p}}
                     {{form.error}}
-                    <button class="btn btn-dark form-control mt-3" type="submit"><b>Add</b></button>
+                    <button class="btn btn-dark form-control mt-3" type="submit"><b>Update</b></button>
                 </form>
             </div>
 
