@@ -46,7 +46,7 @@ class Registration_View(View):
         if form.is_valid():
             User.objects.create_user(**form.cleaned_data)
             form=Registration_Form()
-            return redirect('log')
+            return redirect('login')
         
 class Update_UserProfile_View(View):
     def get(self, request, *args, **kwargs):
@@ -92,20 +92,20 @@ class Logout_View(View):
     
 class Profile_View(View):
     def get(self,request,*args,**kwargs):
-        data=UserProfile_Model.objects.get(user_id=request.user)
-        height = data.height
-        weight = data.weight
-        age = data.age
-        gender = data.gender
-        bmr = None
-        bmi = None
-        if gender == 'male':
-            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
-        else:
-            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+        # data=UserProfile_Model.objects.get(user_id=request.user)
+        # height = data.height
+        # weight = data.weight
+        # age = data.age
+        # gender = data.gender
+        # bmr = None
+        # bmi = None
+        # if gender == 'male':
+        #     bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+        # else:
+        #     bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
             
-        height_in_meters = height / 100  # convert cm to meters
-        bmi = weight / (height_in_meters ** 2)
-        return render(request,'profile.html',{'data':data, 'bmr': bmr,'bmi': bmi})
+        # height_in_meters = height / 100  # convert cm to meters
+        # bmi = weight / (height_in_meters ** 2)
+        return render(request,'profile.html')
 
 
