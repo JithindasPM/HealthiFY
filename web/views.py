@@ -7,10 +7,12 @@ from web.forms import UserProfile_Form
 from web.forms import Login_Form
 from web.forms import BMRForm
 from web.forms import FoodForm
+from web.forms import Exercise_Form
 
 from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
+from web.models import Exercise
 
 # Create your views here.
 
@@ -159,3 +161,33 @@ class Delete_Food(View):
         id=kwargs.get("pk")
         Foods.objects.get(id=id).delete()
         return redirect("addfood")
+
+class Add_Exercise(View):
+
+    def get(self,request,*args,**kwargs):
+        form=Exercise_Form()
+        return render(request,'exercise.html',{'form':form})
+    
+    def post(self,request,*args,**kwargs):
+        form=Exercise_Form(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+        form=Exercise_Form()
+        return render(request,'exercise.html',{'form':form})
+
+
+class ExerciseList_View(View):
+
+    def get(self,request,*args,**kwargs):
+
+        data=Exercise.objects.all()
+
+        return render(request,'exerciselist.html',{'exercises':data})
+
+class ExerciseDetail_View(View):
+
+    def get (self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Exercise.objects.get(id=id)
+
+        return render(request,'exercise_detail.html',{'exercise':data})

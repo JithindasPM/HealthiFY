@@ -28,6 +28,9 @@ from web.views import Profile_View
 from web.views import Add_Food
 from web.views import Update_food
 from web.views import Delete_Food
+from web.views import Add_Exercise
+from web.views import ExerciseList_View
+from web.views import ExerciseDetail_View
 
 urlpatterns = [
 
@@ -40,5 +43,8 @@ urlpatterns = [
     path('addfood/',Add_Food.as_view(),name='addfood'),
     path('updatefood/<int:pk>',Update_food.as_view(),name='updatefood'),
     path('deletefood/<int:pk>',Delete_Food.as_view(),name='deletefood'),
+    path('addexercise/',Add_Exercise.as_view(),name='addexercise'),
+    path('exerciselist/',ExerciseList_View.as_view(),name='exerciselist'),
+    path('exerciseview/<int:pk>',ExerciseDetail_View.as_view(),name='exerciseview'),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

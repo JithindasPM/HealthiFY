@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #finishButton {
+            background-color: #dc3545;
+            display: none;
+        }
+
+        #countdown {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
+    <h1>{{ exercise.name }}</h1>
+    <p>{{ exercise.description }}</p>
+    <p>Duration: <span id="duration">{{ exercise.duration }}</span> seconds</p>
+    <p>Reps: {{ exercise.reps }}</p>
+    <p>Calories Burned: {{ exercise.calories_burned }}</p>
+    
+
+    <button id="startButton">Start</button>
+    <p id="countdown"></p>
+    <button id="finishButton">Go on!!</button>
+
+
+    <script>
+        document.getElementById('startButton').onclick = function() {
+            var duration = parseInt(document.getElementById('duration').textContent);
+            var countdown = document.getElementById('countdown');
+            var finishButton = document.getElementById('finishButton');
+            var startButton = document.getElementById('startButton');
+            
+            startButton.style.display = 'none';
+            finishButton.style.display = 'block';
+            
+            var timer = setInterval(function() {
+                countdown.textContent = duration + ' seconds remaining';
+                duration--;
+                
+                if (duration < 0) {
+                    clearInterval(timer);
+                    countdown.textContent = 'Time\'s up!';
+                    finishButton.textContent = 'Finished';
+                    finishButton.style.backgroundColor = '#007bff';
+                    finishButton.onclick = function() {
+                window.location.href = '/exerciselist/';  // Replace with the actual URL of the exercise list page
+            };
+                }
+            }, 1000);
+        };
+    </script>
+
+    
+</body>
+</html>

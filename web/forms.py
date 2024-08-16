@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
+from web.models import Exercise
 
 class Registration_Form(forms.ModelForm):
     class Meta:
@@ -72,3 +73,22 @@ class FoodForm(forms.ModelForm):
                                             'placeholder':'Calorie'}),
         }
 
+class Exercise_Form(forms.ModelForm):
+
+    class Meta:
+
+        model=Exercise
+        fields="__all__"
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter exercise name'}),
+
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter description'}),
+
+            'duration': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter duration in minutes'}),
+
+            'reps': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter count of reps'}),
+
+            'calories_burned': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter  amount of calories burns'}),
+
+            'gif': forms.FileInput(attrs={'class': 'form-control'}),
+        }
