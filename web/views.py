@@ -191,3 +191,26 @@ class ExerciseDetail_View(View):
         data=Exercise.objects.get(id=id)
 
         return render(request,'exercise_detail.html',{'exercise':data})
+    
+class ExerciseDelete_View(View):
+    def get(sel,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        Exercise.objects.get(id=id).delete()
+        return redirect('exerciselist')
+    
+class ExerciseUpdate_View(View):
+
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Exercise.objects.get(id=id)
+        form=Exercise_Form(instance=data)
+
+        return render(request,'exercise.html',{'form':form,'data':data})
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Exercise.objects.get(id=id)
+        form=Exercise_Form(request.POST,request.FILES,instance=data)
+        if form.is_valid():
+            form.save()
+        form=Exercise_Form()
+        return render(request,'exercise.html',{'form':form})

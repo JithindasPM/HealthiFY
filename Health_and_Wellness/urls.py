@@ -31,6 +31,8 @@ from web.views import Delete_Food
 from web.views import Add_Exercise
 from web.views import ExerciseList_View
 from web.views import ExerciseDetail_View
+from web.views import ExerciseDelete_View
+from web.views import ExerciseUpdate_View
 
 urlpatterns = [
 
@@ -46,5 +48,7 @@ urlpatterns = [
     path('addexercise/',Add_Exercise.as_view(),name='addexercise'),
     path('exerciselist/',ExerciseList_View.as_view(),name='exerciselist'),
     path('exerciseview/<int:pk>',ExerciseDetail_View.as_view(),name='exerciseview'),
+    path('exercisedelete/<int:pk>',ExerciseDelete_View.as_view(),name='exercisedelete'),
+    path('exerciseupdate/<int:pk>',ExerciseUpdate_View.as_view(),name='exerciseUpdate'),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  
