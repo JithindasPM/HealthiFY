@@ -30,6 +30,7 @@ class Home_View(View):
             gender = form.cleaned_data['gender']
             bmr = None
             bmi = None
+            state=None
             if gender == 'male':
                 bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
             else:
@@ -37,8 +38,18 @@ class Home_View(View):
             
             height_in_meters = height / 100  # convert cm to meters
             bmi = weight / (height_in_meters ** 2)
+            if bmi is None:
+                state=None
+            elif bmi <= 18.4:
+                state='Underweight'
+            elif 18.5 <= bmi <= 24.9:
+                state='Normal weight'
+            elif 25 <= bmi <= 39.9:
+                state='Overweight'
+            else:
+                state='Obese'
 
-        return render(request, 'index.html', {'form': form, 'bmr': bmr,'bmi': bmi})
+        return render(request, 'index.html', {'form': form, 'bmr': bmr,'bmi': bmi,'state':state})
     
 class Registration_View(View):
     def get(self,request,*args,**kwargs):
@@ -88,10 +99,16 @@ class Login_View(View):
             user_obj=authenticate(username=u_name,password=pswd)
             if user_obj:
                 login(request,user_obj)
-                return redirect('profile')
+                user_obj=UserProfile_Model.objects.get(user=request.user)
+                if user_obj.age is None or user_obj.height is None or user_obj.weight is None or user_obj.gender is None:
+                    id=user_obj.id 
+                    return redirect('upuser',pk=id)
+                else:
+                    return redirect('profile')
             else:
                 form=Login_Form()
-                return render(request,'login.html',{'form':form})
+                return render(request,'login.html',{'form':form})  
+
             
 class Logout_View(View):
     def get(self,request,*args,**kwargs):
@@ -114,6 +131,7 @@ class Profile_View(View):
             age = int(age)
             bmr = None
             bmi = None
+            state=None
             if gender == 'male':
                 bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
             else:
@@ -121,7 +139,17 @@ class Profile_View(View):
 
             height_in_meters = height / 100  # convert cm to meters
             bmi = weight / (height_in_meters ** 2)
-            return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi})
+            if bmi is None:
+                state=None
+            elif bmi <= 18.4:
+                state='Underweight'
+            elif 18.5 <= bmi <= 24.9:
+                state='Normal weight'
+            elif 25 <= bmi <= 39.9:
+                state='Overweight'
+            else:
+                state='Obese'
+            return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state})
 
 
 

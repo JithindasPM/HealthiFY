@@ -184,8 +184,11 @@
                         <div class="w-100 d-flex">
                             <h5>Your BMI : </h5>
                             {% if bmr is not None %}
-                            <h5 class="ms-2"> {{ bmi|floatformat:2 }}</h5>
+                            <h5 class="ms-2"> {{ bmi|floatformat:2 }} : {{state}}</h5>
                             {% endif %}
+                        </div>
+                        <div class="w-100 d-flex">
+                            <h3 class=" mt-2">{{state}}</h3>
                         </div>
                     </div>
                 </div>
