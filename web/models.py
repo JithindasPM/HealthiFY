@@ -56,7 +56,7 @@ class Exercise(models.Model):
 
     duration=models.CharField(max_length=100,default='60:00',blank=True,null=True)  # Duration of the exercise 
 
-    reps=models.PositiveIntegerField(default=15,blank=True,null=True)   # Default number of repetitions set to 15
+    reps=models.PositiveIntegerField(default=25,blank=True,null=True)   # Default number of repetitions set to 15
 
     calories_burned=models.PositiveIntegerField()  # Calories burned during the exercise
 
@@ -67,4 +67,11 @@ class Exercise(models.Model):
         return self.name
 
 
+class Exercise_Data(models.Model):
 
+    exercise=models.ForeignKey(Exercise,on_delete=models.CASCADE)   #exercise is connected with Exercise table
+
+    user=models.ForeignKey(User,on_delete=models.CASCADE)    #user is conneted with User table
+
+    def __str__(self):
+        return self.exercise,self.user

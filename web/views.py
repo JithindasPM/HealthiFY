@@ -13,6 +13,7 @@ from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
+from web.models import Exercise_Data
 
 # Create your views here.
 
@@ -242,3 +243,17 @@ class ExerciseUpdate_View(View):
             form.save()
         form=Exercise_Form()
         return render(request,'exercise.html',{'form':form})
+    
+
+class ExerciseData_view(View):
+
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Exercise.objects.get(id=id)
+        return render(request,'exercise_detail.html',{'exercise':data})
+    
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Exercise.objects.get(id=id)
+        Exercise_Data.objects.create(exercise=data,user=request.user)
+        return redirect('exerciselist')
