@@ -59,11 +59,13 @@
     <p>Duration: <span id="duration">{{ exercise.duration }}</span> seconds</p>
     <p>Reps: {{ exercise.reps }}</p>
     <p>Calories Burned: {{ exercise.calories_burned }}</p>
-    
-
     <button id="startButton">Start</button>
     <p id="countdown"></p>
-    <button id="finishButton">Go on!!</button>
+    <form id="finishForm" action="{% url 'finish_exercise' exercise.id %}" method="post" style="display:none;">
+        {% csrf_token %}
+        <button type="submit" id="finishButton">Finish</button>
+    </form>
+    <!-- <button id="finishButton">Go on!!</button> -->
 
 
     <script>
@@ -85,6 +87,7 @@
                     countdown.textContent = 'Time\'s up!';
                     finishButton.textContent = 'Finished';
                     finishButton.style.backgroundColor = '#007bff';
+                    document.getElementById('finishForm').style.display = 'block';
                     finishButton.onclick = function() {
                 window.location.href = '/exerciselist/';  // Replace with the actual URL of the exercise list page
             };
