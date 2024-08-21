@@ -8,12 +8,19 @@ from web.forms import Login_Form
 from web.forms import BMRForm
 from web.forms import FoodForm
 from web.forms import Exercise_Form
+from .forms import SleepForm
+from .models import SleepModel
 
 from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
 from web.models import Exercise_Data
+
+
+from django.db.models.functions import TruncWeek
+from django.utils import timezone
+
 
 # Create your views here.
 
@@ -257,3 +264,86 @@ class ExerciseData_view(View):
         data=Exercise.objects.get(id=id)
         Exercise_Data.objects.create(exercise=data,user=request.user)
         return redirect('exerciselist')
+    
+    
+
+
+class Add_Sleep(View):
+
+    def get(self,request,*args,**kwargs):
+
+        form=SleepForm()
+
+        current_week_start = timezone.now().date() - timezone.timedelta(days=timezone.now().date().weekday())
+
+        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(week=current_week_start).order_by("week","sleep_start_time")
+
+        return render(request,"sleep.html",{"form":form,"data":data})
+    
+
+    def post(self,request,*args,**kwargs):
+
+        form=SleepForm(request.POST)
+
+        if form.is_valid():
+
+            SleepModel.objects.create(**form.cleaned_data,user=request.user)
+        
+        current_week_start = timezone.now().date() - timezone.timedelta(days=timezone.now().date().weekday())
+
+        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(week=current_week_start).order_by("week","sleep_start_time")
+
+        form=SleepForm()
+
+        return render(request,"sleep.html",{"form":form,"data":data})
+    
+
+class UpdateSleep(View):
+
+    def get(self,request,*args,**kwargs):
+
+        id=kwargs.get("pk")
+
+        data=SleepModel.objects.get(id=id)
+
+        instance={"sleep_start_time":data.sleep_start_time,"sleep_end_time":data.sleep_end_time,"notes":data.notes}
+
+        form=SleepForm(initial=instance)
+
+        all_data=SleepModel.objects.all()
+
+        return render(request,"sleep.html",{"form":form,"data":all_data})
+    
+    def post(self,request,*args,**kwargs):
+
+        id=kwargs.get("pk")
+
+        data=SleepModel.objects.get(id=id)
+
+        form=SleepForm(request.POST,initial=data)
+
+        if form.is_valid():
+
+            data.sleep_start_time=form.cleaned_data["sleep_start_time"]
+
+            data.sleep_end_time=form.cleaned_data["sleep_end_time"]
+
+            data.notes=form.cleaned_data["notes"]
+
+            data.save()
+
+        return redirect("addsleep")
+    
+
+class DeleteSleep(View):
+
+    def get(self,request,*args,**kwargs):
+
+        id=kwargs.get("pk")
+
+        SleepModel.objects.get(id=id).delete()
+
+        return redirect("addsleep")
+
+
+

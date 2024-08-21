@@ -92,3 +92,15 @@ class Exercise_Form(forms.ModelForm):
 
             'gif': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+
+
+class SleepForm(forms.Form):
+
+    sleep_start_time=forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local',"class":"form-control"}))
+
+    sleep_end_time=forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local',"class":"form-control"}))
+
+    notes=forms.CharField(max_length=100,widget=forms.Textarea(attrs={"class":"form-control","rows":3}))
+
+    

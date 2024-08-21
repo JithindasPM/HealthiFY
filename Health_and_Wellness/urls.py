@@ -34,6 +34,9 @@ from web.views import ExerciseDetail_View
 from web.views import ExerciseDelete_View
 from web.views import ExerciseUpdate_View
 from web.views import ExerciseData_view
+from web.views import Add_Sleep
+from web.views import UpdateSleep
+from web.views import DeleteSleep
 
 urlpatterns = [
 
@@ -52,5 +55,8 @@ urlpatterns = [
     path('exercisedelete/<int:pk>',ExerciseDelete_View.as_view(),name='exercisedelete'),
     path('exerciseupdate/<int:pk>',ExerciseUpdate_View.as_view(),name='exerciseUpdate'),
     path('exercise/<int:pk>/',ExerciseData_view.as_view(),name='finish_exercise'),
+    path('addsleep/',Add_Sleep.as_view(),name="addsleep"),
+    path('upsleep/<int:pk>/',UpdateSleep.as_view(),name="updatesleep"),
+    path('deletesleep/<int:pk>/',DeleteSleep.as_view(),name="deletesleep"),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

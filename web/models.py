@@ -75,3 +75,24 @@ class Exercise_Data(models.Model):
 
     def __str__(self):
         return self.exercise,self.user
+    
+
+class SleepModel(models.Model):
+
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="sleep_records")
+
+    date=models.DateField(auto_now_add=True)
+
+    sleep_start_time=models.DateTimeField()
+
+    sleep_end_time=models.DateTimeField()
+
+    notes=models.TextField(blank=True,null=True)
+
+
+    def total_sleep_duration(self):
+        return self.sleep_end_time - self.sleep_start_time
+    
+    def __str__(self):
+        return f'{self.user.username} - {self.date}'
+
