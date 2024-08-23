@@ -5,6 +5,7 @@ from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
+from web.models import UserFood
 
 class Registration_Form(forms.ModelForm):
     class Meta:
@@ -104,3 +105,13 @@ class SleepForm(forms.Form):
     notes=forms.CharField(max_length=100,widget=forms.Textarea(attrs={"class":"form-control","rows":3}))
 
     
+class UserFoodForm(forms.ModelForm):
+    class Meta:
+        model = UserFood
+        fields = ['food', 'quantity']
+        read_only_fields=['user','total_calories']
+        widgets = {
+            'food': forms.Select(attrs={'class': 'form-control'}),
+
+            'quantity': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter description'}),
+        }    

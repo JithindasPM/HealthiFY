@@ -96,3 +96,13 @@ class SleepModel(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.date}'
 
+
+class UserFood(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food = models.ForeignKey(Foods, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    total_calories = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.user.username}"
+

@@ -8,6 +8,7 @@ from web.forms import Login_Form
 from web.forms import BMRForm
 from web.forms import FoodForm
 from web.forms import Exercise_Form
+from web.forms import UserFoodForm
 from .forms import SleepForm
 from .models import SleepModel
 
@@ -16,6 +17,7 @@ from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
 from web.models import Exercise_Data
+from web.models import UserFood
 
 
 from django.db.models.functions import TruncWeek
@@ -346,4 +348,68 @@ class DeleteSleep(View):
         return redirect("addsleep")
 
 
+class Add_Userfood(View):
+    def get(self,request,*args,**kwargs):
+        form=UserFoodForm()
+        datas=UserFood.objects.all()
+        return render(request,"foodcalorie.html",{"form":form,"datas":datas})
+    
+    def post(self,request,*args,**kwargs):
+        form=UserFoodForm(request.POST)
+        if form.is_valid():
+            food=form.cleaned_data["food"]
+            quantity=form.cleaned_data["quantity"]
+            calorie=food.calorie
+            print(calorie)
+            total_calorie=quantity*calorie
+            UserFood.objects.create(**form.cleaned_data,user=request.user,total_calories=total_calorie)
+            form=UserFoodForm()
+            datas=UserFood.objects.all()
+            return render(request,"foodcalorie.html",{"form":form,"datas":datas})
+        else:
+            print("thankuuu")
+        
+            
+class Update_userfood(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        data=UserFood.objects.get(id=id)
+        form=UserFoodForm(instance=data)
+        datas=UserFood.objects.all()
+        return render(request,"foodcalorie.html",{"form":form , "datas":datas })
+    
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        data=UserFood.objects.get(id=id)
+        form=UserFoodForm(request.POST,instance=data)
+        if form.is_valid():
+            data.food=form.cleaned_data["food"]
+            data.quantity=form.cleaned_data["quantity"]
+            id=data.food.id
+            food_obj=Foods.objects.get(id=id)
+            data.total_calories=food_obj.calorie*data.quantity
+            data.save()
+            datas=UserFood.objects.all()
+            form=UserFoodForm() 
+            return render(request,"foodcalorie.html",{"form":form , "datas":datas})
+        else:
+            print("not updated")
 
+
+class Delete_userfood(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        UserFood.objects.get(id=id).delete()
+        return redirect ("add_userfood")   
+            
+
+class Create_foodbyuser(View):
+    def get(self,request,*args,**kwargs):
+        form=FoodForm()
+        return render (request,"createfood.html",{"form":form})
+    
+    def post(self,request,*args,**kwargs):
+        form=FoodForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("add_userfood")
