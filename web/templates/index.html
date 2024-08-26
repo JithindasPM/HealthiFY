@@ -26,7 +26,7 @@
         /* navbar  */
 
         .header {
-            background-color: white;
+            backdrop-filter: blur(8px);
 
         }
 
@@ -34,9 +34,21 @@
             font-size: 30px;
         }
 
+        .navbar_link {
+            text-decoration: none;
+            color: black;
+        }
+
         /* navbar  ends */
 
         /* block1  */
+
+        .block1{
+            background: linear-gradient(rgba(0,0,0,.025),rgba(0,0,0,.025)),url('https://static.vecteezy.com/system/resources/previews/017/398/144/non_2x/healthcare-services-annual-health-checkup-heart-rate-pulse-measurement-pills-antibiotics-dna-diseases-genes-illustration-on-light-blue-hexagonal-background-health-and-medicine-concept-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            padding-bottom: 60px;
+        }
 
         .block1 {
             padding-top: 0px;
@@ -45,6 +57,20 @@
         .block1_fom {
             box-shadow: 4px 0px 5px rgb(197, 196, 196);
             border-radius: 4px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .block1_heading{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .block1_text{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 1px white;
+            padding: 10px;
+        }
+        .block1_subheading{
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
 
 
@@ -53,7 +79,7 @@
         /* block 2  */
 
         .block2 {
-            margin-top: 30px;
+            margin-top: 10px;
         }
 
         .block2_text {
@@ -94,7 +120,7 @@
             border-radius: 7px;
         }
 
-        .decoration{
+        .decoration {
             text-decoration: none;
         }
     </style>
@@ -118,8 +144,8 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         </ul>
                         <form class="d-flex" role="search">
-                            <a href="{% url 'reg' %}" class="btn border border-2 border-dark"><b><i>Sign In</i></b></a>
-                            <a href="{% url 'login' %}" class="btn btn-dark border border-2 border-dark ms-1"><b><i>Log
+                            <a href="{% url 'reg' %}" class="navbar_link"><b><i>Sign In</i></b></a>
+                            <a href="{% url 'login' %}" class="navbar_link ms-3"><b><i>Log
                                         In</i></b></a>
                         </form>
                     </div>
@@ -130,69 +156,75 @@
 
     <!-- navbar ends  -->
 
-{% block content %}
+    {% block content %}
 
 
     <!-- block1  -->
 
 
-    <div class="container">
+    <div class="container-fluid block1">
+        <div class="container">
         <div class="text-center">
-            <p class="pt-4 fst-italic"><span style="font-weight: 400;font-size: 30px;">Welcome to HealthiFY! </span>
+            <p class="pt-4 block1_text" ><span style="font-weight: 400;font-size: 30px;">Welcome to HealthiFY ! </span>
 
                 Your journey to better health starts here</p>
         </div>
-    </div>
 
-    <div class="container block1">
-        <div class="row">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <form action="" class="fom" method="post">
+
+        <div class="container">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <form action="" class="fom" method="post">
+                                <div class="p-4">
+                                    {% csrf_token %}
+                                    <h1 class="pb-3 text-center block1_heading">BMR Calculator</h1>
+                                    <div class="block1_fom p-3">
+                                        {{ form.as_p }}
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button class="btn btn-outline-dark border w-50 border-dark mt-3"
+                                                type="reset"><b>Reset</b></button>
+                                            <button class="btn btn-outline-primary border w-50 border-dark mt-3"
+                                                type="submit"><b>Calculate</b></button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="p-4">
-                                {% csrf_token %}
-                                <h1 class="pb-3 text-center">BMR Calculator</h1>
-                                <div class="block1_fom p-3">
-                                    {{ form.as_p }}
+                                <p class="mt-5 block1_text">The Basal Metabolic Rate (BMR) Calculator estimates your basal metabolic
+                                    rate the amount of energy
+                                    expended while at rest in a neutrally temperate environment, and in a
+                                    post-absorptive
+                                    state ( meaning
+                                    that the digestive system is inactive, which requires about 12 hours of fasting ).
+                                </p>
+                                <div class="w-100 d-flex mt-4">
+                                    <h3 class="block1_subheading">Your BMR : </h3>
+                                    {% if bmr is not None %}
+                                    <h3 class="ms-2 block1_subheading"> {{ bmr|floatformat:2 }} kcal / day</h3>
+                                    {% endif %}
+                                    <br>
                                 </div>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <button class="btn btn-outline-dark border w-50 border-dark mt-3"
-                                        type="reset"><b>Reset</b></button>
-                                    <button class="btn btn-outline-primary border w-50 border-dark mt-3"
-                                        type="submit"><b>Calculate</b></button>
+                                <div class="w-100 d-flex">
+                                    <h3 class="block1_subheading">Your BMI : </h3>
+                                    {% if bmr is not None %}
+                                    <h3 class="ms-2 block1_subheading"> {{ bmi|floatformat:2 }}</h3>
+                                    {% endif %}
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="p-4">
-                            <p class="mt-5">The Basal Metabolic Rate (BMR) Calculator estimates your basal metabolic
-                                rate the amount of energy
-                                expended while at rest in a neutrally temperate environment, and in a post-absorptive
-                                state ( meaning
-                                that the digestive system is inactive, which requires about 12 hours of fasting ).</p>
-                            <div class="w-100 d-flex mt-4">
-                                <h3>Your BMR : </h3>
-                                {% if bmr is not None %}
-                                <h3 class="ms-2"> {{ bmr|floatformat:2 }} kcal / day</h3>
-                                {% endif %}
-                                <br>
-                            </div>
-                            <div class="w-100 d-flex">
-                                <h3>Your BMI : </h3>
-                                {% if bmr is not None %}
-                                <h3 class="ms-2"> {{ bmi|floatformat:2 }}</h3>
-                                {% endif %}
-                            </div>
-                            <div class="w-100 d-flex">
-                                <h3 class=" mt-2">{{state}}</h3>
+                                <div class="w-100 d-flex">
+                                    <h3 class=" mt-2 block1_subheading">{{state}}</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- block1 ends  -->
@@ -373,41 +405,41 @@
         </div>
     </div>
 
-{% endblock content %}
+    {% endblock content %}
 
     <!-- footer starts -->
 
     <div class="container-fluid">
-                <div class="row bg-dark pt-4">
-                    <div class="col-1"></div>
-                    <div class="col-3 text-center">
-                        <a href="" class="decoration">about_us</a>
-                        <p class="white text-start container">Calculate your <br>
-                            BMR and BMI, <br>
-                            explore personalized diet plans, <br>
-                            track your calories, <br>
-                            exercise, <br>
-                            and sleep—all in one place.</p>
+        <div class="row bg-dark pt-4">
+            <div class="col-1"></div>
+            <div class="col-3 text-center">
+                <a href="" class="decoration">about_us</a>
+                <p class="white text-start container">Calculate your <br>
+                    BMR and BMI, <br>
+                    explore personalized diet plans, <br>
+                    track your calories, <br>
+                    exercise, <br>
+                    and sleep—all in one place.</p>
 
-                    </div>
-                    <div class="col-3 text-center">
-                        <h4 class="white">HealthiFY</h4>
-                        <p class="white">private content <br>
-                            <i class="fa-solid fa-envelope" style="color: #74C0FC;"></i> healthify@gmail.com <br>
-                            2024
-                        </p>
-                    </div>
-                    <div class="col-4 text-center pe-2">
-                        <a href="" class=" decoration">contact_us</a><br>
-                        <a href=""><i class="fa-brands fa-instagram" style="color: #74C0FC;"></i></a>
-                        <a href=""><i class="fa-brands fa-x-twitter" style="color: #74C0FC;"></i></a>
-                        <a href=""><i class="fa-brands fa-facebook" style="color: #74C0FC;"></i></a><br>
-                        <p class="white">@healthify</p>
-                        <p class="white">Stay motivated with progress charts, tailored recommendations,
-                            and expert guidance. Let’s achieve your wellness goals together with Healthify!</p>
-                    </div>
-                    <div class="col-1"></div>
-                </div>
+            </div>
+            <div class="col-3 text-center">
+                <h4 class="white">HealthiFY</h4>
+                <p class="white">private content <br>
+                    <i class="fa-solid fa-envelope" style="color: #74C0FC;"></i> healthify@gmail.com <br>
+                    2024
+                </p>
+            </div>
+            <div class="col-4 text-center pe-2">
+                <a href="" class=" decoration">contact_us</a><br>
+                <a href=""><i class="fa-brands fa-instagram" style="color: #74C0FC;"></i></a>
+                <a href=""><i class="fa-brands fa-x-twitter" style="color: #74C0FC;"></i></a>
+                <a href=""><i class="fa-brands fa-facebook" style="color: #74C0FC;"></i></a><br>
+                <p class="white">@healthify</p>
+                <p class="white">Stay motivated with progress charts, tailored recommendations,
+                    and expert guidance. Let’s achieve your wellness goals together with Healthify!</p>
+            </div>
+            <div class="col-1"></div>
+        </div>
     </div>
 </body>
 
