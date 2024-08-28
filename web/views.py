@@ -51,13 +51,13 @@ class Home_View(View):
             if bmi is None:
                 state=None
             elif bmi <= 18.4:
-                state='Underweight'
+                state='You are Underweight'
             elif 18.5 <= bmi <= 24.9:
-                state='Normal weight'
+                state='You are Normal weight'
             elif 25 <= bmi <= 39.9:
-                state='Overweight'
+                state=' You are Overweight'
             else:
-                state='Obese'
+                state='You are Obese'
 
         return render(request, 'index.html', {'form': form, 'bmr': bmr,'bmi': bmi,'state':state})
     
