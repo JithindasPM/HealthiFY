@@ -131,6 +131,8 @@ class Profile_View(View):
         age = data.age
         gender = data.gender
 
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+
         if height is None or weight is None or age is None:
             return render(request,'profile.html',{'data':data})
         else:
@@ -157,7 +159,7 @@ class Profile_View(View):
                 state='Overweight'
             else:
                 state='Obese'
-            return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state})
+            return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state,"user_obj":user_obj})
 
 
 
@@ -218,15 +220,20 @@ class ExerciseList_View(View):
 
         data=Exercise.objects.all()
 
-        return render(request,'exerciselist.html',{'exercises':data})
+        userdata=UserProfile_Model.objects.get(user_id=request.user)
+
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+
+        return render(request,'exerciselist.html',{'exercises':data,"user_obj":user_obj,"userdata":userdata})
 
 class ExerciseDetail_View(View):
 
     def get (self,request,*args,**kwargs):
         id=kwargs.get('pk')
         data=Exercise.objects.get(id=id)
-
-        return render(request,'exercise_detail.html',{'exercise':data})
+        userdata=UserProfile_Model.objects.get(user_id=request.user)
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+        return render(request,'exercise_detail.html',{'exercise':data,"user_obj":user_obj,"userdata":userdata})
     
 class ExerciseDelete_View(View):
     def get(sel,request,*args,**kwargs):
@@ -240,7 +247,6 @@ class ExerciseUpdate_View(View):
         id=kwargs.get('pk')
         data=Exercise.objects.get(id=id)
         form=Exercise_Form(instance=data)
-
         return render(request,'exercise.html',{'form':form,'data':data})
     def post(self,request,*args,**kwargs):
         id=kwargs.get('pk')
@@ -249,6 +255,7 @@ class ExerciseUpdate_View(View):
         if form.is_valid():
             form.save()
         form=Exercise_Form()
+
         return render(request,'exercise.html',{'form':form})
     
 
@@ -257,7 +264,9 @@ class ExerciseData_view(View):
     def get(self,request,*args,**kwargs):
         id=kwargs.get('pk')
         data=Exercise.objects.get(id=id)
-        return render(request,'exercise_detail.html',{'exercise':data})
+        userdata=UserProfile_Model.objects.get(user_id=request.user)
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+        return render(request,'exercise_detail.html',{'exercise':data,"user_obj":user_obj,"userdata":userdata})
     
     def post(self,request,*args,**kwargs):
         id=kwargs.get('pk')
@@ -273,12 +282,16 @@ class Add_Sleep(View):
     def get(self,request,*args,**kwargs):
 
         form=SleepForm()
-
+        
         current_week_start = timezone.now().date() - timezone.timedelta(days=timezone.now().date().weekday())
 
-        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(week=current_week_start).order_by("week","sleep_start_time")
+        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(user=request.user,week=current_week_start).order_by("week","sleep_start_time")
 
-        return render(request,"sleep.html",{"form":form,"data":data})
+        
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+        
+
+        return render(request,"sleep.html",{"form":form,"data":data,'user_obj':user_obj})
     
 
     def post(self,request,*args,**kwargs):
@@ -291,11 +304,13 @@ class Add_Sleep(View):
         
         current_week_start = timezone.now().date() - timezone.timedelta(days=timezone.now().date().weekday())
 
-        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(week=current_week_start).order_by("week","sleep_start_time")
+        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(user=request.user,week=current_week_start).order_by("week","sleep_start_time")
+
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
 
         form=SleepForm()
 
-        return render(request,"sleep.html",{"form":form,"data":data})
+        return render(request,"sleep.html",{"form":form,"data":data,"user_obj":user_obj})
     
 
 class UpdateSleep(View):
@@ -310,9 +325,13 @@ class UpdateSleep(View):
 
         form=SleepForm(initial=instance)
 
-        all_data=SleepModel.objects.all()
+        current_week_start = timezone.now().date() - timezone.timedelta(days=timezone.now().date().weekday())
 
-        return render(request,"sleep.html",{"form":form,"data":all_data})
+        data=SleepModel.objects.annotate(week=TruncWeek("sleep_start_time")).filter(user=request.user,week=current_week_start).order_by("week","sleep_start_time")
+
+        user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+
+        return render(request,"sleep.html",{"form":form,"data":data,"user_obj":user_obj})
     
     def post(self,request,*args,**kwargs):
 

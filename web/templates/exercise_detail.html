@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercise Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body {
+        .body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            /* padding: 20px; */
             background-color: #f4f4f4;
             text-align: center;
+            height: 635px;
         }
 
         h1 {
@@ -22,14 +26,15 @@
             color: #555;
         }
 
-        img {
+        .img1 {
             width: 300px;
             height: 300px;
-            margin: 20px 0;
+            /* margin: 20px 0; */
+            margin-top: 23px;
             border-radius: 10px;
         }
 
-        button {
+        .button {
             padding: 10px 20px;
             font-size: 18px;
             color: #fff;
@@ -48,23 +53,60 @@
         #countdown {
             font-size: 24px;
             font-weight: bold;
-            margin-top: 20px;
+            /* margin-top: 20px; */
         }
     </style>
 </head>
 <body>
-    <img src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
-    <h1>{{ exercise.name }}</h1>
-    <p>{{ exercise.description }}</p>
-    <p>Duration: <span id="duration">{{ exercise.duration }}</span> seconds</p>
-    <p>Reps: {{ exercise.reps }}</p>
-    <p>Calories Burned: {{ exercise.calories_burned }}</p>
-    <button id="startButton">Start</button>
-    <p id="countdown"></p>
-    <form id="finishForm" action="{% url 'finish_exercise' exercise.id %}" method="post" style="display:none;">
-        {% csrf_token %}
-        <button type="submit" id="finishButton">Finish</button>
-    </form>
+
+<!-- navbar starts -->
+
+        <div class="container-fluid sticky-top">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg header bg-dark shadow  ">
+                <div class="container">
+                    <a class="navbar-brand" style="color: white;" href="{% url 'home' %}">Healthify</a>
+                    <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        </ul>
+                        <form class="d-flex" role="search">
+                            {%if user_obj.profile_picture%}
+                            <a href="{%url 'upuser' userdata.id%}" style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%else%}
+                            <a href="{%url 'upuser' userdata.id%}" style="background-image: url(); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%endif%}
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+<!-- navbar ends -->
+
+    <div class="body">
+        <img class="img1" src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
+        <h1>{{ exercise.name }}</h1>
+        <p>{{ exercise.description }}</p>
+        <div class="d-flex justify-content-center gap-2">
+            <p>Duration: <span id="duration">{{ exercise.duration }}</span> seconds, </p>
+        <p>Reps: {{ exercise.reps }}</p>
+        </div>
+        <p>Calories Burned: {{ exercise.calories_burned }} cal</p>
+        <button class="button" id="startButton">Start</button>
+        <p id="countdown"></p>
+        <center>
+        <form id="finishForm" action="{% url 'finish_exercise' exercise.id %}" method="post" style="display:none;">
+            {% csrf_token %}
+            <button class="button" type="submit" id="finishButton"></button>
+        </form>
+        </center>
+    </div>
     <!-- <button id="finishButton">Go on!!</button> -->
 
 
@@ -85,8 +127,8 @@
                 if (duration < 0) {
                     clearInterval(timer);
                     countdown.textContent = 'Time\'s up!';
-                    finishButton.textContent = 'Finished';
-                    finishButton.style.backgroundColor = '#007bff';
+                    finishButton.textContent = 'Next >>';
+                    finishButton.style.backgroundColor = '#28a745';
                     document.getElementById('finishForm').style.display = 'block';
                     finishButton.onclick = function() {
                 window.location.href = '/exerciselist/';  // Replace with the actual URL of the exercise list page

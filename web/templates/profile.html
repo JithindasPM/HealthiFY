@@ -25,10 +25,13 @@
 
         .header {
             background-color: white;
-            border-bottom: 2px solid black;
         }
 
-        .navbar-brand {
+        /* .navbar-brand {
+            font-size: 30px;
+        } */
+
+        .te{
             font-size: 30px;
         }
 
@@ -82,7 +85,7 @@
         }
 
         .card1_img3 {
-            background-image: url('https://www.hbf.com.au/-/media/images/hbf/articles/2021/main-images-1200x800/10-ways-to-get-a-better-nights-sleep.jpg?la=en&hash=6DC060938D77E1F6157D8FA5C4ABA1DD1F118AD5');
+            background-image: url('https://news.mit.edu/sites/default/files/images/202311/MIT-Monitoring-Sleep-01-press.jpg');
         }
 
         .card1_img1,
@@ -105,44 +108,27 @@
 <body>
 
     <!-- navbar  -->
-
-    <div class="container-fluid">
+    <div class="container-fluid sticky-top">
         <div class="row">
-            <nav class="navbar navbar-expand-lg header">
+            <nav class="navbar navbar-expand-lg header bg-dark shadow">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Healthify</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    <a class="navbar-brand" style="color: white;" href="{% url 'home' %}">Healthify</a>
+                    <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
                         </ul>
                         <form class="d-flex" role="search">
-                            <a href="" class="btn btn-dark">Add Food</a>
-                            <a href="{% url 'upuser' data.id %}" class="btn btn-dark ms-2">Update Profile</a>
-                            <div><a href="{% url 'logout' %}"
-                                    class="btn btn-light border border-2 border-dark ms-2"><b><i>Log
-                                            Out</i></b></a></div>
+                            {%if user_obj.profile_picture%}
+                            <a href="{%url 'upuser' data.id%}" style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%else%}
+                            <a href="{%url 'upuser' data.id%}" style="background-image: url(); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%endif%}
                         </form>
+                        <a href="{%url 'logout'%}" class="ms-2 btn btn-outline-light"><i>Logout</i></a>
                     </div>
                 </div>
             </nav>
@@ -150,7 +136,7 @@
     </div>
 
     <!-- navbar ends  -->
-
+    
     <!-- block1  -->
 
     <div class="container block1">

@@ -9,7 +9,7 @@ from web.models import Exercise
 class Registration_Form(forms.ModelForm):
     class Meta:
         model=User
-        fields=['username','email','password']
+        fields=['username','password']
 
         widgets={
             'username':forms.TextInput(attrs={'class':'form-control',

@@ -73,7 +73,11 @@
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
-                            <a href="" style="background-image: url(https://tse2.mm.bing.net/th?id=OIP.QUpOzwuvfqwLvBmKNyz4vQHaE8&pid=Api&P=0&h=180); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%if user_obj.profile_picture%}
+                            <a href="" style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%else%}
+                            <a href="" style="background-image: url(); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                            {%endif%}
                         </form>
                     </div>
                 </div>
@@ -122,8 +126,6 @@
                 </tbody>
                 {%endfor%}
             </table>
-        </div>
-            </div>
         </div>
     </div>
     
