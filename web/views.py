@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View
 from django.contrib.auth import login, logout,authenticate
+from datetime import timedelta
+from django.db.models.functions import TruncWeek
+from django.utils import timezone
 
 from web.forms import Registration_Form
 from web.forms import UserProfile_Form
@@ -8,18 +11,17 @@ from web.forms import Login_Form
 from web.forms import BMRForm
 from web.forms import FoodForm
 from web.forms import Exercise_Form
-from .forms import SleepForm
-from .models import SleepModel
+from web.forms import UserFoodForm
+from web.forms import SleepForm
+from web.forms import DateRangeForm
 
+from web.models import SleepModel
 from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
 from web.models import Exercise_Data
-
-
-from django.db.models.functions import TruncWeek
-from django.utils import timezone
+from web.models import UserFood
 
 
 # Create your views here.
@@ -49,13 +51,13 @@ class Home_View(View):
             if bmi is None:
                 state=None
             elif bmi <= 18.4:
-                state='Underweight'
+                state='You are Underweight'
             elif 18.5 <= bmi <= 24.9:
-                state='Normal weight'
+                state='You are Normal weight'
             elif 25 <= bmi <= 39.9:
-                state='Overweight'
+                state=' You are Overweight'
             else:
-                state='Obese'
+                state='You are Obese'
 
         return render(request, 'index.html', {'form': form, 'bmr': bmr,'bmi': bmi,'state':state})
     
@@ -365,4 +367,103 @@ class DeleteSleep(View):
         return redirect("addsleep")
 
 
+class Add_Userfood(View):
+    def get(self,request,*args,**kwargs):
+        form=UserFoodForm()
+        datas=UserFood.objects.all()
+        return render(request,"foodcalorie.html",{"form":form,"datas":datas})
+    
+    def post(self,request,*args,**kwargs):
+        form=UserFoodForm(request.POST)
+        if form.is_valid():
+            food=form.cleaned_data["food"]
+            quantity=form.cleaned_data["quantity"]
+            calorie=food.calorie
+            print(calorie)
+            total_calorie=quantity*calorie
+            UserFood.objects.create(**form.cleaned_data,user=request.user,total_calories=total_calorie)
+            form=UserFoodForm()
+            datas=UserFood.objects.all()
+            return render(request,"foodcalorie.html",{"form":form,"datas":datas})
+        else:
+            print("thankuuu")
+        
+            
+class Update_userfood(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        data=UserFood.objects.get(id=id)
+        form=UserFoodForm(instance=data)
+        datas=UserFood.objects.all()
+        return render(request,"foodcalorie.html",{"form":form , "datas":datas })
+    
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        data=UserFood.objects.get(id=id)
+        form=UserFoodForm(request.POST,instance=data)
+        if form.is_valid():
+            data.food=form.cleaned_data["food"]
+            data.quantity=form.cleaned_data["quantity"]
+            id=data.food.id
+            food_obj=Foods.objects.get(id=id)
+            data.total_calories=food_obj.calorie*data.quantity
+            data.save()
+            datas=UserFood.objects.all()
+            form=UserFoodForm() 
+            return render(request,"foodcalorie.html",{"form":form , "datas":datas})
+        else:
+            print("not updated")
 
+
+class Delete_userfood(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get("pk")
+        UserFood.objects.get(id=id).delete()
+        return redirect ("add_userfood")   
+            
+
+class Create_foodbyuser(View):
+    def get(self,request,*args,**kwargs):
+        form=FoodForm()
+        return render (request,"createfood.html",{"form":form})
+    
+    def post(self,request,*args,**kwargs):
+        form=FoodForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("add_userfood")
+
+
+class ExerciseSummary(View):
+    def get(self,request,*args,**kwargs):
+
+        todays_calorie=0
+        todays_data = Exercise_Data.objects.filter(user=request.user,created_date=timezone.now().date())
+        for calorie in todays_data:
+            todays_calorie=todays_calorie+calorie.exercise.calories_burned
+
+        form=DateRangeForm()
+        return render(request,'ex_summary.html',{'form':form,'todaysummary': todays_data,'today_calorie':todays_calorie})
+    
+    def post(self,request,*args,**kwargs):
+        form=DateRangeForm(request.POST)
+        if form.is_valid():
+            start_date=form.cleaned_data['start_date']
+            end_date=form.cleaned_data['end_date']
+        
+        todays_calorie=0
+        todays_data = Exercise_Data.objects.filter(user=request.user,created_date=timezone.now().date())
+        for calorie in todays_data:
+            todays_calorie=todays_calorie+calorie.exercise.calories_burned
+        
+
+        dates = [start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)]
+
+        
+        total_calorie=0
+        overall_data = Exercise_Data.objects.filter(user=request.user,created_date__range=[start_date, end_date])
+        for calorie in overall_data:
+            total_calorie=total_calorie+calorie.exercise.calories_burned
+            
+        form=DateRangeForm()
+        return render(request,'ex_summary.html',{'form':form,'summary': overall_data,'dates':dates,'total_calorie':total_calorie,'todaysummary': todays_data,'today_calorie':todays_calorie})

@@ -37,6 +37,11 @@ from web.views import ExerciseData_view
 from web.views import Add_Sleep
 from web.views import UpdateSleep
 from web.views import DeleteSleep
+from web.views import Add_Userfood
+from web.views import Update_userfood
+from web.views import Delete_userfood
+from web.views import Create_foodbyuser
+from web.views import ExerciseSummary
 
 urlpatterns = [
 
@@ -58,5 +63,10 @@ urlpatterns = [
     path('addsleep/',Add_Sleep.as_view(),name="addsleep"),
     path('upsleep/<int:pk>/',UpdateSleep.as_view(),name="updatesleep"),
     path('deletesleep/<int:pk>/',DeleteSleep.as_view(),name="deletesleep"),
+    path('add_food/', Add_Userfood.as_view(), name='add_userfood'),
+    path('update_food/<int:pk>', Update_userfood.as_view(), name='update_food'),
+    path('delete_food/<int:pk>', Delete_userfood.as_view(), name='delete_food'),
+    path('create_foodbyuser/', Create_foodbyuser.as_view(), name='create_foodbyuser'),
+    path('exsummary/', ExerciseSummary.as_view(), name='exsummary'),
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

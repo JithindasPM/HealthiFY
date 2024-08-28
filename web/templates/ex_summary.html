@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Range Form</title>
+</head>
+<body>
+    <h1>Todays Exercise Summary</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Exercise Name</th>
+                <th>Calories Burned</th>
+                
+            </tr>
+            
+        </thead>
+        <tbody>
+            {% for i in todaysummary %}
+            <tr>
+                <td>{{ i.exercise.name }}</td>
+                <td>{{ i.exercise.calories_burned }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tr>
+            <th>Total</th>
+            <th>{{today_calorie}}</th>
+        </tr>
+    </table>
+    <h1>Date Range Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <h1>Exercise Summary</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Exercise Name</th>
+                <th>Calories Burned</th>
+                
+            </tr>
+            
+        </thead>
+        <tbody>
+                
+                {% for i in summary %}
+                <tr>
+                    <td>{{ i.created_date}}</td>
+                    <td>{{ i.exercise.name }}</td>
+                    <td>{{ i.exercise.calories_burned }}</td>
+                </tr>
+                {% endfor %}
+            
+            
+        </tbody>
+        <tr>
+            <th></th>
+            <th>Total</th>
+            <th>{{total_calorie}}</th>
+        </tr>
+    </table>
+</body>
+</html>

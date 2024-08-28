@@ -73,6 +73,11 @@ class Exercise_Data(models.Model):
 
     user=models.ForeignKey(User,on_delete=models.CASCADE)    #user is conneted with User table
 
+    created_date=models.DateField(auto_now_add=True,null=True)
+
+    updated_date=models.DateField(auto_now_add=True,null=True)
+
+
     def __str__(self):
         return self.exercise,self.user
     
@@ -95,4 +100,14 @@ class SleepModel(models.Model):
     
     def __str__(self):
         return f'{self.user.username} - {self.date}'
+
+
+class UserFood(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    food = models.ForeignKey(Foods, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    total_calories = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.user.username}"
 

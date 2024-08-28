@@ -100,7 +100,12 @@
     <!-- navbar ends -->
 
         <h1 style="text-align:center; padding:20px;">Exercise List</h1>
+<<<<<<< HEAD
         <div class="container1 container">
+=======
+        <a href="{%url 'exsummary' %}"><button class="btn btn-outline-danger">Summary</button></a>
+        <div class="container">
+>>>>>>> 3f1214f3011f2e7694cb93fd2d7b2ae786035b9b
             {% for exercise in exercises %}
     <a href="{% url 'exerciseview' exercise.id %}">
             <div class="card">
