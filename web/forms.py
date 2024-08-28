@@ -94,7 +94,15 @@ class Exercise_Form(forms.ModelForm):
             'gif': forms.FileInput(attrs={'class': 'form-control'}),
         }
 
-
+class DateRangeForm(forms.Form):
+    start_date = forms.DateField(
+        widget=forms.TextInput(attrs={'type': 'date'}),
+        label='Start Date'
+    )
+    end_date = forms.DateField(
+        widget=forms.TextInput(attrs={'type': 'date'}),
+        label='End Date'
+    )
 
 class SleepForm(forms.Form):
 

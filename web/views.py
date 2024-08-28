@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View
 from django.contrib.auth import login, logout,authenticate
+from datetime import timedelta
+from django.db.models.functions import TruncWeek
+from django.utils import timezone
 
 from web.forms import Registration_Form
 from web.forms import UserProfile_Form
@@ -9,19 +12,16 @@ from web.forms import BMRForm
 from web.forms import FoodForm
 from web.forms import Exercise_Form
 from web.forms import UserFoodForm
-from .forms import SleepForm
-from .models import SleepModel
+from web.forms import SleepForm
+from web.forms import DateRangeForm
 
+from web.models import SleepModel
 from web.models import User
 from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
 from web.models import Exercise_Data
 from web.models import UserFood
-
-
-from django.db.models.functions import TruncWeek
-from django.utils import timezone
 
 
 # Create your views here.
@@ -413,3 +413,38 @@ class Create_foodbyuser(View):
         if form.is_valid():
             form.save()
             return redirect("add_userfood")
+
+
+class ExerciseSummary(View):
+    def get(self,request,*args,**kwargs):
+
+        todays_calorie=0
+        todays_data = Exercise_Data.objects.filter(user=request.user,created_date=timezone.now().date())
+        for calorie in todays_data:
+            todays_calorie=todays_calorie+calorie.exercise.calories_burned
+
+        form=DateRangeForm()
+        return render(request,'ex_summary.html',{'form':form,'todaysummary': todays_data,'today_calorie':todays_calorie})
+    
+    def post(self,request,*args,**kwargs):
+        form=DateRangeForm(request.POST)
+        if form.is_valid():
+            start_date=form.cleaned_data['start_date']
+            end_date=form.cleaned_data['end_date']
+        
+        todays_calorie=0
+        todays_data = Exercise_Data.objects.filter(user=request.user,created_date=timezone.now().date())
+        for calorie in todays_data:
+            todays_calorie=todays_calorie+calorie.exercise.calories_burned
+        
+
+        dates = [start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)]
+
+        
+        total_calorie=0
+        overall_data = Exercise_Data.objects.filter(user=request.user,created_date__range=[start_date, end_date])
+        for calorie in overall_data:
+            total_calorie=total_calorie+calorie.exercise.calories_burned
+            
+        form=DateRangeForm()
+        return render(request,'ex_summary.html',{'form':form,'summary': overall_data,'dates':dates,'total_calorie':total_calorie,'todaysummary': todays_data,'today_calorie':todays_calorie})
