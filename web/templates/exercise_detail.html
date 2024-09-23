@@ -8,13 +8,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+
+        body{
+            background-color: #f4f4f4;
+        }
+        .white{
+            background-color: white;
+        }
         .body {
             font-family: Arial, sans-serif;
             margin: 0;
             /* padding: 20px; */
-            background-color: #f4f4f4;
+            /* background-color: #f4f4f4; */
             text-align: center;
-            height: 635px;
+            height: 600px;
         }
 
         h1 {
@@ -30,8 +37,8 @@
             width: 300px;
             height: 300px;
             /* margin: 20px 0; */
-            margin-top: 23px;
-            border-radius: 10px;
+            /* margin-top: 23px; */
+            /* border-radius: 10px; */
         }
 
         .button {
@@ -42,7 +49,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin: 10px;
+            /* margin: 10px; */
         }
 
         #finishButton {
@@ -55,7 +62,126 @@
             font-weight: bold;
             /* margin-top: 20px; */
         }
+
+        @import url('https://fonts.googleapis.com/css?family=Heebo');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: 'Heebo', sans-serif;
+            color: #088b8b;
+        }
+
+        .center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .main-container{
+            width: 100%;
+            height: 240px;
+            background-color:orange;
+            background-color: #f4f4f4;
+            /* border: 2px solid red; */
+        }
+
+        /* progress indicator */
+        .circle-container{
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            background-color: #ddd;
+            border-radius: 50%;
+            position: absolute;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .semicircle{
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: right center;
+        }
+        .semicircle:nth-child(1){
+            background-color: red;
+            background-color: #088b8b;
+            z-index: 2;
+        }
+        .semicircle:nth-child(2){
+            background-color: blue;
+            background-color: #088b8b;
+            z-index: 3;
+        }
+        .semicircle:nth-child(3){
+            background-color: white;
+            background-color: #ddd;
+            z-index: 4;
+            /* display: none; */
+        }
+        .outermost-circle{
+            width: 190px;
+            height: 190px;
+            background-color: black;
+            background-color: #f4f4f4;
+            border-radius: 50%;
+            /* display: none; */
+            z-index: 5;
+        }
+        /* hover for testing only */
+
+        /* .main-container:hover .semicircle:nth-child(1){
+            transform: rotate(180deg);
+            transition: 1s linear;
+        }
+        .main-container:hover .semicircle:nth-child(2){
+            transform: rotate(360deg);
+            transition: 2s linear;
+        }
+        .main-container:hover .semicircle:nth-child(3){
+            opacity: 0;
+            transition: opacity 0s 1s;
+        } */
+
+        /* timer */
+
+        .timer-container{
+            width: 130px;
+            height: 100px;
+            z-index: 6;
+        }
+        .timer{
+            width: 200px;
+            height: 50px;
+            z-index: 7;
+        }
+        .timer div {
+            font-size: 100px;
+            font-weight: 130;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin:0 10px 0 10px ;
+        }
+        .timer .colon{
+            background-color: transparent;
+            width: 5px;
+            margin-left: 0;
+            margin-right: 0;
+            padding-bottom: 6px;
+        }
     </style>
+
+        
+        
 </head>
 <body>
 
@@ -89,15 +215,56 @@
 
 <!-- navbar ends -->
 
+    
+
     <div class="body">
-        <img class="img1" src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
-        <h1>{{ exercise.name }}</h1>
-        <p>{{ exercise.description }}</p>
-        <div class="d-flex justify-content-center gap-2">
-            <p>Duration: <span id="duration">{{ exercise.duration }}</span> seconds, </p>
-        <p>Reps: {{ exercise.reps }}</p>
+
+        <div class="container white rounded  mt-4">
+            <div class="row pb-0">
+                <!-- <div class="col-1"></div> -->
+                <div class="col-6">
+                    <img class="img1" src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
+                    
+                </div>
+                <div class="col-6 pt-4">
+                    <h1>{{ exercise.name }}</h1>
+                    <p>{{ exercise.description }}</p>
+                    <div class="d-flex justify-content-center gap-2">
+                    <p>Duration: <span id="duration">{{ exercise.duration }}</span> seconds, </p>
+                    <p>Reps: {{ exercise.reps }}</p>
+                    </div>
+                    <p>Calories Burned: {{ exercise.calories_burned }} cal</p>
+
+                </div>
+                <!-- <div class="col-2"></div> -->
+            </div>
         </div>
-        <p>Calories Burned: {{ exercise.calories_burned }} cal</p>
+        
+
+        <!-- new timer starts -->
+        <div class="main-container center">
+            <!-- progress indicator -->
+            <div class="circle-container center">
+                <div class="semicircle"></div>
+                <div class="semicircle"></div>
+                <div class="semicircle"></div>
+                <div class="outermost-circle"></div>
+            </div>
+    
+            <!-- timer -->
+             <div class="timer-container center">
+                <div class="timer center">
+                <div style="font-size: 80px; color: #ddd;" class="timer center">60s</div>
+             </div>
+            </div>
+        </div>
+        <!-- new timer ends -->
+
+
+        
+        
+
+
         <button class="button" id="startButton">Start</button>
         <p id="countdown"></p>
         <center>
@@ -112,15 +279,114 @@
 
     <script>
         document.getElementById('startButton').onclick = function() {
-            var duration = parseInt(document.getElementById('duration').textContent);
-            var countdown = document.getElementById('countdown');
-            var finishButton = document.getElementById('finishButton');
-            var startButton = document.getElementById('startButton');
+            // var duration = parseInt(document.getElementById('duration').textContent);
+            // var countdown = document.getElementById('countdown');
+            // var finishButton = document.getElementById('finishButton');
+            // var startButton = document.getElementById('startButton');
+
+            const semicircles = document.querySelectorAll('.semicircle');
+            const timer = document.querySelector('.timer');
             
+
+            // input
+
+const hr = 0;
+const min = 0;
+const sec = 60;
+
+const hours = hr * 3600000;
+const minutes = min * 60000;
+const seconds = sec * 1000;
+const setTime = hours + minutes + seconds;
+const starTime = Date.now();
+const futureTime = starTime + setTime;
+
+
+const timerloop = setInterval(countDownTimer);
+countDownTimer();
+
+function countDownTimer(){
+    const currentTime = Date.now();
+    const remainingTime = futureTime - currentTime;
+    const angle = (remainingTime / setTime) * 360;
+
+    // progress indicator
+    if(angle > 180){
+        semicircles[2].style.display = 'none';
+        semicircles[0].style.transform = 'rotate(180deg)';
+        semicircles[1].style.transform = `rotate(${angle}deg)`; 
+    }else{
+        semicircles[2].style.display = 'block';
+        semicircles[0].style.transform = `rotate(${angle}deg)`;
+        semicircles[1].style.transform = `rotate(${angle}deg)`;
+    }
+
+
+
+
+    // timer
+    // const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
+    // const mins = Math.floor((remainingTime / (1000 * 60)) % 60);
+    const secs = Math.floor((remainingTime / 1000) % 60);
+
+
+
+    timer.innerHTML = `
+    
+    <div class="colon"></div>
+    <div>${secs}</div>`;
+{/* <div>${hrs}</div>
+    <div class="colon">:</div>
+    <div>${mins}</div> */}
+
+    // 5sec-condition
+    if(remainingTime <= 10000){
+        semicircles[0].style.backgroundColor = "red";
+        semicircles[1].style.backgroundColor = "red";
+        timer.style.color = "red";
+    }
+
+
+
+
+
+    // end
+    if(remainingTime < 0){
+        clearInterval(timerloop);
+        semicircles[0].style.display = 'none';
+        semicircles[1].style.display = 'none';
+        semicircles[2].style.display = 'none';
+
+
+        timer.innerHTML = `
+        
+        <div class="colon"></div>
+        <h1 style="font-size: 35px; color:#ddd;">Time's up!</h1>`;
+        {/* <div>00</div>
+        <div class="colon">:</div>
+        <div>00</div> */}
+        timer.style.color = "lightgray";
+        
+        // countdown.textContent = 'Time\'s up!';
+        finishButton.textContent = 'Next >>';
+        finishButton.style.backgroundColor = '#28a745';
+        document.getElementById('finishForm').style.display = 'block';
+        finishButton.onclick = function() {
+        window.location.href = '/exerciselist/';  // Replace with the actual URL of the exercise list page
+
+
+    }
+    }
+
+
+}
+
+
+
             startButton.style.display = 'none';
             finishButton.style.display = 'block';
             
-            var timer = setInterval(function() {
+            var timer1 = countDownTimer(function() {
                 countdown.textContent = duration + ' seconds remaining';
                 duration--;
                 

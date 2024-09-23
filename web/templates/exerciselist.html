@@ -85,6 +85,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         </ul>
+                        <a class="me-4" href="{%url 'exsummary' %}"><button class="btn btn-outline-light">Track Progress</button></a>
                         <form class="d-flex" role="search">
                             {%if user_obj.profile_picture%}
                             <a href="{%url 'upuser' userdata.id%}" style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
@@ -103,8 +104,8 @@
 
 
 
-        <a href="{%url 'exsummary' %}"><button class="btn btn-outline-danger">Summary</button></a>
-        <div class="container">
+        
+        <div class="container1 container">
 
             {% for exercise in exercises %}
     <a href="{% url 'exerciseview' exercise.id %}">
