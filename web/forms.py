@@ -121,5 +121,16 @@ class UserFoodForm(forms.ModelForm):
         widgets = {
             'food': forms.Select(attrs={'class': 'form-control'}),
 
-            'quantity': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter description'}),
+            'quantity': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter how much'}),
         }    
+
+class Userfood_Daterange(forms.Form):
+    start = forms.DateField(
+        widget=forms.TextInput(attrs={'type':'date'}),
+        label='start'
+    )
+    end = forms.DateField(
+        widget=forms.TextInput(attrs={'type':'date'}),
+        label='end'
+    )
+

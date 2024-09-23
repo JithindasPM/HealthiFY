@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View
 from django.contrib.auth import login, logout,authenticate
 from datetime import timedelta
-from django.db.models.functions import TruncWeek
+from django.db.models.functions import TruncWeek,TruncDay
 from django.utils import timezone
 
 from web.forms import Registration_Form
@@ -14,6 +14,7 @@ from web.forms import Exercise_Form
 from web.forms import UserFoodForm
 from web.forms import SleepForm
 from web.forms import DateRangeForm
+from web.forms import Userfood_Daterange
 
 from web.models import SleepModel
 from web.models import User
@@ -370,7 +371,7 @@ class DeleteSleep(View):
 class Add_Userfood(View):
     def get(self,request,*args,**kwargs):
         form=UserFoodForm()
-        datas=UserFood.objects.all()
+        datas=UserFood.objects.filter(user=request.user)
         return render(request,"foodcalorie.html",{"form":form,"datas":datas})
     
     def post(self,request,*args,**kwargs):
@@ -383,7 +384,7 @@ class Add_Userfood(View):
             total_calorie=quantity*calorie
             UserFood.objects.create(**form.cleaned_data,user=request.user,total_calories=total_calorie)
             form=UserFoodForm()
-            datas=UserFood.objects.all()
+            datas=UserFood.objects.filter(user=request.user)
             return render(request,"foodcalorie.html",{"form":form,"datas":datas})
         else:
             print("thankuuu")
@@ -394,7 +395,7 @@ class Update_userfood(View):
         id=kwargs.get("pk")
         data=UserFood.objects.get(id=id)
         form=UserFoodForm(instance=data)
-        datas=UserFood.objects.all()
+        datas=UserFood.objects.filter(user=request.user)
         return render(request,"foodcalorie.html",{"form":form , "datas":datas })
     
     def post(self,request,*args,**kwargs):
@@ -408,7 +409,7 @@ class Update_userfood(View):
             food_obj=Foods.objects.get(id=id)
             data.total_calories=food_obj.calorie*data.quantity
             data.save()
-            datas=UserFood.objects.all()
+            datas=UserFood.objects.filter(user=request.user)
             form=UserFoodForm() 
             return render(request,"foodcalorie.html",{"form":form , "datas":datas})
         else:
@@ -467,3 +468,34 @@ class ExerciseSummary(View):
             
         form=DateRangeForm()
         return render(request,'ex_summary.html',{'form':form,'summary': overall_data,'dates':dates,'total_calorie':total_calorie,'todaysummary': todays_data,'today_calorie':todays_calorie})
+
+
+class Summary_Userfood(View):
+    def get(self,request,*args,**kwargs):
+        today = timezone.now().date()
+        datas=UserFood.objects.annotate(day=TruncDay("created_date")).filter(user=request.user,day=today).order_by("day","created_date")
+        totalcalorie_today=0
+        for calorie in datas :
+            totalcalorie_today += calorie.total_calories
+        form=Userfood_Daterange() 
+        return render(request,"foodsummary.html",{'datas':datas , "totalcalorie_today":totalcalorie_today , "form":form})
+    
+    def post(self,request,*args,**kwargs):
+        form=Userfood_Daterange(request.POST)
+        if form.is_valid():
+            start_date=form.cleaned_data['start']
+            end_date=form.cleaned_data['end']
+            
+        today = timezone.now().date()
+        datas=UserFood.objects.annotate(day=TruncDay("created_date")).filter(user=request.user,day=today).order_by("day","created_date")
+        totalcalorie_today=0
+        for calorie in datas :
+            totalcalorie_today += calorie.total_calories
+        
+        data_range = UserFood.objects.filter(user=request.user,created_date__range=[start_date, end_date+timedelta(days=1)])
+        total_calorie_range=0
+        for calorie in data_range:
+            total_calorie_range += calorie.total_calories
+            
+        form=Userfood_Daterange()    
+        return render(request,"foodsummary.html",{'form':form  , "data_range":data_range , "datas":datas , "totalcalorie_today":totalcalorie_today , "total_calorie_range":total_calorie_range })

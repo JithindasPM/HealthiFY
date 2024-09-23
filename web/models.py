@@ -107,6 +107,9 @@ class UserFood(models.Model):
     food = models.ForeignKey(Foods, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     total_calories = models.PositiveIntegerField()
+    created_date=models.DateField(auto_now_add=True,null=True)
+    upated_date=models.DateField(auto_now=True,null=True)
+    is_active=models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.user.username}"
