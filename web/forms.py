@@ -45,10 +45,12 @@ class UserProfile_Form(forms.ModelForm):
 
 class Login_Form(forms.Form):
 
-    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control',
-                                                                            'placeholder':'Username . . .'}))
-    password=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control',
-                                                                           'placeholder':'password . . .'}))
+    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
+                                                                            'placeholder':'Username . . .',
+                                                                            'style':'background-color:rgba(255, 255, 255, 0.7)'}))
+    password=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
+                                                                           'placeholder':'Password . . .',
+                                                                           'style':'background-color:rgba(255, 255, 255, 0.7)'}))
     
 class BMRForm(forms.Form):
     choice = [
@@ -56,10 +58,17 @@ class BMRForm(forms.Form):
         ('female', 'Female'),
     ]
 
-    height = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your height in cm . . .'}))
-    weight = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your weight in kg . . '}))
-    age = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your age . . .'}))
-    gender = forms.ChoiceField(choices=choice,widget=forms.Select(attrs={'class': 'form-control . . .'}))
+    height = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control my-1',
+                                                             'placeholder': 'Enter your height in cm . . .',
+                                                             'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}))
+    weight = forms.FloatField(widget=forms.NumberInput(attrs={'class': 'form-control my-1',
+                                                               'placeholder': 'Enter your weight in kg . . ',
+                                                               'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}))
+    age = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control my-1',
+                                                              'placeholder': 'Enter your age . . .',
+                                                              'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}))
+    gender = forms.ChoiceField(choices=choice,widget=forms.Select(attrs={'class': 'form-control my-1',
+                                                                        'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}))
 
 
 class FoodForm(forms.ModelForm):

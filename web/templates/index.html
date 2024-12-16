@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,115 +19,415 @@
     <title>Healthify</title>
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* navbar  */
+        /* navbar  */
 
-.header {
-    backdrop-filter: blur(8px);
-}
+        .header {
+            backdrop-filter: blur(8px);
+        }
 
-.nav_heading {
-    font-size: 30px;
-    color: #008efb;
-}
-.nav_heading_span{
-    font-size: 30px;
-    color: black;
-}
+        .nav_heading {
+            font-size: 30px;
+            color: #008efb;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            cursor: pointer;
+        }
 
-.navbar_link {
-    text-decoration: none;
-    color: black;
-}
+        .nav_heading_span {
+            font-size: 30px;
+            color: black;
+        }
 
-/* navbar  ends */
+        .navbar_link {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
 
-/* block1  */
+        /* navbar  ends */
 
-.block1{
-    background: linear-gradient(rgba(0,0,0,.025),rgba(0,0,0,.025)),url('https://static.vecteezy.com/system/resources/previews/017/398/144/non_2x/healthcare-services-annual-health-checkup-heart-rate-pulse-measurement-pills-antibiotics-dna-diseases-genes-illustration-on-light-blue-hexagonal-background-health-and-medicine-concept-vector.jpg');
-    background-size: cover;
-    background-position: center;
-    padding-bottom: 60px;
-}
+        /* block1  */
 
-.block1 {
-    padding-top: 0px;
-}
+        .block1 {
+            background: linear-gradient(rgba(0, 0, 0, .025), rgba(0, 0, 0, .025)), url('https://static.vecteezy.com/system/resources/previews/017/398/144/non_2x/healthcare-services-annual-health-checkup-heart-rate-pulse-measurement-pills-antibiotics-dna-diseases-genes-illustration-on-light-blue-hexagonal-background-health-and-medicine-concept-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            padding-bottom: 60px;
+        }
 
-.block1_fom {
-    box-shadow: 4px 0px 5px rgb(197, 196, 196);
-    border-radius: 4px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.block1_heading{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.block1_text{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 1px white;
-    padding: 10px;
-}
-.block1_subheading{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+        .block1 {
+            padding-top: 0px;
+        }
+
+        .block1_fom {
+            box-shadow: 4px 0px 5px rgb(197, 196, 196);
+            border-radius: 4px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            padding: 20px;
+        }
+
+        .block1_heading {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;cursor: pointer;
+            padding-bottom: 20px;
+        }
+
+        .block1_text_div{
+            text-align: center;
+        }
+
+        .block1_text {
+            font-size: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 1px white;
+            padding: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .block1_text_span {
+            font-weight: 400;
+            font-size: 30px;
+        }
+
+        .block1_subheading {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
 
 
-/* block1 ends */
 
-/* block 2  */
+        /* block1 ends */
 
-.block2 {
-    margin-top: 10px;
-}
+        /* block 2  */
 
-.block2_text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+        .block2 {
+            padding-top: 30px;
+            padding-bottom: 60px;
+        }
 
-.block2_heading {
-    font-size: 55px;
-}
+        .block2_div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-.block2_image {
-    background-image: url('https://static.vecteezy.com/system/resources/previews/041/467/401/original/wellness-checkup-on-white-background-vector.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 500px;
-    border-radius: 7px;
-}
+        .block2_heading {
+            font-size: 55px;
+            color: #008efb;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            cursor: pointer;
+            padding-bottom: 20px;
+        }
 
-/* block2 ends  */
+        .block2_image {
+            background-image: url('https://hclhealthcare.in/wp-content/uploads/2023/11/wellness.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            border-radius: 7px;
+        }
 
-.white {
-    color: white;
-}
+        .block2_subheading {
+            cursor: pointer;
+            padding-left: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
 
-.logo {
-    max-width: 180px;
+        .block2_text {
+            cursor: pointer;
+            padding-left: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 19px;
+            padding-top: 15px;
+            line-height: 2;
+        }
 
-}
 
-.image2 {
-    background-image: url("https://static.vecteezy.com/system/resources/previews/010/719/367/non_2x/people-living-a-healthy-lifestyle-vector.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 500px;
-    border-radius: 7px;
-}
+        /* block2 ends  */
 
-.decoration {
-    text-decoration: none;
-}
+        /* block3  */
+
+
+        .block3_div1 {
+            padding-bottom: 30px;
+        }
+
+        .block3_text {
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 19px;
+            line-height: 2;
+        }
+
+        .block3_img1 {
+            background-image: url('https://www.hkvitals.com/blog/wp-content/uploads/2023/05/Benefits-of-having-a-healthy-lifestyle_900.jpg');
+        }
+
+        .block3_img2 {
+            background-image: url('https://images.squarespace-cdn.com/content/v1/5ef51fc7289bc015c7302e05/1627061937278-ZYKG15K2AOCG3J2Q8G06/TheHealthyLife_FBPost-01.png');
+        }
+
+        .block3_img1,
+        .block3_img2 {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .block3_subdiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* block3 ends  */
+
+        /* block4  */
+
+        .block4 {
+            padding-top: 80px;
+        }
+
+        .block4_img {
+            height: 200px;
+            background-image: url('https://img.freepik.com/premium-photo/vibrant-healthy-eating-banner-with-colorful-typography-3d-elements-fresh-fruits-vegetables-green-background-illustration_1138521-14653.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 7px;
+        }
+
+        /* block 4 ends  */
+
+        /* block 5  */
+
+        .block5 {
+            padding-top: 60px;
+        }
+
+        .block5_img {
+            background-image: url("https://www.actionhospital.in/public/uploads/Speciality/Gastro%20Sciences.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            border-radius: 7px;
+        }
+
+        .block5_text {
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            padding-left: 25px;
+            margin-top: 0px;
+            margin-bottom: 8px;
+        }
+
+        .block5_text_span {
+            font-size: 19px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        /* block 5 ends  */
+
+        /* block 6  */
+
+        .block6 {
+            padding-top: 120px;
+            padding-bottom: 50px;
+        }
+
+        .block6_heading {
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .block6_subheading {
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            padding-top: 8px;
+            margin-bottom: 0px;
+        }
+
+        .block6_box {
+            border: 2px solid rgba(0, 0, 0, 0.29);
+            cursor: pointer;
+            border-radius: 7px;
+            transform: scale(.8);
+            transition: all .5s;
+        }
+
+        .block6_box:hover {
+            transform: scale(.83);
+        }
+
+        .block6_box_inner {
+            padding: 10px;
+            padding-top: 15px;
+        }
+
+        .block6_box_text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .block6_img1,
+        .block6_img2,
+        .block6_img3,
+        .block6_img4,
+        .block6_img5,
+        .block6_img6,
+        .block6_img7 {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .block6_img1 {
+            background-image: url('https://www.ericfavre.com/lifestyle/uk/wp-content/uploads/sites/15/2021/09/musculation-pour-qui.jpg');
+        }
+
+        .block6_img2 {
+            background-image: url('https://as1.ftcdn.net/v2/jpg/05/76/49/18/1000_F_576491862_YEgRYB0RZ0aIfobiSUI3HzIFtTfuUiC0.jpg');
+        }
+
+        .block6_img3 {
+            background-image: url('https://t4.ftcdn.net/jpg/07/55/97/01/360_F_755970185_91qfWqP2mMyjfIvWC0lnJQNtyWIXdB7H.jpg');
+        }
+
+        .block6_img4 {
+            background-image: url('https://media.istockphoto.com/id/1297146235/photo/blue-chromosome-dna-and-gradually-glowing-flicker-light-matter-chemical-when-camera-moving.jpg?s=612x612&w=0&k=20&c=yjSdodXRBvtwzOYtQTqetnn3b4wWDNpF6keupxqxric=');
+        }
+
+        .block6_img5 {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSJkyr82NWeoKMSQ2ZevqARKqy7dBPm0MORQ&s');
+        }
+
+        .block6_img6 {
+            background-image: url('https://medipol.com.tr/medium/News-Image-1558.vsf');
+        }
+
+        .block6_img7 {
+            background-image: url('https://johnabbott.qc.ca/wp-content/uploads/2021/10/Pharmathumbnail.jpg');
+        }
+
+        /* block 6 ends  */
+
+        /* block7  */
+
+        .block7 {
+            padding-bottom: 30px;
+        }
+
+        .heading_line {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .heading_line hr {
+            flex: 1;
+            height: 2px;
+            background-color: #000;
+            margin: 0 20px;
+            /* Space between the line and the icon */
+        }
+
+        .block7_heading {
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .block7_text {
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17.5px;
+            line-height: 2;
+        }
+
+        /* block 7 ends  */
+
+        /* block 8  */
+
+        .footer {
+            padding-top: 50px;
+            padding-bottom: 20px;
+            background-color: rgb(12, 1, 30);
+        }
+
+        .footer_div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+        }
+
+        .footer_text {
+            text-indent: 10px;
+            color: white;
+        }
+
+        .footer_heading2 {
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: white;
+            text-shadow: 0 0 2px;
+        }
+
+        .footer_heading1 {
+            text-align: end;
+            cursor: pointer;
+            color: white;
+            text-shadow: 0 0 2px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .footer_text {
+            margin-bottom: 3px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            cursor: pointer;
+        }
+
+        .footer_icon_div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer_icon {
+            padding-top: 10px;
+            color: #74C0FC;
+            text-shadow: 0 0 2px;
+            padding-left: 5px;
+            font-size: 30px;
+        }
+
+        .footer_p {
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 2;
+            color: white;
+        }
+
+        .footer_p1 {
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 50px;
+        }
     </style>
 </head>
 
@@ -140,7 +440,7 @@
             <div class="row">
                 <nav class="navbar navbar-expand-lg header border">
                     <div class="container">
-                        <a class="navbar-brand font-monospace" href="#"><span class="nav_heading">Healthi</span><span
+                        <a class="navbar-brand" href="#"><span class="nav_heading">Healthi</span><span
                                 class="nav_heading_span">FY</span></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -151,9 +451,8 @@
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             </ul>
                             <form class="d-flex" role="search">
-                                <a href="{% url 'reg' %}" class="navbar_link"><b><i>Sign In</i></b></a>
-                                <a href="{% url 'login' %}" class="navbar_link ms-3"><b><i>Log
-                                            In</i></b></a>
+                                <a href="{% url 'reg' %}" class="navbar_link"><b><i>SignUp</i></b></a>
+                                <a href="{% url 'login' %}" class="navbar_link ms-3"><b><i>LogIn</i></b></a>
                             </form>
                         </div>
                     </div>
@@ -172,24 +471,21 @@
 
     <div class="container-fluid block1">
         <div class="container">
-            <div class="text-center">
-                <p class="pt-4 block1_text"><span style="font-weight: 400;font-size: 30px;">Welcome to HealthiFY !
-                    </span>
-
-                    Your journey to better health starts here</p>
+            <div class="block1_text_div">
+                <p class="pt-4 block1_text"><span class="block1_text_span">Welcome to HealthiFY ! </span>
+                     Your journey to better health starts here
+                </p>
             </div>
-
-
             <div class="container">
                 <div class="row">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <form action="" class="fom" method="post">
-                                    <div class="p-4">
+                                <form action="" method="post">
+                                    <div class="fom">
                                         {% csrf_token %}
-                                        <h1 class="pb-3 text-center block1_heading">BMR Calculator</h1>
-                                        <div class="block1_fom p-3">
+                                        <h1 class="block1_heading">BMR Calculator</h1>
+                                        <div class="block1_fom">
                                             {{ form.as_p }}
                                             <div class="d-flex justify-content-center gap-2">
                                                 <a class="btn btn-outline-dark border w-50 border-dark mt-3"
@@ -204,26 +500,23 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="p-4">
-                                    <p class="mt-5 block1_text">The Basal Metabolic Rate (BMR) Calculator estimates your
-                                        basal metabolic
-                                        rate the amount of energy
+                                    <p class="mt-5 block1_text">The Basal Metabolic Rate ( BMR ) Calculator estimates your
+                                        basal metabolic rate the amount of energy
                                         expended while at rest in a neutrally temperate environment, and in a
-                                        post-absorptive
-                                        state ( meaning
-                                        that the digestive system is inactive, which requires about 12 hours of fasting
-                                        ).
+                                        post-absorptive state ( meaning
+                                        that the digestive system is inactive, which requires about 12 hours of fasting ).
                                     </p>
                                     <div class="w-100 d-flex mt-4">
                                         <h3 class="block1_subheading">Your BMR : </h3>
                                         {% if bmr is not None %}
-                                        <h3 class="ms-2 block1_subheading"> {{ bmr|floatformat:2 }} kcal / day</h3>
+                                        <h3 class="block1_subheading"> {{ bmr|floatformat:2 }} kcal / day</h3>
                                         {% endif %}
                                         <br>
                                     </div>
                                     <div class="w-100 d-flex">
                                         <h3 class="block1_subheading">Your BMI : </h3>
                                         {% if bmr is not None %}
-                                        <h3 class="ms-2 block1_subheading"> {{ bmi|floatformat:2 }}</h3>
+                                        <h3 class="block1_subheading"> {{ bmi|floatformat:2 }}</h3>
                                         {% endif %}
                                     </div>
                                     <div class="w-100 d-flex">
@@ -245,21 +538,14 @@
 
     <div class="container block2">
         <div class="row">
-            <div class="col-lg-6 col-md 6 col-sm-12 col-12 block2_text">
+            <div class="col-lg-6 col-md 6 col-sm-12 col-12 block2_div">
                 <div>
-                    <h1 class="block2_heading">HealthiFY</h1>
-                    <h3>Welcome to Your journey of you being HealthiFY!</h3>
+                    <h1 class="block2_heading">Healthi<span class="text-dark">FY</span></h1>
+                    <h3 class="block2_subheading">Welcome to Your journey of you being HealthiFY!</h3>
 
-                    <p>Embark on a journey towards a healthier you with our comprehensive health and wellness platform.
-                        Whether you're looking to manage your diet, track your fitness progress, or monitor your sleep,
-                        we've got you covered. Our platform offers personalized tools to calculate your Basal Metabolic
-                        Rate (BMR) and Body Mass Index (BMI), helping you understand your body's needs. Discover
-                        tailored diet plans, log your food and calorie intake, and keep an eye on your exercise routines
-                        with ease.</p>
-
-                    <p>Visualize your progress with detailed graphs and charts, stay motivated with our food
-                        recommendations, and receive expert exercise guidance every step of the way. Your path to a
-                        balanced and healthy lifestyle starts here. Let’s achieve your wellness goals together!</p>
+                    <p class="block2_text">Track your progress with easy-to-read graphs, stay motivated with
+                        personalized food tips, and get expert exercise advice. <br> Start your journey to a healthy
+                        lifestyle today, and let's reach your wellness goals together!</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md 6 col-sm-12 col-12 block2_image"></div>
@@ -271,186 +557,387 @@
 
     <!-- <block3 starts -->
 
-    <div class="container">
+    <div class="container block3">
         <div class="row">
-            <div class="col-12">
-                <p>The basal metabolic rate (BMR) is the amount of energy needed while resting in a temperate
-                    environment when the digestive system is inactive. It is the equivalent of figuring out how much
-                    gas an idle car consumes while parked. In such a state, energy will be used only to maintain
-                    vital organs, which include the heart, brain, kidneys, nervous system, intestines, liver, lungs,
-                    sex organs, muscles, and skin. For most people, upwards of ~70% of total energy (calories)
-                    burned each day is due to upkeep. Physical activity makes up ~20% of expenditure and ~10% is
-                    used for the digestion of food, also known as thermogenesis.</p>
-
-                <p>The BMR is measured under very restrictive circumstances while awake. An accurate BMR
-                    measurement requires that a person's sympathetic nervous system is inactive, which means the
-                    person must be completely rested. Basal metabolism is usually the largest component of a
-                    person's total caloric needs. The daily caloric need is the BMR value multiplied by a factor
-                    with a value between 1.2 and 1.9, depending on activity level.</p>
-                <p>In most situations, the BMR is estimated with equations summarized from statistical data. The
-                    Harris-Benedict Equation was one of the earliest equations introduced. It was revised in 1984 to
-                    be more accurate and was used up until 1990, when the Mifflin-St Jeor Equation was introduced.
-                    The Mifflin-St Jeor Equation has been shown to be more accurate than the revised Harris-Benedict
-                    Equation. The Katch-McArdle Formula is slightly different in that it calculates resting daily
-                    energy expenditure (RDEE), which takes lean body mass into account, something that neither the
-                    Mifflin-St Jeor nor the Harris-Benedict Equation does. Of these equations, the Mifflin-St Jeor
-                    Equation is considered the most accurate equation for calculating BMR with the exception that
-                    the Katch-McArdle Formula can be more accurate for people who are leaner and know their body fat
-                    percentage. You can pick the equation to be used in the calculation by expanding the settings.</p>
+            <div class="col-12 block3_div1">
+                <p class="block3_text" style="text-indent: 50px;">Embark on a journey towards a healthier you with our
+                    comprehensive health and
+                    wellness platform.
+                    Whether you're looking to manage your diet, track your fitness progress, or monitor your sleep,
+                    we've got you covered. Our platform offers personalized tools to calculate your Basal Metabolic
+                    Rate (BMR) and Body Mass Index (BMI), helping you understand your body's needs. Discover
+                    tailored diet plans, log your food and calorie intake, and keep an eye on your exercise routines
+                    with ease.</p>
             </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div>
+                    <div class="block3_img1"></div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12 block3_subdiv">
+                <p class="block3_text p-3">The basal metabolic rate (BMR) is the energy your body needs while resting,
+                    similar to how much fuel
+                    a parked car uses. It powers vital organs like the heart, brain, and lungs. Typically, about 70% of
+                    your daily energy goes to maintaining these functions, around 20% goes to physical activity, and
+                    about 10% is used for digesting food.</p>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 80px;">
+            <div class="col-lg-7 col-md-7 col-sm-12 col-12 block3_subdiv">
+                <p class="block3_text p-5">BMR is measured when you are fully rested and your nervous system is calm. It
+                    typically makes up the
+                    largest part of your daily calorie needs. To find your total daily calories, multiply your BMR by a
+                    factor between 1.2 and 1.9, depending on how active you are.</p>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+                <div>
+                    <div class="block3_img2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <div class="container">
+    <!-- block3 ends  -->
+
+    <!-- block4  -->
+
+    <div class="container block4">
+        <div class="row">
+            <div class="col-4">
+                <div>
+                    <div class="block4_img"></div>
+                </div>
+            </div>
+            <div class="col-8">
+                <p class="block3_text p-3">
+                    BMR is usually estimated using equations based on statistical data. The Mifflin-St Jeor
+                    Equation is
+                    the most accurate for most people, but the Katch-McArdle Formula can be better for lean
+                    individuals
+                    who know their body fat percentage. You can select the equation that fits your needs.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- block4 ends  -->
+
+    <!-- block 5  -->
+
+    <div class="container block5">
+        <div class="row">
+            <div class="col-lg-6 col-md 6 col-sm-12 col-12 block5_img">
+            </div>
+            <div class="col-lg-6 col-md 6 col-sm-12 col-12">
                 <div class="row">
-                    <div class="col-lg-6 col-md 6 col-sm-12 col-12 image2">
+                    <div class="col-lg-1 col-md-0 col-sm-0 col-0"></div>
+                    <div class="col-lg-10 col-md 6 col-sm-12 col-12">
+                        <p class="block3_text">The three equations used by the calculator are listed below </p>
 
+                        <div>
+                            <h4 class="block2_subheading">Mifflin - St Jeor Equation :</h4>
+                            <p class="block5_text"><span class="block5_text_span">For men : BMR</span> = 10 W + 6.25 H -
+                                5 A + 5</p>
+                            <p class="block5_text"><span class="block5_text_span">For women : BMR</span> = 10 W + 6.25 H
+                                - 5 A - 161
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="block2_subheading">Revised Harris - Benedict Equation :</h4>
+                            <p class="block5_text"><span class="block5_text_span">For men : BMR</span> = 13.397 W +
+                                4.799 H - 5.677 A
+                                + 88.362</p>
+
+                            <p class="block5_text"><span class="block5_text_span">For women : BMR</span> = 9.247 W +
+                                3.098 H -
+                                4.330 A + 447.593</p>
+                        </div>
+
+                        <div>
+                            <h4 class="block2_subheading">Katch - McArdle Formula :</h4>
+                            <p class="block5_text"><span class="block5_text_span">BMR</span> = 370 + 21.6 (1 - F) W </p>
+                            <h4 class="block2_subheading">where: <h4>
+                                    <p class="block5_text"> <span class="block5_text_span">W</span> is body weight in kg
+                                    </p>
+                                    <p class="block5_text"><span class="block5_text_span">H</span> is body height in cm
+                                    </p>
+                                    <p class="block5_text"><span class="block5_text_span">A</span> is age </p>
+                                    <p class="block5_text"><span class="block5_text_span">F</span> is body fat in
+                                        percentage</p>
+                        </div>
                     </div>
-                    <div class="col-lg-6 col-md 6 col-sm-12 col-12 text-start ps-5">
-                        <div class="row">
-                            <div class="col-lg-1 col-md-0 col-sm-0 col-0"></div>
-                            <div class="col-lg-10 col-md 6 col-sm-12 col-12 ps-5">
-                                <p>The three equations used by the calculator are listed below:</p>
+                    <div class="col-lg-1 col-md-0 col-sm-0 col-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                <div>
-                                    <h5>Mifflin-St Jeor Equation:</h5>
-                                    <p><span style="font-weight: bolder;">For men:</span> BMR = 10W + 6.25H - 5A + 5</p>
-                                    <p><span style="font-weight: bolder;">For women:</span> BMR = 10W + 6.25H - 5A - 161
-                                    </p>
-                                </div>
-                                <div>
-                                    <h5>Revised Harris-Benedict Equation:</h5>
-                                    <p><span style="font-weight: bolder;">For men:</span>BMR = 13.397W + 4.799H - 5.677A
-                                        + 88.362</p>
+    <!-- block 5 ends  -->
 
-                                    <p><span style="font-weight: bolder;">For women:</span>BMR = 9.247W + 3.098H -
-                                        4.330A + 447.593</p>
-                                </div>
+    <!-- block 6  -->
 
-                                <div>
-                                    <h5>Katch-McArdle Formula:</h5>
-                                    <p class="lh-base"><span style="font-weight: bold;">BMR = 370 + 21.6(1 - F)W </span>
-                                        <br>where: <br>
-                                        W is body weight in kg <br>
-                                        H is body height in cm <br>
-                                        A is age <br>
-                                        F is body fat in percentage
-                                    </p>
-                                </div>
+    <div class="container block6">
+        <h1 class="block6_heading">BMR Variables</h1>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img1"></div>
+                                <h4 class="block6_subheading">Muscle Mass</h4>
                             </div>
-                            <div class="col-lg-1 col-md-0 col-sm-0 col-0"></div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">Aerobic exercises, such as running or cycling, have no effect on BMR.
+                                However, anaerobic
+                                exercises, such as weight-lifting, indirectly lead to a higher BMR because they build
+                                muscle
+                                mass, increasing resting energy consumption. The more muscle mass in the physical
+                                composition of an individual, the higher the BMR required to sustain their body at a
+                                certain
+                                level.</p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div>
-                <h3>BMR Variables</h3>
-                <p><span style="font-weight: bold;">Muscle Mass</span> – Aerobic exercises, such as running or cycling,
-                    have no effect on BMR. However,
-                    anaerobic exercises, such as weight-lifting, indirectly lead to a higher BMR because they build
-                    muscle mass, increasing resting energy consumption. The more muscle mass in the physical
-                    composition of an individual, the higher the BMR required to sustain their body at a certain
-                    level.</p>
-
-                <p><span style="font-weight: bold;">Age</span> – The more elderly and limber an individual, the lower
-                    their BMR, or the lower the minimum
-                    caloric intake required to sustain the functioning of their organs at a certain level.</p>
-
-                <p> <span style="font-weight: bold;">Genetics</span> – Hereditary traits passed down from ancestors
-                    influence BMR.</p>
-
-                <p><span>Weather</span> – Cold environments raise BMR because of the energy required to create a
-                    homeostatic
-                    body temperature. Likewise, too much external heat can raise BMR as the body expends energy to
-                    cool off internal organs. BMR increases approximately 7% for every increase of 1.36 degrees
-                    Fahrenheit in the body's internal temperature.</p>
-
-                <p><span style="font-weight: bold;">Diet</span> – Small, routinely dispersed meals increase BMR. On the
-                    other hand, starvation can reduce
-                    BMR by as much as 30%. Similar to a phone that goes into power-saving mode during the last 5% of
-                    its battery, a human body will make sacrifices such as energy levels, moods, upkeep of bodily
-                    physique, and brain functions in order to more efficiently utilize what little caloric energy is
-                    being used to sustain it.</p>
-
-                <p><span style="font-weight: bold;">Pregnancy</span> – Ensuring the livelihood of a separate fetus
-                    internally increases BMR. This is why
-                    pregnant women tend to eat more than usual. Also, menopause can increase or decrease BMR
-                    depending on hormonal changes.</p>
-
-                <p><span>Supplements</span> – Certain supplements or drugs raise BMR, mostly to fuel weight loss.
-                    Caffeine is a
-                    common one.</p>
-
-                <h3>BMR Tests</h3>
-                <p>Online BMR tests with rigid formulas are not the most accurate method of determining an
-                    individual's BMR. It is better to consult a certified specialist or measure BMR through a
-                    calorimetry device. These handheld devices are available in many health and fitness clubs,
-                    doctor offices, and weight-loss clinics.</p>
-
-                <p>Resting Metabolic Rate
-                    While the two are used interchangeably, there is a key difference in their definitions. Resting
-                    metabolic rate, or RMR for short, is the rate at which the body burns energy in a relaxed, but
-                    not fully inactive state. It is also sometimes defined as resting energy expenditure, or REE.
-                    BMR measurements must meet total physiological equilibrium while RMR conditions of measurement
-                    can be altered and defined by contextual limitations.</p>
-
-                <h3>Modern Wisdom</h3>
-                <p>A 2005 meta-analysis study on BMR* showed that when controlling all factors of metabolic rate,
-                    there is still a 26% unknown variance between people. Essentially, an average person eating an
-                    average diet will likely have expected BMR values, but there are factors that are still not
-                    understood that determines BMR precisely.</p>
-
-                <p>Therefore, all BMR calculations, even using the most precise methods through specialists, will
-                    not be perfectly accurate in their measurements. Not all human bodily functions are well
-                    understood just yet, so calculating total daily energy expenditure (TDEE) derived from BMR
-                    estimates are just that, estimates. When working towards any sort of health or fitness goal, BMR
-                    can aid in laying down the foundations, but from there on, it has little else to offer. A
-                    calculated BMR and thus TDEE may result in unsatisfactory results because of their rough
-                    estimates, but maintaining a daily journal of exercise, food consumption, etc., can help track
-                    the factors that lead to any given results and help determine what works, as well as what needs
-                    to be improved upon. Tracking progress in said journal and making adjustments over time as
-                    needed is generally the best indication of progress towards reaching personal goals.</p>
+        </div>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img2"></div>
+                                <h4 class="block6_subheading">Age</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">As people age,
+                                their body composition tends to change, with muscle mass generally decreasing and fat
+                                mass increasing. This shift can affect BMI readings, as older adults might have the same
+                                BMI as younger individuals but higher body fat. Additionally, BMI cutoffs for children
+                                and teenagers are adjusted for age and sex due to varying growth patterns.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img3"></div>
+                                <h4 class="block6_subheading">Weather</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">Cold environments raise BMR because of the
+                                energy required to create a
+                                homeostatic
+                                body temperature. Likewise, too much external heat can raise BMR as the body expends
+                                energy to
+                                cool off internal organs. BMR increases approximately 7% for every increase of 1.36
+                                degrees
+                                Fahrenheit in the body's internal temperature.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img4"></div>
+                                <h4 class="block6_subheading">Genetics</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">Genetic factors can influence body weight, fat distribution,
+                                metabolism,
+                                and how the body stores fat. People may inherit tendencies that affect appetite, food
+                                intake, and energy expenditure, which can impact their BMI. While lifestyle choices like
+                                diet and exercise are key, genetics can predispose certain individuals to higher or
+                                lower
+                                BMI, making it harder or easier to gain or lose weight..</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img5"></div>
+                                <h4 class="block6_subheading">Diet</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">Consuming a diet high in calories, unhealthy fats, sugars, and
+                                processed foods can lead to weight gain and a higher BMI, while a balanced diet rich in
+                                fruits, vegetables, lean proteins, and whole grains helps maintain or lower BMI. The
+                                quality and quantity of food intake directly affect body weight, which in turn
+                                influences BMI levels.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img6"></div>
+                                <h4 class="block6_subheading">Pregnancy</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">Pregnancy increases BMI due to natural weight gain from the baby and
+                                related factors. Pre-pregnancy BMI guides healthy weight gain, but BMI during pregnancy
+                                isn't a key health measure, as weight gain is expected. Regular monitoring ensures both
+                                maternal and fetal health, supporting proper development. Post-pregnancy, BMI can help
+                                assess recovery and long-term health.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="block6_box">
+                <div class="block6_box_inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                            <div>
+                                <div class="block6_img7"></div>
+                                <h4 class="block6_subheading">Supplements</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-12 block6_box_text">
+                            <p class="block5_text">Supplements can influence BMI by affecting metabolism and appetite.
+                                Protein powders and weight gain supplements may increase BMI by promoting muscle mass.
+                                Conversely, appetite suppressants and fat burners can contribute to weight loss,
+                                lowering BMI. Their impact varies based on diet, exercise, and individual metabolism</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- block 6 ends  -->
+
+    <!-- block 7  -->
+
+
+    <div class="container block7">
+        <div class="row">
+            <div>
+                <div class="heading_line">
+                    <hr>
+                    <h1 class="block7_heading">Modern Wisdom</h1>
+                    <hr>
+                </div>
+                <div class="block7_div">
+                    <p class="block7_text">A 2005 meta-analysis study on BMR* showed that when controlling all factors
+                        of metabolic rate,
+                        there is still a 26% unknown variance between people. Essentially, an average person eating an
+                        average diet will likely have expected BMR values, but there are factors that are still not
+                        understood that determines BMR precisely.</p>
+
+                    <p class="block7_text">Therefore, all BMR calculations, even using the most precise methods through
+                        specialists, will
+                        not be perfectly accurate in their measurements. Not all human bodily functions are well
+                        understood just yet, so calculating total daily energy expenditure (TDEE) derived from BMR
+                        estimates are just that, estimates. When working towards any sort of health or fitness goal, BMR
+                        can aid in laying down the foundations, but from there on, it has little else to offer. A
+                        calculated BMR and thus TDEE may result in unsatisfactory results because of their rough
+                        estimates, but maintaining a daily journal of exercise, food consumption, etc., can help track
+                        the factors that lead to any given results and help determine what works, as well as what needs
+                        to be improved upon. Tracking progress in said journal and making adjustments over time as
+                        needed is generally the best indication of progress towards reaching personal goals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- block 7 ends -->
 
     {% endblock content %}
 
-    <!-- footer starts -->
+    <!-- footer  -->
 
-    <div class="container-fluid">
-        <div class="row bg-dark pt-4">
-            <div class="col-1"></div>
-            <div class="col-3 text-center">
-                <a href="" class="decoration">about_us</a>
-                <p class="white text-start container">Calculate your <br>
-                    BMR and BMI, <br>
-                    explore personalized diet plans, <br>
-                    track your calories, <br>
-                    exercise, <br>
-                    and sleep—all in one place.</p>
+    <div class="container-fluid footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="footer_div">
+                                <div>
+                                    <h3 class="footer_heading2">About Us</h3>
+                                    <p class="footer_text">Info</p>
+                                    <p class="footer_text">News</p>
+                                    <p class="footer_text">Advertise</p>
+                                    <p class="footer_text">Public Health</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="footer_div">
+                                <div>
+                                    <h3 class="footer_heading2">Contact Us</h3>
+                                    <p class="footer_text">Blog</p>
+                                    <p class="footer_text">Groups</p>
+                                    <p class="footer_text">Mails</p>
+                                    <p class="footer_text">healthify@gmail.com </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="footer_div">
+                        <div>
+                            <div class=" footer_icon_div">
+                                <div>
+                                    <a href=""><i class="fa-brands fa-instagram footer_icon"></i></a>
+                                    <a href=""><i class="fa-brands fa-x-twitter footer_icon"></i></a>
+                                    <a href=""><i class="fa-brands fa-facebook footer_icon"></i></a>
+                                </div>
+                                <h1 class="footer_heading1">HealthiFY</h1>
+                            </div>
 
+                            <p class="footer_p">" Each day, small choices add up to a life of strength and resilience.
+                                Remember, a healthy body fuels a happy mind and a fulfilled life. Let’s achieve your
+                                wellness goals together with Healthify! "</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-3 text-center">
-                <h4 class="white">HealthiFY</h4>
-                <p class="white">private content <br>
-                    <i class="fa-solid fa-envelope" style="color: #74C0FC;"></i> healthify@gmail.com <br>
-                    2024
-                </p>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <p class="footer_p1">Developed by jithindas @ 2024</p>
+                </div>
             </div>
-            <div class="col-4 text-center pe-2">
-                <a href="" class=" decoration">contact_us</a><br>
-                <a href=""><i class="fa-brands fa-instagram" style="color: #74C0FC;"></i></a>
-                <a href=""><i class="fa-brands fa-x-twitter" style="color: #74C0FC;"></i></a>
-                <a href=""><i class="fa-brands fa-facebook" style="color: #74C0FC;"></i></a><br>
-                <p class="white">@healthify</p>
-                <p class="white">Stay motivated with progress charts, tailored recommendations,
-                    and expert guidance. Let’s achieve your wellness goals together with Healthify!</p>
-            </div>
-            <div class="col-1"></div>
         </div>
     </div>
+
+    <!-- footer ends  -->
+
 </body>
-<script>
+
+<!-- <script>
     document.addEventListener('scroll', () => {
         const header = document.querySelector('header');
         if (window.scrollY > 0) {
@@ -460,6 +947,6 @@
             header.classList.remove('scrolled')
         }
     })
-</script>
+</script> -->
 
 </html>
