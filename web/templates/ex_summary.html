@@ -1,20 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Range Form</title>
-</head>
-<body>
-    <h1>Todays Exercise Summary</h1>
-    <table border="1">
+{% extends 'profile_update.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .summary-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+    }
+
+    .section-title {
+        color: #2d3748;
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 2rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid #4299e1;
+        display: inline-block;
+    }
+
+    /* Table Styling */
+    .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .summary-table thead {
+        background-color: #4299e1;
+        color: white;
+    }
+
+    .summary-table th,
+    .summary-table td {
+        padding: 1rem;
+        text-align: left;
+        border: none;
+    }
+
+    .summary-table tbody tr:nth-child(even) {
+        background-color: #f7fafc;
+    }
+
+    .summary-table tbody tr:hover {
+        background-color: #ebf8ff;
+        transition: background-color 0.3s ease;
+    }
+
+    .total-row {
+        background-color: #2c5282 !important;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Form Styling */
+    .date-range-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+    }
+
+    .date-range-form h1 {
+        margin-bottom: 1.5rem;
+    }
+
+    .date-range-form form {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .date-range-form p {
+        margin: 0;
+    }
+
+    .date-range-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2d3748;
+    }
+
+    .date-range-form input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .date-range-form input:focus {
+        outline: none;
+        border-color: #4299e1;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    }
+
+    .submit-btn {
+        background-color: #4299e1;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #2b6cb0;
+    }
+
+    .error-message {
+        background-color: #fff5f5;
+        border-left: 4px solid #f56565;
+        color: #c53030;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .summary-table {
+            display: block;
+            overflow-x: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="summary-container">
+    <!-- Today's Summary Section -->
+    <h1 class="section-title">Today's Exercise Summary</h1>
+    <table class="summary-table">
         <thead>
             <tr>
                 <th>Exercise Name</th>
                 <th>Calories Burned</th>
-                
             </tr>
-            
         </thead>
         <tbody>
             {% for i in todaysummary %}
@@ -23,49 +154,52 @@
                 <td>{{ i.exercise.calories_burned }}</td>
             </tr>
             {% endfor %}
+            <tr class="total-row">
+                <th>Total</th>
+                <th>{{today_calorie}}</th>
+            </tr>
         </tbody>
-        <tr>
-            <th>Total</th>
-            <th>{{today_calorie}}</th>
-        </tr>
     </table>
-    <h1>Date Range Form</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    <h1>Exercise Summary</h1>
-    <table border="1">
+
+    <!-- Date Range Form Section -->
+    <div class="date-range-form">
+        <h1 class="section-title">Select Date Range</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Exercise Summary Section -->
+    <h1 class="section-title">Exercise Summary</h1>
+    <table class="summary-table">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Exercise Name</th>
                 <th>Calories Burned</th>
-                
             </tr>
-            
         </thead>
         <tbody>
-                
-                {% for i in summary %}
-                <tr>
-                    <td>{{ i.created_date}}</td>
-                    <td>{{ i.exercise.name }}</td>
-                    <td>{{ i.exercise.calories_burned }}</td>
-                </tr>
-                {% endfor %}
-            
-            
+            {% for i in summary %}
+            <tr>
+                <td>{{ i.created_date}}</td>
+                <td>{{ i.exercise.name }}</td>
+                <td>{{ i.exercise.calories_burned }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-row">
+                <th></th>
+                <th>Total</th>
+                <th>{{total_calorie}}</th>
+            </tr>
         </tbody>
-        <tr>
-            <th></th>
-            <th>Total</th>
-            <th>{{total_calorie}}</th>
-        </tr>
     </table>
-</body>
-</html>
+</div>
+{% endblock content %}

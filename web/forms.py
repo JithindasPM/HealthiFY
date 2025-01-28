@@ -6,6 +6,7 @@ from web.models import UserProfile_Model
 from web.models import Foods
 from web.models import Exercise
 from web.models import UserFood
+from web.models import Consultant
 
 class Registration_Form(forms.ModelForm):
     class Meta:
@@ -166,4 +167,36 @@ class Userfood_Daterange(forms.Form):
         label='To',
         label_suffix='',
     )
+
+
+class Consultant_Form(forms.ModelForm):
+    class Meta:
+        model=Consultant
+        fields=['name','profile_picture','specialization','experience','certifications','location','job']
+        read_only_fields=['created_date','updated_date']
+
+        widgets={
+
+            'name':forms.TextInput(attrs={'class':'form-control my-1',
+                                          'placeholder': 'Enter your name . . .',
+                                          'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'profile_picture':forms.FileInput(attrs={'class':'form-control-file',
+                                                      'id':'profile_image'}),
+            'specialization':forms.TextInput(attrs={'class':'form-control my-1',
+                                          'placeholder': 'Enter your name . . .',
+                                          'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'experience':forms.NumberInput(attrs={'class':'form-control my-1',
+                                            'placeholder':'Enter Your age . . .',
+                                            'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'certifications':forms.TextInput(attrs={'class':'form-control my-1',
+                                          'placeholder': 'Enter your name . . .',
+                                          'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'location':forms.TextInput(attrs={'class':'form-control my-1',
+                                          'placeholder': 'Enter your name . . .',
+                                          'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'job':forms.Select(attrs={'class':'form-control my-1',
+                                         'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+
+            
+        } 
 

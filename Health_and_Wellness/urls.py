@@ -43,6 +43,10 @@ from web.views import Delete_userfood
 from web.views import Create_foodbyuser
 from web.views import ExerciseSummary
 from web.views import Summary_Userfood
+from web.views import Consultant_Add_View
+from web.views import Consultant_List_View
+from web.views import Consultant_Update_View
+
 
 urlpatterns = [
 
@@ -70,5 +74,9 @@ urlpatterns = [
     path('create_foodbyuser/', Create_foodbyuser.as_view(), name='create_foodbyuser'),
     path('exsummary/', ExerciseSummary.as_view(), name='exsummary'),
     path('food_summary/', Summary_Userfood.as_view(), name='food_summary'),
+    path('consultant_add/', Consultant_Add_View.as_view(), name='consultant_add'),
+    path('consultant/', Consultant_List_View.as_view(), name='consultant'),
+    path('consultant_update/<int:pk>',Consultant_Update_View.as_view(),name='consultant_update'),
+
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

@@ -22,27 +22,49 @@
     /* navbar  */
 
     .header {
-      background: linear-gradient(white,white,white,white,black);
-      background-color: rgba(255, 255, 255, 0.492);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
     }
 
     .nav_heading {
-      font-size: 30px;
-      color: #008efb;
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-      cursor: pointer;
+      font-size: 2rem;
+      color: #4299e1;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .nav_heading:hover {
+      text-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
     }
 
     .nav_heading_span {
-      font-size: 30px;
-      color: black;
+      font-size: 2rem;
+      color: #2d3748;
+      font-weight: 700;
     }
 
     .navbar_link {
       text-decoration: none;
-      color: black;
-      font-size: 18px;
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: #2d3748;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .navbar_link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: #4299e1;
+      transition: width 0.3s ease;
+    }
+
+    .navbar_link:hover:after {
+      width: 100%;
     }
 
     /* navbar  ends */
@@ -74,11 +96,14 @@
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       cursor: pointer;
     }
-    .fom_btn_div{
-      display: flex;justify-content: center;
+
+    .fom_btn_div {
+      display: flex;
+      justify-content: center;
       width: 100%;
     }
-    .fom_btn{
+
+    .fom_btn {
       padding: 5px 50px;
       border-radius: 5px;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -87,27 +112,31 @@
       font-size: 18px;
       background-color: rgba(255, 255, 255, 0.778);
     }
-    .fom_btn:hover{
+
+    .fom_btn:hover {
       background-color: white;
       box-shadow: 0 0 2px white,
-                  0 0 4px white,
-                  0 0 8px white;
+        0 0 4px white,
+        0 0 8px white;
     }
-    .fom_text{
+
+    .fom_text {
       text-align: center;
       margin-top: 25px;
       font-size: 15px;
       cursor: pointer;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
-    .fom_link{
+
+    .fom_link {
       font-size: 17px;
       font-weight: 600;
       text-decoration: none;
       color: rgba(255, 166, 0, 0.703);
       /* text-shadow: 0 0 1px; */
     }
-    .fom_link:hover{
+
+    .fom_link:hover {
       color: orange;
       text-shadow: 0 0 1px;
     }
@@ -118,34 +147,34 @@
 
 <body>
 
-<!-- navbar  -->
+  <!-- navbar  -->
 
-<div class="container-fluid sticky-top">
-  <header>
+  <div class="container-fluid sticky-top">
+    <header>
       <div class="row">
-          <nav class="navbar navbar-expand-lg header border">
-              <div class="container">
-                  <a class="navbar-brand" href="{% url 'home' %}"><span class="nav_heading">Healthi</span><span
-                          class="nav_heading_span">FY</span></a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                      aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      </ul>
-                      <form class="d-flex" role="search">
-                          
-                      </form>
-                  </div>
-              </div>
-          </nav>
-      </div>
-  </header>
-</div>
+        <nav class="navbar navbar-expand-lg header border">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><span class="nav_heading">Healthi</span><span
+                class="nav_heading_span">FY</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              </ul>
+              <form class="d-flex" role="search">
 
-<!-- navbar ends  -->
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <!-- navbar ends  -->
 
   <!-- content  -->
 

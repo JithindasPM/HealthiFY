@@ -113,4 +113,28 @@ class UserFood(models.Model):
 
     def __str__(self):
         return f"{self.user.username}"
+    
 
+class Consultant(models.Model):
+
+    name=models.CharField(max_length=100,null=True)
+
+    profile_picture=models.FileField(upload_to='images',null=True,blank=True)
+
+    specialization=models.CharField(max_length=100,null=True)
+
+    experience=models.IntegerField(null=True)
+
+    certifications=models.CharField(max_length=100,null=True)
+
+    location=models.CharField(max_length=100,null=True)
+
+    job=models.CharField(max_length=100,choices=[('trainer','trainer'),
+                                                    ('nutritionist','nutritionist')],null=True)
+
+    created_date=models.DateField(auto_now_add=True)  
+
+    updated_date=models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.name

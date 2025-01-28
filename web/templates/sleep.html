@@ -1,111 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% extends 'profile_update.html' %}
+{% load static %}
 
-    <!-- table style starts-->
-    <style>
-        .scrollable-column{
-            max-width:180px;
-        }
-        .scrollable-content{
-            max-height: 100px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-    
-        .scroll{
-            max-height:490px;
-            overflow-y: auto;
-    
-        }
-        .content{
-            width: 100%;
-            border-collapse: collapse;
-        }
+{% block content %}
 
-        .content tr th{
-            position: sticky;
-            top: 0;
-            background-color: black;
-            color: white;
-            z-index: 1;
-        }
-    </style>
-        <!-- table style ends -->
+<style>
+    .scrollable-column {
+        max-width: 180px;
+    }
 
-</head>
-<body class="container">
-    <!-- navbar starts-->
-    <div class="container-fluid sticky-top">
-        <div class="row">
-            <nav class="navbar navbar-expand-lg header bg-dark shadow rounded">
-                <div class="container">
-                    <a class="navbar-brand" style="color: white;" href="#">Healthify</a>
-                    <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" style="color: white;" aria-current="page" href="{% url 'home' %}">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" style="color: white;" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="d-flex" role="search">
-                            {%if user_obj.profile_picture%}
-                            <a href="" style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
-                            {%else%}
-                            <a href="" style="background-image: url(); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
-                            {%endif%}
-                        </form>
+    .scrollable-content {
+        max-height: 100px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .scroll {
+        max-height: 490px;
+        overflow-y: auto;
+
+    }
+
+    .content {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .content tr th {
+        position: sticky;
+        top: 0;
+        background-color: black;
+        color: white;
+        z-index: 1;
+    }
+</style>
+
+<div class="container mt-3 mb-3">
+    <div class="row ">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+            <div class="">
+                <h2 class="text-center pb-2">Add Your Sleep Records</h2>
+                <form action="" method="post">
+                    {%csrf_token%}
+
+                    {{form.as_p}}
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-dark w-50" type="reset">Reset</button>
+                        <button class="btn btn-dark w-50" type="submit">Enter</button>
                     </div>
-                </div>
-            </nav>
+                </form>
+            </div>
         </div>
-    </div>
-    <!-- navbar ends -->
-
-
-
-    <div class="container-fluid">
-        <div class="row pb-5 ps-4 mt-5" style="background-color: rgb(238, 237, 235);">
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3 p-5 px-1" >
-                
-                <div class=" p-5 ps-2 pe-2 pt-2 " >
-                    <h2 class="text-center pb-2">Add Your Sleep Records</h2>
-                    <form action="" method="post">
-                        {%csrf_token%}
-                        
-                        {{form.as_p}}
-                        <div class="d-flex gap-1">
-                            <button class="btn btn-dark w-50" type="reset">Reset</button>
-                            <button class="btn btn-dark w-50" type="submit">Enter</button>
-                        </div>
-                    </form>
-                </div>
-            </div>  
-        <div class="col-lg-8 col-md-12 col-sm-12 col-12 scroll mt-5">
+        <div class="col-lg-8 col-md-6 col-sm-12 col-12 scroll mt-5">
             <table class="table table-striped-primary content">
                 <tr>
                     <th class="text-center">Sleeping Time</th>
@@ -119,20 +64,19 @@
                     <tr>
                         <td class="text-center">{{i.sleep_start_time}}</td>
                         <td class="text-center">{{i.sleep_end_time}}</td>
-                        <td class="scrollable-column text-center"><div class="scrollable-content">{{i.notes}}</div></td>
-                        <td class="text-center"><a href="{%url 'updatesleep' i.id%}"><i class="fa-solid fa-pen-to-square" style="color: black;"></i></a></td>
-                        <td class="text-center"><a href="{%url 'deletesleep' i.id%}"><i class="fa-solid fa-trash " style="color: red;"></i></a></td>
+                        <td class="scrollable-column text-center">
+                            <div class="scrollable-content">{{i.notes}}</div>
+                        </td>
+                        <td class="text-center"><a href="{%url 'updatesleep' i.id%}"><i
+                                    class="fa-solid fa-pen-to-square" style="color: black;"></i></a></td>
+                        <td class="text-center"><a href="{%url 'deletesleep' i.id%}"><i class="fa-solid fa-trash "
+                                    style="color: red;"></i></a></td>
                     </tr>
                 </tbody>
                 {%endfor%}
             </table>
         </div>
     </div>
-    
+    </div>
 
-    
-
-
-
-</body>
-</html>
+    {% endblock content %}

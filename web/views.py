@@ -15,6 +15,7 @@ from web.forms import UserFoodForm
 from web.forms import SleepForm
 from web.forms import DateRangeForm
 from web.forms import Userfood_Daterange
+from web.forms import Consultant_Form
 
 from web.models import SleepModel
 from web.models import User
@@ -23,6 +24,7 @@ from web.models import Foods
 from web.models import Exercise
 from web.models import Exercise_Data
 from web.models import UserFood
+from web.models import Consultant
 
 
 # Create your views here.
@@ -499,3 +501,35 @@ class Summary_Userfood(View):
             
         form=Userfood_Daterange()    
         return render(request,"foodsummary.html",{'form':form  , "data_range":data_range , "datas":datas , "totalcalorie_today":totalcalorie_today , "total_calorie_range":total_calorie_range })
+    
+class Consultant_Add_View(View):
+    def get(self,request,*args,**kwargs):
+        form=Consultant_Form()
+        return render(request,'consultant.html',{'form':form})
+    def post(self,request,*args,**kwargs):
+        form=Consultant_Form(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            form=Consultant_Form()
+            return render(request,'consultant.html',{'form':form})
+
+class Consultant_Update_View(View):
+    def get(self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Consultant.objects.get(id=id)
+        form=Consultant_Form(instance=data)
+        return render(request,'consultant.html',{'form':form})
+    
+    def post(self,request,*args,**kwargs):
+        id=kwargs.get('pk')
+        data=Consultant.objects.get(id=id)
+        form=Consultant_Form(request.POST,request.FILES,instance=data)
+        if form.is_valid():
+            form.save()
+            form=Consultant_Form()
+            return render(request,'consultant.html',{'form':form})
+
+class Consultant_List_View(View):
+    def get(self,request,*args,**kwargs):
+        data=Consultant.objects.all()
+        return render(request,'consultant_list.html',{'data':data})
