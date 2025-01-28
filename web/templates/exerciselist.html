@@ -15,119 +15,129 @@
 </head>
 
 <body>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #ffffff;
-            }
-            .container1 {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-around;
-                padding: 20px;
-            }
-            .card {
-                background-color: #fff;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(98, 98, 98, 0.1);
-                margin: 15px;
-                width: 300px;
-                overflow: hidden;
-                transition: box-shadow 0.3s ease;
-            }
-            .card:hover {
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-            .card img {
-                width: 100%;
-                height: auto;
-                box-shadow: 0px 1px 18px rgb(175, 175, 175);
-            }
-            .card-body {
-                padding: 20px;
-            }
-            .card-title {
-                font-size: 1.5em;
-                margin-bottom: 10px;
-            }
-            .card-text {
-                margin-bottom: 10px;
-                color: #555;
-            }
-            .card-text span {
-                font-weight: bold;
-            }
-            a{
-                text-decoration: none;
-            }
-            /* .border1{
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(98, 98, 98, 0.1);
+            margin: 15px;
+            width: 300px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            box-shadow: 0px 1px 18px rgb(175, 175, 175);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .card-text span {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* .border1{
                 border-radius: 10px 0px 0px 10px;
             } */
-           
-        </style>
+    </style>
     </head>
+
     <body>
 
         <!-- navbar starts-->
-    <div class="container-fluid sticky-top">
-        <div class="row">
-            <nav class="navbar navbar-expand-lg header bg-dark shadow  ">
-                <div class="container">
-                    <a class="navbar-brand" style="color: white;" href="{% url 'home' %}">Healthify</a>
-                    <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        </ul>
-                        <a class="me-4" href="{%url 'exsummary' %}"><button class="btn btn-outline-light">Track Progress</button></a>
-                        <form class="d-flex" role="search">
-                            {%if user_obj.profile_picture%}
-                            <a href="{%url 'upuser' userdata.id%}" style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
-                            {%else%}
-                            <a href="{%url 'upuser' userdata.id%}" style="background-image: url(); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
-                            {%endif%}
-                        </form>
+
+        <div class="container-fluid sticky-top">
+            <div class="row">
+                <nav class="navbar navbar-expand-lg header bg-dark shadow  ">
+                    <div class="container">
+                        <a class="navbar-brand" style="color: white;" href="{% url 'home' %}">Healthify</a>
+                        <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            </ul>
+                            <a class="me-4" href="{%url 'exsummary' %}"><button class="btn btn-outline-light">Track
+                                    Progress</button></a>
+                            <form class="d-flex" role="search">
+                                {%if user_obj.profile_picture%}
+                                <a href="{%url 'upuser' userdata.id%}"
+                                    style="background-image: url('{{user_obj.profile_picture.url}}'); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                                {%else%}
+                                <a href="{%url 'upuser' userdata.id%}"
+                                    style="background-image: url(); height: 30px; width: 30px; background-size: cover;background-position: center; border-radius: 50%;"></a>
+                                {%endif%}
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </div>
         </div>
-    </div>
-    <!-- navbar ends -->
+        <!-- navbar ends -->
 
         <h1 style="text-align:center; padding:20px;">Exercise List</h1>
 
-
-
-        
         <div class="container1 container">
 
             {% for exercise in exercises %}
-    <a href="{% url 'exerciseview' exercise.id %}">
-            <div class="card">
-                
-                {% if exercise.gif %}
+            <a href="{% url 'exerciseview' exercise.id %}">
+                <div class="card">
+
+                    {% if exercise.gif %}
                     <img src="{{ exercise.gif.url }}" alt="{{ exercise.name }}">
-                {% else %}
+                    {% else %}
                     <img src="https://via.placeholder.com/300x200.png?text=No+GIF+Available" alt="No GIF available">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="card-title">{{ exercise.name }}</h2>
-                    <p class="card-text"><span>Duration:</span> {{ exercise.duration }} seconds</p>
-                    <p class="card-text"><span>Reps:</span> {{ exercise.reps }}</p>
-                    <p class="card-text"><span>Calories Burned:</span> {{ exercise.calories_burned }} kcal</p>
-                    
-                </div> 
-            </div>
-        </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h2 class="card-title">{{ exercise.name }}</h2>
+                        <p class="card-text"><span>Duration:</span> {{ exercise.duration }} seconds</p>
+                        <p class="card-text"><span>Reps:</span> {{ exercise.reps }}</p>
+                        <p class="card-text"><span>Calories Burned:</span> {{ exercise.calories_burned }} kcal</p>
+
+                    </div>
+                </div>
+            </a>
             {% endfor %}
         </div>
     </body>
-    </html>
-    
-   
+
+</html>

@@ -83,7 +83,7 @@ class Update_UserProfile_View(View):
         id = kwargs.get('pk')
         data=UserProfile_Model.objects.get(id=id)
         form = UserProfile_Form(instance=data)
-        return render(request, 'profile_update.html', {'form': form})
+        return render(request, 'profile_update.html', {'form': form,'data':data})
     
     def post(self, request, *args, **kwargs):
         id = kwargs.get('pk')
@@ -94,7 +94,7 @@ class Update_UserProfile_View(View):
             return redirect('profile')
         else:
             form = UserProfile_Form(instance=data)
-            return render(request, 'profile_update.html', {'form': form})
+            return render(request, 'profile_update.html', {'form': form,'data':data})
         
 class Login_View(View):
     def get(Self,request,*args,**kwargs):

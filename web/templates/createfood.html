@@ -1,19 +1,118 @@
-{% extends "index.html" %}
+{% extends "profile_update.html" %}
 {% load static %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* block1  */
+    .block1 {
+        background: linear-gradient(rgba(0, 0, 0, .025), rgba(0, 0, 0, .025)), url('https://static.vecteezy.com/system/resources/previews/017/398/144/non_2x/healthcare-services-annual-health-checkup-heart-rate-pulse-measurement-pills-antibiotics-dna-diseases-genes-illustration-on-light-blue-hexagonal-background-health-and-medicine-concept-vector.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 40px 0 60px 0;
+    }
+
+    .form_container {
+        background-color: white;
+        border-radius: 7px;
+        padding: 25px;
+        box-shadow: 4px 0px 5px rgb(197, 196, 196);
+        margin-top: 20px;
+    }
+
+    .block1_heading {
+        font-size: 30px;
+        color: #008efb;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        text-align: center;
+        padding-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .form {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .form label {
+        font-weight: bold;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-bottom: 5px;
+    }
+
+    .form input, .form select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: Arial, sans-serif;
+    }
+
+    .btn_container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .block1_btns {
+        padding: 8px 25px;
+        border: 2px solid #008efb;
+        border-radius: 5px;
+        background-color: white;
+        color: #008efb;
+        font-weight: bold;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .block1_btns:hover {
+        background-color: #008efb;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 142, 251, 0.2);
+    }
+
+    .block1_reset {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+
+    .block1_reset:hover {
+        background-color: #6c757d;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .block1 {
+            padding: 20px 0 40px 0;
+        }
+        
+        .form_container {
+            margin: 10px;
+        }
+    }
+</style>
 
 <body>
-  <div class="container text-center" style="margin-top: 50px; margin-bottom: 300px;">
-        <h2>Add Food</h2>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Add</button>
-        </form>
-  </div>
-
+    <div class="container block1">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-12">
+                <div class="form_container">
+                    <h2 class="block1_heading">Add Food</h2>
+                    <form method="post" class="form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="btn_container">
+                            <button type="reset" class="block1_btns block1_reset">Reset</button>
+                            <button type="submit" class="block1_btns">Add Food</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 {% endblock content %}

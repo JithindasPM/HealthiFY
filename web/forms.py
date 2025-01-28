@@ -29,19 +29,25 @@ class UserProfile_Form(forms.ModelForm):
 
         widgets={
 
-            'name':forms.TextInput(attrs={'class':'form-control',
-                                          'placeholder': 'Enter your name'}),
-            'age':forms.NumberInput(attrs={'class':'form-control',
-                                            'placeholder':'Enter Your age'}),
-            'height':forms.NumberInput(attrs={'class':'form-control',
-                                               'placeholder':'Enter Your height in cm'}),
-            'weight':forms.NumberInput(attrs={'class':'form-control',
-                                               'placeholder':'Enter your weight in Kg'}),
-            'gender':forms.Select(attrs={'class':'form-control'}),
+            'name':forms.TextInput(attrs={'class':'form-control my-1',
+                                          'placeholder': 'Enter your name . . .',
+                                          'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'age':forms.NumberInput(attrs={'class':'form-control my-1',
+                                            'placeholder':'Enter Your age . . .',
+                                            'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'height':forms.NumberInput(attrs={'class':'form-control my-1',
+                                               'placeholder':'Enter Your height in cm . . .',
+                                               'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'weight':forms.NumberInput(attrs={'class':'form-control my-1',
+                                               'placeholder':'Enter your weight in Kg . . .',
+                                               'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'gender':forms.Select(attrs={'class':'form-control my-1',
+                                         'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
 
             'profile_picture':forms.FileInput(attrs={'class':'form-control-file',
                                                       'id':'profile_image'})   #id is given because it will be useful for JavaScript interactions or CSS.
         } 
+
 
 class Login_Form(forms.Form):
 
@@ -77,10 +83,10 @@ class FoodForm(forms.ModelForm):
         model=Foods
         fields="__all__"
         widgets={
-                 'name':forms.TextInput(attrs={'class':'form-control',
-                                          'placeholder': 'Foodname'}),
-                 'calorie':forms.NumberInput(attrs={'class':'form-control',
-                                            'placeholder':'Calorie'}),
+                 'name':forms.TextInput(attrs={'class':'form-control my-1',
+                                          'placeholder': 'Foodname . . .','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                 'calorie':forms.NumberInput(attrs={'class':'form-control my-1',
+                                            'placeholder':'Calorie . . .','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
         }
 
 class Exercise_Form(forms.ModelForm):
@@ -128,18 +134,36 @@ class UserFoodForm(forms.ModelForm):
         fields = ['food', 'quantity']
         read_only_fields=['user','total_calories']
         widgets = {
-            'food': forms.Select(attrs={'class': 'form-control'}),
+            'food': forms.Select(attrs={'class': 'form-control my-1','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
 
-            'quantity': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter how much'}),
+            'quantity': forms.TextInput(attrs={'class': 'form-control my-1', 'placeholder': 'Enter how much . . .','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
         }    
+
 
 class Userfood_Daterange(forms.Form):
     start = forms.DateField(
-        widget=forms.TextInput(attrs={'type':'date'}),
-        label='start'
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                'class': 'form-control shadow-sm',
+                'placeholder': 'Select start date',
+                'style': 'border-radius: 10px;'
+            }
+        ),
+        label='From',
+        label_suffix='',  # Removes the colon after label
     )
+    
     end = forms.DateField(
-        widget=forms.TextInput(attrs={'type':'date'}),
-        label='end'
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                'class': 'form-control shadow-sm',
+                'placeholder': 'Select end date',
+                'style': 'border-radius: 10px;'
+            }
+        ),
+        label='To',
+        label_suffix='',
     )
 
