@@ -4,6 +4,8 @@ from django.contrib.auth import login, logout,authenticate
 from datetime import timedelta
 from django.db.models.functions import TruncWeek,TruncDay
 from django.utils import timezone
+from django.contrib import messages
+from django.db.models import Sum
 
 from web.forms import Registration_Form
 from web.forms import UserProfile_Form
@@ -16,6 +18,8 @@ from web.forms import SleepForm
 from web.forms import DateRangeForm
 from web.forms import Userfood_Daterange
 from web.forms import Consultant_Form
+from web.forms import Food_Goal_Form
+
 
 from web.models import SleepModel
 from web.models import User
@@ -25,6 +29,7 @@ from web.models import Exercise
 from web.models import Exercise_Data
 from web.models import UserFood
 from web.models import Consultant
+from web.models import Food_Goal
 
 
 # Create your views here.
@@ -533,3 +538,107 @@ class Consultant_List_View(View):
     def get(self,request,*args,**kwargs):
         data=Consultant.objects.all()
         return render(request,'consultant_list.html',{'data':data})
+    
+
+class Food_Goal_Add_View(View):
+    def get(self, request, *args, **kwargs):
+        form = Food_Goal_Form()
+        today = timezone.now().date()
+        
+        # Initialize goals to None to prevent UnboundLocalError
+        goals = None  
+
+        try:
+            goals = Food_Goal.objects.get(user=request.user, created_date=today)
+        except Food_Goal.DoesNotExist:
+            goals = None  # Set it explicitly
+
+        datas = UserFood.objects.annotate(day=TruncDay("created_date")).filter(
+            user=request.user, day=today
+        ).order_by("day", "created_date")
+
+        totalcalorie_today = sum(calorie.total_calories for calorie in datas)
+
+        return render(
+            request, "food_goal.html",
+            {"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today, "goals": goals}
+        )
+
+    def post(self, request, *args, **kwargs):
+        form = Food_Goal_Form(request.POST)
+        today = timezone.now().date()
+        
+        # Check if a goal already exists
+        existing_goal = Food_Goal.objects.filter(user=request.user, created_date=today).first()
+        if existing_goal:
+            messages.error(request, "Already, you have set a goal today.")  
+            return redirect("food_goal")  
+
+        if form.is_valid():
+            # Create new goal
+            new_goal = Food_Goal.objects.create(
+                user=request.user,
+                goal=form.cleaned_data['goal'],
+                created_date=today
+            )
+            
+            messages.success(request, "Goal set successfully!")  
+            return redirect("food_goal")  
+
+        # If form is invalid, re-render the page with errors
+        datas = UserFood.objects.annotate(day=TruncDay("created_date")).filter(
+            user=request.user, day=today
+        ).order_by("day", "created_date")
+
+        totalcalorie_today = sum(calorie.total_calories for calorie in datas)
+
+        return render(
+            request, "food_goal.html",
+            {"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today}
+        )
+    
+class Add_Userfood(View):
+    def get(self,request,*args,**kwargs):
+        form=UserFoodForm()
+        datas=UserFood.objects.filter(user=request.user)
+        return render(request,"foodcalorie.html",{"form":form,"datas":datas})
+    
+    def post(self,request,*args,**kwargs):
+        form=UserFoodForm(request.POST)
+        if form.is_valid():
+            food=form.cleaned_data["food"]
+            quantity=form.cleaned_data["quantity"]
+            calorie=food.calorie
+            print(calorie)
+            total_calorie=quantity*calorie
+            UserFood.objects.create(**form.cleaned_data,user=request.user,total_calories=total_calorie)
+            form=UserFoodForm()
+            datas=UserFood.objects.filter(user=request.user)
+            return render(request,"foodcalorie.html",{"form":form,"datas":datas})
+        else:
+            print("thankuuu")
+
+
+class Food_Leaderboard(View):
+    def get(self, request, *args, **kwargs):
+        # Get total calories per user and order by total_calories in descending order
+        user_calories = UserFood.objects.values('user__username').annotate(total_calories=Sum('total_calories')).order_by('-total_calories')
+
+        # Assign ranks dynamically (users with same points share the same rank)
+        ranked_users = []
+        rank = 1
+        prev_score = None
+
+        for index, user in enumerate(user_calories):
+            if prev_score is not None and user['total_calories'] < prev_score:
+                rank = index + 1  # Update rank only if the score changes
+            
+            ranked_users.append({
+                "rank": rank,
+                "username": user["user__username"],
+                "total_calories": user["total_calories"]
+            })
+            prev_score = user["total_calories"]
+
+        return render(request, "food_leaderboard.html", {"ranked_users": ranked_users})
+    

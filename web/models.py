@@ -138,3 +138,12 @@ class Consultant(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Food_Goal(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    goal = models.PositiveIntegerField(null=True)
+    created_date=models.DateField(auto_now_add=True) 
+
+    class Meta:
+        unique_together = ('user', 'created_date') 

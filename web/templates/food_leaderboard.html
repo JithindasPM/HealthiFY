@@ -1,0 +1,202 @@
+{% extends "profile_update.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .leaderboard-section {
+        background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+        margin: 30px auto;
+        max-width: 900px;
+    }
+
+    .leaderboard-title {
+        color: #1a5f7a;
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .leaderboard-title:before,
+    .leaderboard-title:after {
+        content: '❤️';
+        font-size: 2rem;
+    }
+
+    .leaderboard-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 15px;
+        text-align: center;
+    }
+
+    .leaderboard-table thead tr {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+    }
+
+    .leaderboard-table th {
+        color: white;
+        padding: 20px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .leaderboard-table tbody tr {
+        background: white;
+        transform: scale(1);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .leaderboard-table tbody tr:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .leaderboard-table td {
+        padding: 20px;
+        font-size: 1.1rem;
+    }
+
+    /* Top 3 Styling */
+    .leaderboard-table tbody tr:nth-child(1) {
+        background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+    }
+
+    .leaderboard-table tbody tr:nth-child(1) td:first-child::before {
+        content: '👑';
+        margin-right: 10px;
+    }
+
+    .leaderboard-table tbody tr:nth-child(2) {
+        background: linear-gradient(45deg, #f5f5f5, #eeeeee);
+    }
+
+    .leaderboard-table tbody tr:nth-child(2) td:first-child::before {
+        content: '⭐';
+        margin-right: 10px;
+    }
+
+    .leaderboard-table tbody tr:nth-child(3) {
+        background: linear-gradient(45deg, #fff3e0, #ffe0b2);
+    }
+
+    .leaderboard-table tbody tr:nth-child(3) td:first-child::before {
+        content: '✨';
+        margin-right: 10px;
+    }
+
+    .leaderboard-table td:first-child {
+        font-weight: 700;
+        color: #34495e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .leaderboard-table td:last-child {
+        font-weight: 800;
+        color: #3498db;
+        position: relative;
+    }
+
+    .leaderboard-table td:last-child::after {
+        content: 'pts';
+        font-size: 0.8rem;
+        color: #7f8c8d;
+        margin-left: 5px;
+        font-weight: normal;
+    }
+
+    .rank-badge {
+        background: #3498db;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+
+    .no-data {
+        padding: 40px;
+        color: #7f8c8d;
+        font-style: italic;
+        font-size: 1.2rem;
+        background: white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .leaderboard-section {
+            padding: 20px 15px;
+            margin: 15px;
+        }
+
+        .leaderboard-title {
+            font-size: 2rem;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 15px 10px;
+            font-size: 1rem;
+        }
+    }
+</style>
+
+
+<div class="leaderboard-section">
+    <h2 class="leaderboard-title">LEADERBOARD</h2>
+    
+    <table class="leaderboard-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Member</th>
+                <th>Health Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in ranked_users %}
+                <tr>
+                    <td>
+                        <span class="rank-badge">{{ user.rank }}</span>
+                    </td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.total_calories }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3" class="no-data">Start your health journey today! 🌟</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

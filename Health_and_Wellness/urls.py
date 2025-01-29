@@ -46,6 +46,8 @@ from web.views import Summary_Userfood
 from web.views import Consultant_Add_View
 from web.views import Consultant_List_View
 from web.views import Consultant_Update_View
+from web.views import Food_Goal_Add_View
+from web.views import Food_Leaderboard
 
 
 urlpatterns = [
@@ -77,6 +79,8 @@ urlpatterns = [
     path('consultant_add/', Consultant_Add_View.as_view(), name='consultant_add'),
     path('consultant/', Consultant_List_View.as_view(), name='consultant'),
     path('consultant_update/<int:pk>',Consultant_Update_View.as_view(),name='consultant_update'),
+    path('food_goal/', Food_Goal_Add_View.as_view(), name='food_goal'),
+    path('food_leaderboard/', Food_Leaderboard.as_view(), name='food_leaderboard'),
 
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  
