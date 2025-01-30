@@ -1,0 +1,161 @@
+{% extends 'profile_update.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .leaderboard-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 40px 20px;
+        min-height: 100vh;
+    }
+
+    .leaderboard-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    .leaderboard-title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 30px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+
+    .leaderboard-table {
+        width: 100%;
+        margin: 20px auto;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        text-align: center;
+    }
+
+    .leaderboard-table th {
+        /* background-color: #f4b400; */
+        background-color: #3498db;
+        /* color: #3498db; */
+        color: white;
+        padding: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+    }
+
+    .leaderboard-table tr {
+        background: #f8f9fa;
+        transition: transform 0.3s ease;
+    }
+
+    .leaderboard-table tr:hover {
+        transform: translateX(5px);
+        background: #fff5e0;
+    }
+
+    .leaderboard-table td {
+        padding: 20px 15px;
+        border: none;
+        text-align: center;
+    }
+
+    .rank {
+        font-size: 1.2rem;
+        font-weight: bold;
+        width: 80px;
+    }
+
+    /* Special styling for top 3 */
+    .rank-1 {
+        background: linear-gradient(135deg, #ffd70033 0%, #ffc80033 100%);
+    }
+
+    .rank-2 {
+        background: linear-gradient(135deg, #c0c0c033 0%, #b0b0b033 100%);
+    }
+
+    .rank-3 {
+        background: linear-gradient(135deg, #cd7f3233 0%, #bd6f2233 100%);
+    }
+
+    .rank-1 .rank {
+        color: #ffd700;
+    }
+
+    .rank-2 .rank {
+        color: #c0c0c0;
+    }
+
+    .rank-3 .rank {
+        color: #cd7f32;
+    }
+
+    .calories {
+        font-weight: bold;
+        color: #f4b400;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .empty-message {
+        padding: 30px;
+        color: #666;
+        font-size: 1.2rem;
+        font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+        .leaderboard-container {
+            padding: 20px;
+        }
+
+        .leaderboard-title {
+            font-size: 2rem;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="leaderboard-section">
+    <div class="leaderboard-container">
+        <h2 class="leaderboard-title">🏆 LEADERBOARD 🏆</h2>
+
+        <table class="leaderboard-table">
+            <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Score</th>
+            </tr>
+            {% for entry in leaderboard %}
+            <tr class="{% if forloop.counter == 1 %}rank-1{% elif forloop.counter == 2 %}rank-2{% elif forloop.counter == 3 %}rank-3{% endif %}">
+                <td class="rank">{{ forloop.counter }}</td>
+                <td>
+                    <div class="user-info">
+                        {{ entry.user.username }}
+                    </div>
+                </td>
+                <td class="calories">{{ entry.total_calories }} kcal</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="empty-message">
+                    Start exercising to join the leaderboard! 💪
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock content %}

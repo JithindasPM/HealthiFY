@@ -1,112 +1,372 @@
-{% extends 'profile_update.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    /* block1  */
+        /* Navbar Styles */
 
-    .block1 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .header {
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 0;
+            background: rgba(255, 255, 255, 0.95);
+        }
 
-    /* block1 ends  */
+        .nav_heading {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #4299e1;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
 
-    /* block 2  */
+        .nav_heading_span {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #2d3748;
+            font-weight: 700;
+        }
 
-    .container1 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 20px;
-    }
+        .navbar_link {
+            text-decoration: none;
+            color: #2d3748;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
 
-    .card {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(98, 98, 98, 0.1);
-        margin: 15px;
-        width: 300px;
-        overflow: hidden;
-        transition: box-shadow 0.3s ease;
-    }
+        .navbar_link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #4299e1;
+            transition: width 0.3s ease;
+        }
 
-    .card:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+        .navbar_link:hover:after {
+            width: 100%;
+        }
 
-    .card img {
-        width: 100%;
-        height: auto;
-        box-shadow: 0px 1px 18px rgb(175, 175, 175);
-    }
+        .navbar-nav {
+            align-items: center;
+        }
 
-    .card-body {
-        padding: 20px;
-    }
+        .profile-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
 
-    .card-title {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-    }
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: white;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                margin-top: 1rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
 
-    .card-text {
-        margin-bottom: 10px;
-        color: #555;
-    }
+            .navbar_link {
+                padding: 0.75rem 1rem;
+                margin: 0.25rem 0;
+                border-radius: 0.25rem;
+            }
 
-    .card-text span {
-        font-weight: bold;
-    }
+            .navbar_link:hover {
+                background-color: rgba(66, 153, 225, 0.1);
+            }
 
-    a {
-        text-decoration: none;
-    }
+            .navbar_link:after {
+                display: none;
+            }
 
-    /* block 2  */
-</style>
+            .profile-link {
+                margin-top: 0.5rem;
+            }
+        }
 
-<!-- block 1  -->
+        @media (min-width: 992px) {
+            .navbar_link {
+                margin-left: 1.5rem;
+            }
+        }
 
-<div class="container block1">
-    <h1 class="block1_heading">Exercise List</h1>
-    <a href="{%url 'exsummary' %}"><button class="btn btn-outline-dark"><b>Track Progress</b></button></a>
-</div>
+        /* navbar  ends */
 
-<!-- block 1 ends  -->
+        /* block1  */
 
-<!-- block 2  -->
+        .block1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+        }
 
-<div class="container1 container">
+        /* block1 ends  */
 
-    {% for exercise in exercises %}
-    <a href="{% url 'exerciseview' exercise.id %}">
-        <div class="card">
+        /* block 2  */
 
-            {% if exercise.gif %}
-            <img src="{{ exercise.gif.url }}" alt="{{ exercise.name }}">
-            {% else %}
-            <img src="https://via.placeholder.com/300x200.png?text=No+GIF+Available" alt="No GIF available">
-            {% endif %}
-            <div class="card-body">
-                <h2 class="card-title">{{ exercise.name }}</h2>
-                <p class="card-text"><span>Duration:</span> {{ exercise.duration }} seconds</p>
-                <p class="card-text"><span>Reps:</span> {{ exercise.reps }}</p>
-                <p class="card-text"><span>Calories Burned:</span> {{ exercise.calories_burned }} kcal</p>
+        .container1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
 
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(98, 98, 98, 0.1);
+            margin: 15px;
+            width: 300px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            box-shadow: 0px 1px 18px rgb(175, 175, 175);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .card-text span {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* block 2  */
+
+
+        /* Footer Styles */
+
+        .footer {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            padding: 4rem 0 2rem;
+            color: white;
+        }
+
+        .footer_heading2 {
+            color: #4299e1;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer_text {
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer_text:hover {
+            color: #4299e1;
+            transform: translateX(5px);
+        }
+
+        .footer_icon {
+            color: #4299e1;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer_icon:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer_heading1 {
+            font-size: 2rem;
+            color: #4299e1;
+            font-weight: 700;
+        }
+
+        .footer_p {
+            color: #e2e8f0;
+            line-height: 1.8;
+            margin-top: 1.5rem;
+        }
+
+        .footer_p1 {
+            color: #a0aec0;
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .block1_btn_div {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .block1_btns {
+                width: 80%;
+                margin: 5px 0;
+            }
+
+            .block2_table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="container-fluid sticky-top">
+        <header>
+            <nav class="navbar navbar-expand-lg header border">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'profile' %}">
+                        <span class="nav_heading">Healthi</span><span class="nav_heading_span">FY</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="ms-auto d-flex flex-column flex-lg-row align-items-lg-center gap-lg-3">
+                            <a href="{% url 'food_leaderboard' %}" class="navbar_link"><b><i>Leaderboard</i></b></a>
+                            <a href="{% url 'food_goal' %}" class="navbar_link"><b><i>Goal</i></b></a>
+                            <a href="{% url 'logout' %}" class="navbar_link"><b><i>LogOut</i></b></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    <!-- navbar ends  -->
+
+    <!-- block 1  -->
+
+    <div class="container block1">
+        <h1 class="block1_heading">Exercise List</h1>
+        <a href="{%url 'exsummary' %}"><button class="btn btn-outline-dark"><b>Track Progress</b></button></a>
+    </div>
+
+    <!-- block 1 ends  -->
+
+    <!-- block 2  -->
+
+    <div class="container1 container">
+
+        {% for exercise in exercises %}
+        <a href="{% url 'exerciseview' exercise.id %}">
+            <div class="card">
+
+                {% if exercise.gif %}
+                <img src="{{ exercise.gif.url }}" alt="{{ exercise.name }}">
+                {% else %}
+                <img src="https://via.placeholder.com/300x200.png?text=No+GIF+Available" alt="No GIF available">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ exercise.name }}</h2>
+                    <p class="card-text"><span>Duration:</span> {{ exercise.duration }} seconds</p>
+                    <p class="card-text"><span>Reps:</span> {{ exercise.reps }}</p>
+                    <p class="card-text"><span>Calories Burned:</span> {{ exercise.calories_burned }} kcal</p>
+
+                </div>
             </div>
-        </div>
-    </a>
-    {% endfor %}
-</div>
+        </a>
+        {% endfor %}
+    </div>
 
-{% endblock content %}
+
+    <!-- Footer -->
+
+    <div class="container-fluid footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <h3 class="footer_heading2">About Us</h3>
+                            <p class="footer_text">Info</p>
+                            <p class="footer_text">News</p>
+                            <p class="footer_text">Advertise</p>
+                            <p class="footer_text">Public Health</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <h3 class="footer_heading2">Contact Us</h3>
+                            <p class="footer_text">Blog</p>
+                            <p class="footer_text">Groups</p>
+                            <p class="footer_text">Mails</p>
+                            <p class="footer_text">healthify@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="social-icons">
+                            <a href=""><i class="fa-brands fa-instagram footer_icon"></i></a>
+                            <a href=""><i class="fa-brands fa-x-twitter footer_icon"></i></a>
+                            <a href=""><i class="fa-brands fa-facebook footer_icon"></i></a>
+                        </div>
+                        <h1 class="footer_heading1">HealthiFY</h1>
+                    </div>
+                    <p class="footer_p">
+                        "Each day, small choices add up to a life of strength and resilience. Remember, a healthy body
+                        fuels a happy mind and a fulfilled life. Let's achieve your wellness goals together with
+                        Healthify!"
+                    </p>
+                </div>
+            </div>
+            <p class="footer_p1">Developed by jithindas @ 2024</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

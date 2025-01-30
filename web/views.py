@@ -30,6 +30,7 @@ from web.models import Exercise_Data
 from web.models import UserFood
 from web.models import Consultant
 from web.models import Food_Goal
+from web.models import Exercise_Goal
 
 
 # Create your views here.
@@ -619,7 +620,7 @@ class Add_Userfood(View):
             print("thankuuu")
 
 
-class Food_Leaderboard(View):
+class Food_Leaderboard_View(View):
     def get(self, request, *args, **kwargs):
         # Get total calories per user and order by total_calories in descending order
         user_calories = UserFood.objects.values('user__username').annotate(total_calories=Sum('total_calories')).order_by('-total_calories')
@@ -641,4 +642,22 @@ class Food_Leaderboard(View):
             prev_score = user["total_calories"]
 
         return render(request, "food_leaderboard.html", {"ranked_users": ranked_users})
+
+class Exercise_Leaderboard_View(View):
+
+    def get(self, request):
+        
+        users = User.objects.all()
+        for user in users:
+            total_calories = Exercise_Data.objects.filter(user=user).aggregate(
+                total=Sum("exercise__calories_burned")
+            )["total"] or 0  # Default to 0 if no exercise data
+
+            # Update or create Exercise_Goal entry for the user
+            Exercise_Goal.objects.update_or_create(user=user, defaults={"total_calories": total_calories})
+
+        # Retrieve the top 5 users based on total calories burned
+        leaderboard = Exercise_Goal.objects.select_related("user").order_by("-total_calories")[:5]
+
+        return render(request, "exercise_leaderboard.html", {"leaderboard": leaderboard})
     
