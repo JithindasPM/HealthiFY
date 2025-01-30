@@ -8,6 +8,8 @@ from web.models import Exercise
 from web.models import UserFood
 from web.models import Consultant
 from web.models import Food_Goal
+from web.models import Exercise_Goal_Model
+
 
 class Registration_Form(forms.ModelForm):
     class Meta:
@@ -212,3 +214,15 @@ class Food_Goal_Form(forms.ModelForm):
                                             'placeholder':'Enter your goal in calories . . .',
                                             'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'})
         }   
+
+class Exercise_Goal_Form(forms.ModelForm):
+    class Meta:
+        model=Exercise_Goal_Model
+        fields=['goal']
+        read_only_fields=['user','created_date']
+        widgets = {
+
+            'goal':forms.NumberInput(attrs={'class':'form-control my-1',
+                                            'placeholder':'Enter your goal in calories . . .',
+                                            'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'})
+        }  

@@ -149,8 +149,19 @@ class Food_Goal(models.Model):
 
 class Exercise_Goal(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Each user has one goal entry
-    total_calories = models.PositiveIntegerField(default=0)  # Stores total calories burned
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    total_calories = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.user.username}"
+
+class Exercise_Goal_Model(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    goal=models.PositiveIntegerField(null=True)
+    created_date=models.DateField(auto_now_add=True) 
+
+    class Meta:
+        unique_together = ('user', 'created_date') 
+    
+    def __str__(self):
+        return f"{self.goal}"

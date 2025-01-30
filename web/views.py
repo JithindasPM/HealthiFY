@@ -19,7 +19,7 @@ from web.forms import DateRangeForm
 from web.forms import Userfood_Daterange
 from web.forms import Consultant_Form
 from web.forms import Food_Goal_Form
-
+from web.forms import Exercise_Goal_Form
 
 from web.models import SleepModel
 from web.models import User
@@ -31,6 +31,7 @@ from web.models import UserFood
 from web.models import Consultant
 from web.models import Food_Goal
 from web.models import Exercise_Goal
+from web.models import Exercise_Goal_Model
 
 
 # Create your views here.
@@ -597,27 +598,6 @@ class Food_Goal_Add_View(View):
             request, "food_goal.html",
             {"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today}
         )
-    
-class Add_Userfood(View):
-    def get(self,request,*args,**kwargs):
-        form=UserFoodForm()
-        datas=UserFood.objects.filter(user=request.user)
-        return render(request,"foodcalorie.html",{"form":form,"datas":datas})
-    
-    def post(self,request,*args,**kwargs):
-        form=UserFoodForm(request.POST)
-        if form.is_valid():
-            food=form.cleaned_data["food"]
-            quantity=form.cleaned_data["quantity"]
-            calorie=food.calorie
-            print(calorie)
-            total_calorie=quantity*calorie
-            UserFood.objects.create(**form.cleaned_data,user=request.user,total_calories=total_calorie)
-            form=UserFoodForm()
-            datas=UserFood.objects.filter(user=request.user)
-            return render(request,"foodcalorie.html",{"form":form,"datas":datas})
-        else:
-            print("thankuuu")
 
 
 class Food_Leaderboard_View(View):
@@ -661,3 +641,31 @@ class Exercise_Leaderboard_View(View):
 
         return render(request, "exercise_leaderboard.html", {"leaderboard": leaderboard})
     
+class Exercise_Goal_View(View):
+    def get(self,request,*args,**kwargs):
+        form=Exercise_Goal_Form()
+        today=timezone.now().date()
+        goal=None
+        try:
+            goal=Exercise_Goal_Model.objects.get(user=request.user,created_date=today)
+        except:
+            goal=None
+        total_calories = Exercise_Data.objects.filter(user=request.user, created_date=today).aggregate(Sum('exercise__calories_burned'))['exercise__calories_burned__sum'] or 0
+        return render(request, 'exercise_goal.html', {'form': form, 'goal': goal, 'total_calories': total_calories})
+
+    def post(self,request,*args,**kwargs):
+        form=Exercise_Goal_Form(request.POST)
+        today=timezone.now().date()
+        goal = Exercise_Goal_Model.objects.filter(user=request.user, created_date=today).first()
+        if goal:
+            messages.error(request,"Already, you have set a goal today.")
+            return redirect('exercise_goal')
+        
+        if form.is_valid():
+            Exercise_Goal_Model.objects.create(user=request.user,goal=form.cleaned_data['goal'],created_date=today)
+            messages.success(request,"Goal set successfully")
+            return redirect('exercise_goal') 
+        
+        total_calories = Exercise_Data.objects.filter(user=request.user, created_date=today).aggregate(Sum('exercise__calories_burned'))['exercise__calories_burned__sum'] or 0
+        # goal=Exercise_Goal_Model.objects.get(user=request.user,created_date=today)
+        return render(request, 'exercise_goal.html', {'form': form, 'goal': goal, 'total_calories': total_calories})

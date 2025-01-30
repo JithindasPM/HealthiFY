@@ -49,6 +49,7 @@ from web.views import Consultant_Update_View
 from web.views import Food_Goal_Add_View
 from web.views import Food_Leaderboard_View
 from web.views import Exercise_Leaderboard_View
+from web.views import Exercise_Goal_View
 
 
 urlpatterns = [
@@ -83,6 +84,7 @@ urlpatterns = [
     path('food_goal/', Food_Goal_Add_View.as_view(), name='food_goal'),
     path('food_leaderboard/', Food_Leaderboard_View.as_view(), name='food_leaderboard'),
     path('exercise_leaderboard/', Exercise_Leaderboard_View.as_view(), name='exercise_leaderboard'),
+    path('exercise_goal/', Exercise_Goal_View.as_view(), name='exercise_goal'),
 
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  
