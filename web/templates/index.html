@@ -20,25 +20,26 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         /* navbar  */
 
         .header {
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             padding: 1rem 0;
-        }
-
-        .nav_heading {
-            font-size: 2rem;
-            color: #4299e1;
-            font-weight: 700;
             transition: all 0.3s ease;
         }
 
-        .nav_heading:hover {
-            text-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+        .nav_heading {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .nav_heading_span {
@@ -46,24 +47,20 @@
             color: #2d3748;
             font-weight: 700;
         }
-
         .navbar_link {
             text-decoration: none;
             color: #2d3748;
             font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
-        .navbar_link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #4299e1;
-            transition: width 0.3s ease;
+        .navbar_link:hover {
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+            color: white;
+            transform: translateY(-2px);
         }
 
         .navbar_link:hover:after {
@@ -75,39 +72,84 @@
         /* block1  */
 
         .block1 {
-            background: linear-gradient(rgba(0, 0, 0, .025), rgba(0, 0, 0, .025)), url('https://static.vecteezy.com/system/resources/previews/017/398/144/non_2x/healthcare-services-annual-health-checkup-heart-rate-pulse-measurement-pills-antibiotics-dna-diseases-genes-illustration-on-light-blue-hexagonal-background-health-and-medicine-concept-vector.jpg');
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://static.vecteezy.com/system/resources/previews/017/398/144/non_2x/healthcare-services-annual-health-checkup-heart-rate-pulse-measurement-pills-antibiotics-dna-diseases-genes-illustration-on-light-blue-hexagonal-background-health-and-medicine-concept-vector.jpg');
             background-size: cover;
             background-position: center;
-            padding-bottom: 60px;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);
         }
 
-        .block1 {
-            padding-top: 0px;
-        }
+        /* .block1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);
+        } */
+         .block1{
+            padding-top: 10px;
+         }
 
         .block1_fom {
-            box-shadow: 4px 0px 5px rgb(197, 196, 196);
-            border-radius: 4px;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            padding: 2rem;
+            transition: all 0.3s ease;
         }
+
+        .block1_fom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+        }
+        
 
         .block1_heading {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             text-align: center;cursor: pointer;
             padding-bottom: 20px;
         }
+        .block1_heading {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: .4rem;
+        }
+        .results-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            margin-top: 2rem;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            color: #4299e1;
+            font-weight: 700;
+        }
 
         .block1_text_div{
             text-align: center;
         }
 
-        .block1_text {
-            font-size: 20px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 0 1px white;
-            padding: 10px;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+         .block1_text {
+            font-size: 1.2rem;
+            color: #2d3748;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         .block1_text_span {
@@ -439,6 +481,32 @@
         }
 
         /* footer ends  */
+
+        /* Responsive Design Improvements */
+        @media (max-width: 768px) {
+            .block1 {
+                padding: 2rem 0;
+            }
+
+            .block1_text {
+                font-size: 1rem;
+                padding: 1.5rem;
+            }
+
+            .block1_heading {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
 
     </style>

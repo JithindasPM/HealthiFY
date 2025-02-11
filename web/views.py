@@ -174,7 +174,6 @@ class Profile_View(View):
             return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state,"user_obj":user_obj})
 
 
-
 class Add_Food(View):
     def get(self,request,*args,**kwargs):
         form=FoodForm
@@ -204,6 +203,9 @@ class Update_food(View):
         if form.is_valid():
             form.save()
             return redirect("addfood")
+        else:
+            return render(request,"food.html",{"form":form,"data":data})
+
 
 
 class Delete_Food(View):
@@ -380,7 +382,8 @@ class DeleteSleep(View):
 class Add_Userfood(View):
     def get(self,request,*args,**kwargs):
         form=UserFoodForm()
-        datas=UserFood.objects.filter(user=request.user)
+        today = timezone.now().date()
+        datas=UserFood.objects.filter(user=request.user, created_date=today).order_by('-id')
         return render(request,"foodcalorie.html",{"form":form,"datas":datas})
     
     def post(self,request,*args,**kwargs):
@@ -393,10 +396,9 @@ class Add_Userfood(View):
             total_calorie=quantity*calorie
             UserFood.objects.create(**form.cleaned_data,user=request.user,total_calories=total_calorie)
             form=UserFoodForm()
-            datas=UserFood.objects.filter(user=request.user)
+            today = timezone.now().date()
+            datas=UserFood.objects.filter(user=request.user, created_date=today).order_by('-id')
             return render(request,"foodcalorie.html",{"form":form,"datas":datas})
-        else:
-            print("thankuuu")
         
             
 class Update_userfood(View):
@@ -404,7 +406,8 @@ class Update_userfood(View):
         id=kwargs.get("pk")
         data=UserFood.objects.get(id=id)
         form=UserFoodForm(instance=data)
-        datas=UserFood.objects.filter(user=request.user)
+        today = timezone.now().date()
+        datas=UserFood.objects.filter(user=request.user, created_date=today).order_by('-id')
         return render(request,"foodcalorie.html",{"form":form , "datas":datas })
     
     def post(self,request,*args,**kwargs):
@@ -418,11 +421,12 @@ class Update_userfood(View):
             food_obj=Foods.objects.get(id=id)
             data.total_calories=food_obj.calorie*data.quantity
             data.save()
-            datas=UserFood.objects.filter(user=request.user)
+            today = timezone.now().date()
+            datas=UserFood.objects.filter(user=request.user, created_date=today).order_by('-id')
             form=UserFoodForm() 
-            return render(request,"foodcalorie.html",{"form":form , "datas":datas})
+            return redirect('add_userfood')
         else:
-            print("not updated")
+            return render(request,"foodcalorie.html",{"form":form , "datas":datas})
 
 
 class Delete_userfood(View):

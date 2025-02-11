@@ -57,10 +57,10 @@ class Login_Form(forms.Form):
 
     username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
                                                                             'placeholder':'Username . . .',
-                                                                            'style':'background-color:rgba(255, 255, 255, 0.7)'}))
+                                                                            'style':'background-color:rgba(0, 0, 0, 0.7)'}))
     password=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
                                                                            'placeholder':'Password . . .',
-                                                                           'style':'background-color:rgba(255, 255, 255, 0.7)'}))
+                                                                           'style':'background-color:rgba(0, 0, 0, 0.7)'}))
     
 class BMRForm(forms.Form):
     choice = [
@@ -138,9 +138,9 @@ class UserFoodForm(forms.ModelForm):
         fields = ['food', 'quantity']
         read_only_fields=['user','total_calories']
         widgets = {
-            'food': forms.Select(attrs={'class': 'form-control my-1','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'food': forms.Select(attrs={'class': 'form-control my-1','style':'background-color:rgba(0, 0, 0, 0.3)'}),
 
-            'quantity': forms.TextInput(attrs={'class': 'form-control my-1', 'placeholder': 'Enter how much . . .','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+            'quantity': forms.TextInput(attrs={'class': 'form-control my-1', 'placeholder': 'Enter how much . . .','style':'background-color:rgba(0, 0, 0, 0.3)'}),
         }    
 
 
