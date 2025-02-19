@@ -35,18 +35,18 @@ class UserProfile_Form(forms.ModelForm):
 
             'name':forms.TextInput(attrs={'class':'form-control my-1',
                                           'placeholder': 'Enter your name . . .',
-                                          'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                          'style':'background-color:rgba(255, 255, 255, 0.4)'}),
             'age':forms.NumberInput(attrs={'class':'form-control my-1',
                                             'placeholder':'Enter Your age . . .',
-                                            'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                            'style':'background-color:rgba(255, 255, 255, 0.4)'}),
             'height':forms.NumberInput(attrs={'class':'form-control my-1',
                                                'placeholder':'Enter Your height in cm . . .',
-                                               'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                               'style':'background-color:rgba(255, 255, 255, 0.4)'}),
             'weight':forms.NumberInput(attrs={'class':'form-control my-1',
                                                'placeholder':'Enter your weight in Kg . . .',
-                                               'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                               'style':'background-color:rgba(255, 255, 255, 0.4)'}),
             'gender':forms.Select(attrs={'class':'form-control my-1',
-                                         'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                         'style':'background-color:rgba(255, 255, 255, 0.4)'}),
 
             'profile_picture':forms.FileInput(attrs={'class':'form-control-file',
                                                       'id':'profile_image'})   #id is given because it will be useful for JavaScript interactions or CSS.
@@ -57,7 +57,7 @@ class Login_Form(forms.Form):
 
     username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
                                                                             'placeholder':'Username . . .',
-                                                                            'style':'background-color:rgba(0, 0, 0, 0.7)'}))
+                                                                            'style':'background-color:rgba(255, 255, 255, 0.4)'}))
     password=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
                                                                            'placeholder':'Password . . .',
                                                                            'style':'background-color:rgba(0, 0, 0, 0.7)'}))
@@ -88,9 +88,9 @@ class FoodForm(forms.ModelForm):
         fields="__all__"
         widgets={
                  'name':forms.TextInput(attrs={'class':'form-control my-1',
-                                          'placeholder': 'Foodname . . .','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                          'placeholder': 'Foodname . . .','style':'background-color:rgba(255, 255, 255, 0.5)'}),
                  'calorie':forms.NumberInput(attrs={'class':'form-control my-1',
-                                            'placeholder':'Calorie . . .','style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'}),
+                                            'placeholder':'Calorie . . .','style':'background-color:rgba(255, 255, 255, 0.5)'}),
         }
 
 class Exercise_Form(forms.ModelForm):
