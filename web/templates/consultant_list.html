@@ -4,15 +4,16 @@
 {% block content %}
 
 <style>
+    
     .content {
         padding: 10px 20px 80px;
-        background-color: #f8f9fa;
+        background: #0f172a;
         min-height: 100vh;
     }
 
     .content_heading {
         font-size: 2.5rem;
-        color: #2c3e50;
+        color: white;
         text-align: center;
         margin: 40px 0;
         font-weight: 700;
@@ -31,9 +32,8 @@
         background: linear-gradient(90deg, #3498db, #2ecc71);
         border-radius: 2px;
     }
-
     .consultant-card {
-        background: white;
+        /* background: #2c3e50; */
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -43,7 +43,7 @@
 
     .consultant-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 5px 20px rgba(96, 165, 250, 0.2);
     }
 
     .card_img {
@@ -58,7 +58,7 @@
     }
 
     .card-title {
-        color: #2c3e50;
+        color: wheat;
         font-size: 1.5rem;
         margin-bottom: 15px;
         font-weight: 600;
@@ -66,7 +66,7 @@
 
     .card-text {
         margin: 10px 0;
-        color: #555;
+        color: whitesmoke;
         font-size: 0.95rem;
         line-height: 1.5;
     }
@@ -101,7 +101,7 @@
     <div class="row">
         {% for i in data %}
         {% if i.job == 'trainer' %}
-        <div class="col-md-6">
+        <div class="col-md-6 main">
             <div class="consultant-card">
                 <div class="row g-0">
                     <div class="col-md-6">

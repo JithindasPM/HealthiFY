@@ -165,3 +165,24 @@ class Exercise_Goal_Model(models.Model):
     
     def __str__(self):
         return f"{self.goal}"
+    
+
+class Community(models.Model):
+    name = models.CharField(max_length=255)
+    description=models.TextField(null=True,blank=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_community')
+    members = models.ManyToManyField(User, related_name='communities')
+    created_date=models.DateField(auto_now_add=True)  
+    updated_date=models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+class Chat(models.Model):
+    community = models.ForeignKey('Community', on_delete=models.CASCADE, related_name='messages') 
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages') 
+    message = models.TextField() 
+    timestamp = models.DateTimeField(auto_now_add=True)  
+
+    def __str__(self):
+        return f"{self.sender.username}: {self.message[:30]}..." 

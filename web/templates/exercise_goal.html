@@ -11,23 +11,22 @@
 </header>
 <style>
     .profile-container {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        /* min-height: 100vh; */
+        background: #0f172a;
         padding: 40px 0;
     }
 
     .form-card {
-        background: white;
+        background: #0f172a;
         border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(96, 165, 250, 0.2);
         padding: 30px;
         margin: 20px 0;
     }
 
     .stats-card {
-        background: white;
+        background: #0f172a;
         border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0 10px 30px rgba(96, 165, 250, 0.2); */
         padding: 30px;
         margin: 20px 0;
         text-align: center;
@@ -51,7 +50,7 @@
     }
 
     .submit-btn {
-        background: linear-gradient(45deg, #4CAF50, #45a049);
+        background: #60a5fa;
         color: white;
         border: none;
         border-radius: 8px;
@@ -66,7 +65,7 @@
 
     .submit-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        background: #4392f4;
     }
 
     .stat-value {
@@ -111,6 +110,51 @@
         font-size: 1.5rem;
         color: #f44336;
     }
+
+    .progress-ring-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 20px auto;
+    }
+
+    .progress-ring {
+        transform: rotate(-90deg);
+    }
+
+    .progress-ring__circle {
+        transition: stroke-dashoffset 0.5s ease-in-out;
+        stroke-linecap: round;
+    }
+
+    .progress-ring__background {
+        stroke: rgba(255, 255, 255, 0.4);
+    }
+
+    .progress-values {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .percentage {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .actual-values {
+        font-size: 0.9rem;
+        color: aqua;
+        margin: 5px 0;
+    }
+
+    .remaining {
+        font-size: 0.8rem;
+        color: #4CAF50;
+    }
 </style>
 
 <div class="profile-container">
@@ -145,22 +189,165 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="stats-card">
-                    <div class="mb-4">
-                        <div class="stat-label">Today's Calories</div>
-                        <div class="stat-value">{{total_calories}}</div>
-                    </div>
-
-                    <div>
-                        <div class="stat-label">Today's Goal</div>
-                        {% if goal %}
-                        <div class="goal-value">{{ goal }}</div>
-                        {% else %}
-                        <div class="no-goal">No goal set</div>
-                        {% endif %}
+                    <div class="progress-ring-container">
+                        <svg class="progress-ring" width="200" height="200">
+                            <circle class="progress-ring__background" stroke-width="15" fill="transparent" r="85"
+                                cx="100" cy="100" />
+                            <circle class="progress-ring__circle" stroke-width="15" fill="transparent" r="85" cx="100"
+                                cy="100" />
+                        </svg>
+                        <div class="progress-values">
+                            <p class="percentage">0%</p>
+                            <p class="actual-values">0 / 0</p>
+                            <p class="remaining">0 calories remaining</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
+<!-- <script>
+    class CalorieProgressRing {
+    constructor(totalCalories, goal) {
+        this.circle = document.querySelector('.progress-ring__circle');
+        this.percentage = document.querySelector('.percentage');
+        this.actualValues = document.querySelector('.actual-values');
+        this.remaining = document.querySelector('.remaining');
+
+        this.radius = this.circle.r.baseVal.value;
+        this.circumference = 2 * Math.PI * this.radius;
+
+        // Set up circle
+        this.circle.style.strokeDasharray = `${this.circumference} ${this.circumference}`;
+        this.circle.style.strokeDashoffset = this.circumference;
+
+        this.updateProgress(totalCalories, goal);
+    }
+
+    getColor(percentage) {
+        if (percentage <= 75) return '#00f7ff';  // Fluorescent Cyan
+        if (percentage <= 90) return '#fffc00';  // Fluorescent Yellow
+        return '#ff0055';  // Fluorescent Pink-Red
+    }
+
+    updateProgress(totalCalories, goal) {
+        // Check if goal is valid (greater than 0)
+        if (!goal || goal <= 0) {
+            // Handle case where no goal is set
+            this.circle.style.strokeDashoffset = this.circumference;
+            this.circle.style.stroke = '#808080'; // Gray color when no goal
+            
+            // Update text values for no goal
+            this.percentage.textContent = `0%`;
+            this.actualValues.textContent = `${totalCalories} / No goal set`;
+            this.remaining.textContent = 'Please set a goal';
+            this.remaining.style.color = '#808080';
+            return;
+        }
+        
+        // Normal case when goal is set
+        const percentage = Math.min((totalCalories / goal) * 100, 100);
+        const offset = this.circumference - (percentage / 100 * this.circumference);
+
+        // Update circle
+        this.circle.style.strokeDashoffset = offset;
+        this.circle.style.stroke = this.getColor(percentage);
+
+        // Update text values
+        this.percentage.textContent = `${Math.round(percentage)}%`;
+        this.actualValues.textContent = `${totalCalories} / ${goal}`;
+
+        const remaining = goal - totalCalories;
+        this.remaining.textContent = remaining > 0
+            ? `${Math.round(remaining)} calories remaining`
+            : 'Daily goal reached!';
+        this.remaining.style.color = this.getColor(percentage);
+    }
+}
+</script> -->
+
+<script>
+    class CalorieProgressRing {
+        constructor(totalCalories, goal) {
+            this.circle = document.querySelector('.progress-ring__circle');
+            this.percentage = document.querySelector('.percentage');
+            this.actualValues = document.querySelector('.actual-values');
+            this.remaining = document.querySelector('.remaining');
+
+            this.radius = this.circle.r.baseVal.value;
+            this.circumference = 2 * Math.PI * this.radius;
+
+            // Set up circle
+            this.circle.style.strokeDasharray = `${this.circumference} ${this.circumference}`;
+            this.circle.style.strokeDashoffset = this.circumference;
+
+            this.updateProgress(totalCalories, goal);
+        }
+
+        getColor(percentage) {
+            if (percentage <= 75) return '#00f7ff';  // Fluorescent Cyan
+            if (percentage <= 90) return '#fffc00';  // Fluorescent Yellow
+            return '#ff0055';  // Fluorescent Pink-Red
+        }
+
+        updateProgress(totalCalories, goal) {
+            // Check if goal is valid (greater than 0)
+            if (!goal || goal <= 0) {
+                // Handle case where no goal is set
+                this.circle.style.strokeDashoffset = this.circumference;
+                this.circle.style.stroke = '#808080'; // Gray color when no goal
+                
+                // Update text values for no goal
+                this.percentage.textContent = `0%`;
+                this.actualValues.textContent = `${totalCalories} / No goal set`;
+                this.remaining.textContent = 'Please set a goal';
+                this.remaining.style.color = '#808080';
+                return;
+            }
+            
+            // Normal case when goal is set
+            const percentage = Math.min((totalCalories / goal) * 100, 100);
+            const offset = this.circumference - (percentage / 100 * this.circumference);
+
+            // Update circle
+            this.circle.style.strokeDashoffset = offset;
+            this.circle.style.stroke = this.getColor(percentage);
+
+            // Update text values
+            this.percentage.textContent = `${Math.round(percentage)}%`;
+            this.actualValues.textContent = `${totalCalories} / ${goal}`;
+
+            const remaining = goal - totalCalories;
+            this.remaining.textContent = remaining > 0
+                ? `${Math.round(remaining)} calories remaining`
+                : 'Daily goal reached!';
+            this.remaining.style.color = this.getColor(percentage);
+        }
+    }
+
+    // Initialize when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Parse values from template with error handling
+        try {
+            let totalCalories = parseInt("{{ total_calories|default:'0' }}", 10);
+            let goal = parseInt("{{ goal|default:'0' }}", 10);
+            
+            // Verify the values are valid numbers
+            totalCalories = isNaN(totalCalories) ? 0 : totalCalories;
+            goal = isNaN(goal) ? 0 : goal;
+            
+            console.log("Initializing with:", { totalCalories, goal });
+            
+            // Create the progress ring
+            const progressRing = new CalorieProgressRing(totalCalories, goal);
+        } catch (error) {
+            console.error("Error initializing calorie tracker:", error);
+            // Fallback initialization with zeros if there's an error
+            const progressRing = new CalorieProgressRing(0, 0);
+        }
+    });
+</script>
 {% endblock content %}

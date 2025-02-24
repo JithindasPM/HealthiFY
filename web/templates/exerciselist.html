@@ -18,35 +18,42 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Navbar Styles */
+        body {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
 
+        /* Navbar Styles */
         .header {
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(12px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            padding: 0.75rem 0;
-            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(66, 153, 225, 0.1);
+            padding: 1rem 0;
         }
 
         .nav_heading {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            color: #4299e1;
+            font-size: 2rem;
+            color: #60a5fa;
             font-weight: 700;
             transition: all 0.3s ease;
         }
 
+        .nav_heading:hover {
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
+        }
+
         .nav_heading_span {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            color: #2d3748;
+            font-size: 2rem;
+            color: #e2e8f0;
             font-weight: 700;
         }
 
         .navbar_link {
             text-decoration: none;
-            color: #2d3748;
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #e2e8f0;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 0;
         }
 
         .navbar_link:after {
@@ -54,30 +61,14 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
-            background-color: #4299e1;
+            background-color: #60a5fa;
             transition: width 0.3s ease;
         }
 
         .navbar_link:hover:after {
             width: 100%;
-        }
-
-        .navbar-nav {
-            align-items: center;
-        }
-
-        .profile-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
         }
 
         @media (max-width: 991px) {
@@ -137,7 +128,7 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: rgb(7, 8, 28);
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(98, 98, 98, 0.1);
@@ -146,15 +137,15 @@
             overflow: hidden;
             transition: box-shadow 0.3s ease;
         }
-
-        .card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .card:hover{
+            box-shadow: 0 0 5px rgb(19, 117, 253),
+                        0 0 5px #0f172a,
+                        0 0 10px #0f172a;
         }
 
         .card img {
             width: 100%;
             height: auto;
-            box-shadow: 0px 1px 18px rgb(175, 175, 175);
         }
 
         .card-body {
@@ -164,11 +155,12 @@
         .card-title {
             font-size: 1.5em;
             margin-bottom: 10px;
+            color: white;
         }
 
         .card-text {
             margin-bottom: 10px;
-            color: #555;
+            color: rgba(255, 255, 255, 0.625);
         }
 
         .card-text span {
@@ -293,7 +285,7 @@
 
     <div class="container block1">
         <h1 class="block1_heading">Exercise List</h1>
-        <a href="{%url 'exsummary' %}"><button class="btn btn-outline-dark"><b>Track Progress</b></button></a>
+        <a href="{%url 'exsummary' %}"><button class="btn btn-outline-light"><b>Track Progress</b></button></a>
     </div>
 
     <!-- block 1 ends  -->

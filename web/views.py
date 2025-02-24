@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import View
 from django.contrib.auth import login, logout,authenticate
 from datetime import timedelta
@@ -20,6 +20,8 @@ from web.forms import Userfood_Daterange
 from web.forms import Consultant_Form
 from web.forms import Food_Goal_Form
 from web.forms import Exercise_Goal_Form
+from web.forms import Community_Form
+from web.forms import Chat_Form
 
 from web.models import SleepModel
 from web.models import User
@@ -32,6 +34,8 @@ from web.models import Consultant
 from web.models import Food_Goal
 from web.models import Exercise_Goal
 from web.models import Exercise_Goal_Model
+from web.models import Community
+from web.models import Chat
 
 
 # Create your views here.
@@ -607,7 +611,7 @@ class Food_Goal_Add_View(View):
 class Food_Leaderboard_View(View):
     def get(self, request, *args, **kwargs):
         # Get total calories per user and order by total_calories in descending order
-        user_calories = UserFood.objects.values('user__username').annotate(total_calories=Sum('total_calories')).order_by('-total_calories')
+        user_calories = UserFood.objects.values('user__username').annotate(total_calories=Sum('total_calories')).order_by('-total_calories')[:5]
 
         # Assign ranks dynamically (users with same points share the same rank)
         ranked_users = []
@@ -673,3 +677,132 @@ class Exercise_Goal_View(View):
         total_calories = Exercise_Data.objects.filter(user=request.user, created_date=today).aggregate(Sum('exercise__calories_burned'))['exercise__calories_burned__sum'] or 0
         # goal=Exercise_Goal_Model.objects.get(user=request.user,created_date=today)
         return render(request, 'exercise_goal.html', {'form': form, 'goal': goal, 'total_calories': total_calories})
+    
+from django.db.models import Q  
+
+class Community_Add_View(View):
+    def get(self, request, *args, **kwargs):
+        form = Community_Form(user=request.user)
+
+        # Get communities where the user is the creator OR a member
+        communities = Community.objects.filter(Q(creator=request.user) | Q(members=request.user)).distinct()
+
+        return render(request, 'community_add.html', {'form': form, 'communities': communities})
+
+    def post(self, request, *args, **kwargs):
+        form = Community_Form(request.POST, user=request.user)
+        if form.is_valid():
+            community = form.save(commit=False)
+            community.creator = request.user
+            community.save()
+            form.save_m2m()  # Save many-to-many members
+            form = Community_Form(user=request.user)  # Reset the form
+
+        # Get updated communities list
+        communities = Community.objects.filter(Q(creator=request.user) | Q(members=request.user)).distinct()
+
+        return render(request, 'community_add.html', {'form': form, 'communities': communities})
+    
+class Community_Update_View(View):
+    def get(self, request, *args, **kwargs):
+        id=kwargs.get('pk')
+        data=Community.objects.get(id=id)
+        form = Community_Form(instance=data, user=request.user)
+        communities = Community.objects.filter(Q(creator=request.user) | Q(members=request.user)).distinct()
+        return render(request, 'community_add.html', {'form': form, 'communities': communities})
+    def post(self, request, *args, **kwargs):
+        id=kwargs.get('pk')
+        data=Community.objects.get(id=id)
+        form = Community_Form(request.POST,instance=data, user=request.user)
+        if form.is_valid():
+            form.save()
+            form = Community_Form(user=request.user)
+            communities = Community.objects.filter(Q(creator=request.user) | Q(members=request.user)).distinct()
+        return redirect('community_add')
+    
+class Community_Delete_View(View):
+    def get(self, request, *args, **kwargs):
+        id=kwargs.get('pk')
+        Community.objects.get(id=id).delete()
+        return redirect('community_add')
+    
+class Community_Leave_View(View):
+    def get(self, request, *args, **kwargs):
+        id = kwargs.get('pk')
+        community = Community.objects.get(id=id)
+
+        # Ensure the user is a member before removing them
+        if request.user in community.members.all():
+            community.members.remove(request.user)
+
+        return redirect('community_add') 
+    
+
+class Community_Detail_View(View):
+    def get(self, request, *args, **kwargs):
+        id = kwargs.get('pk')
+        community = get_object_or_404(Community, id=id)
+        creator=community.creator
+        member=community.members.all()
+        form = Chat_Form()
+        chats = Chat.objects.filter(community=community).order_by("timestamp")  # Fetch messages
+        return render(request, 'community.html', {'community': community, 'form': form, 'chats': chats,'creator':creator,'member':member})
+
+    def post(self, request, *args, **kwargs):
+        id = kwargs.get('pk')
+        community = get_object_or_404(Community, id=id)
+        creator=community.creator
+        member=community.members.all()
+        form = Chat_Form(request.POST)
+
+        if form.is_valid():
+            chat = form.save(commit=False)
+            chat.community = community  # Assign community object
+            chat.sender = request.user
+            chat.save()
+            return redirect('community_detail', pk=community.id)  # Redirect to avoid duplicate form submission
+
+        chats = Chat.objects.filter(community=community).order_by("timestamp")  # Fetch messages again
+        return render(request, 'community.html', {'community': community, 'form': form, 'chats': chats,'creator':creator,'member':member})
+
+
+class DeleteMessageView(View):
+    def post(self, request, message_id):
+        """
+        Handle message deletion in a secure way.
+        """
+        message = get_object_or_404(Chat, id=message_id)
+
+        if message.sender == request.user:
+            message.delete()
+
+        return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+
+from django.db.models import Sum, F
+
+class CommunityLeaderboardView(View):
+    template_name = "community_leaderboard.html"
+
+    def get(self, request, community_id):
+        community = get_object_or_404(Community, id=community_id)
+        
+        # Get creator and members
+        users = community.members.all() | User.objects.filter(id=community.creator.id)  
+
+        # Fetch total calories for each user
+        leaderboard = (
+            UserFood.objects.filter(user__in=users)
+            .values(username=F("user__username"))
+            .annotate(total_calories=Sum("total_calories"))
+            .order_by("-total_calories")
+        )
+
+        context = {"community": community, "leaderboard": leaderboard}
+        return render(request, self.template_name, context)
+
+
+
+
+
+

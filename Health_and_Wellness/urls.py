@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.conf import settings  
 from django.conf.urls.static import static 
 
@@ -50,6 +50,14 @@ from web.views import Food_Goal_Add_View
 from web.views import Food_Leaderboard_View
 from web.views import Exercise_Leaderboard_View
 from web.views import Exercise_Goal_View
+from web.views import Community_Add_View
+from web.views import Community_Update_View
+from web.views import Community_Delete_View
+from web.views import Community_Leave_View
+from web.views import Community_Detail_View
+from web.views import DeleteMessageView
+from web.views import CommunityLeaderboardView
+
 
 
 urlpatterns = [
@@ -85,6 +93,14 @@ urlpatterns = [
     path('food_leaderboard/', Food_Leaderboard_View.as_view(), name='food_leaderboard'),
     path('exercise_leaderboard/', Exercise_Leaderboard_View.as_view(), name='exercise_leaderboard'),
     path('exercise_goal/', Exercise_Goal_View.as_view(), name='exercise_goal'),
+    path('select2/', include('django_select2.urls')),
+    path('community_add/', Community_Add_View.as_view(), name='community_add'),
+    path('community_update/<int:pk>',Community_Update_View.as_view(),name='community_update'),
+    path('community_delete/<int:pk>',Community_Delete_View.as_view(),name='community_delete'),
+    path('community_leave/<int:pk>',Community_Leave_View.as_view(),name='community_leave'),
+    path('community_detail/<int:pk>',Community_Detail_View.as_view(),name='community_detail'),
+    path('delete_message/<int:message_id>/', DeleteMessageView.as_view(), name='delete_message'),
+    path('community/<int:community_id>/leaderboard/', CommunityLeaderboardView.as_view(), name='community_leaderboard'),
 
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

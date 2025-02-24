@@ -3,6 +3,7 @@
 
 {% block content %}
 <style>
+    
     .summary-container {
         max-width: 1200px;
         margin: 2rem auto;
@@ -10,7 +11,7 @@
     }
 
     .section-title {
-        color: #2d3748;
+        color: white;
         font-size: 2rem;
         font-weight: 600;
         margin: 2rem 0;
@@ -23,7 +24,7 @@
     .summary-table {
         width: 100%;
         border-collapse: collapse;
-        background: white;
+        /* background: white; */
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -42,24 +43,21 @@
         border: none;
     }
 
-    .summary-table tbody tr:nth-child(even) {
-        background-color: #f7fafc;
-    }
-
     .summary-table tbody tr:hover {
         background-color: #ebf8ff;
+        color: black;
         transition: background-color 0.3s ease;
     }
 
     .total-row {
         background-color: #2c5282 !important;
-        color: white;
+        /* color: white; */
         font-weight: bold;
     }
 
     /* Form Styling */
     .date-range-form {
-        background: white;
+        background: #192f4a;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -83,7 +81,7 @@
         display: block;
         font-weight: 600;
         margin-bottom: 0.5rem;
-        color: #2d3748;
+        color: white;
     }
 
     .date-range-form input {
@@ -140,7 +138,9 @@
 <div class="summary-container">
     <!-- Today's Summary Section -->
     <h1 class="section-title">Today's Exercise Summary</h1>
+    
     <table class="summary-table">
+        {% if todaysummary %}
         <thead>
             <tr>
                 <th>Exercise Name</th>
@@ -158,27 +158,41 @@
                 <th>Total</th>
                 <th>{{today_calorie}}</th>
             </tr>
+            {% else %}
+            <tr>
+                <p style="text-align: center;">No exercise data available for today.</p>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 
     <!-- Date Range Form Section -->
-    <div class="date-range-form">
-        <h1 class="section-title">Select Date Range</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="submit-btn">Submit</button>
-        </form>
-        {% if error %}
-        <div class="error-message">
-            {{ error }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="date-range-form">
+                    <h1 class="section-title">Select Date Range</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                    {% if error %}
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        {% endif %}
     </div>
+    
 
     <!-- Exercise Summary Section -->
     <h1 class="section-title">Exercise Summary</h1>
     <table class="summary-table">
+        {% if summary %}
         <thead>
             <tr>
                 <th>Date</th>
@@ -199,6 +213,11 @@
                 <th>Total</th>
                 <th>{{total_calorie}}</th>
             </tr>
+            {% else %}
+            <tr>
+                <p style="text-align: center;">Select Date Range</p>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 </div>

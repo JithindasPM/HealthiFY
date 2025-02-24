@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django_select2.forms import ModelSelect2MultipleWidget
 
 from web.models import User
 from web.models import UserProfile_Model
@@ -9,6 +10,8 @@ from web.models import UserFood
 from web.models import Consultant
 from web.models import Food_Goal
 from web.models import Exercise_Goal_Model
+from web.models import Community
+from web.models import Chat
 
 
 class Registration_Form(forms.ModelForm):
@@ -226,3 +229,47 @@ class Exercise_Goal_Form(forms.ModelForm):
                                             'placeholder':'Enter your goal in calories . . .',
                                             'style':'background-color:rgba(255, 255, 255, 0.75);border:2px solid rgba(0, 0, 0, 0.1)'})
         }  
+
+
+from django import forms
+from django.contrib.auth.models import User
+from django_select2.forms import Select2MultipleWidget
+from .models import Community
+
+class Community_Form(forms.ModelForm):
+    class Meta:
+        model = Community
+        fields = ['name', 'members','description']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control my-1',
+                'placeholder': 'Community name . . .',
+                'style': 'background-color:rgba(0, 0, 0, .95); border:2px solid rgba(0, 0, 0, 0.1)'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter description...',
+                'rows': 3,  # Adjust number of visible rows
+                'style': 'resize: none; height: 80px;'  # Prevent resizing and set a fixed height
+            }),
+            'members': Select2MultipleWidget(attrs={'class': 'form-control'})  # Use Select2MultipleWidget
+        }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if user:
+            self.fields['members'].queryset = User.objects.exclude(id=user.id)
+
+class Chat_Form(forms.ModelForm):
+    class Meta:
+        model=Chat
+        fields=['message']
+        widgets = {
+            'message': forms.Textarea(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Type your message...',
+                'rows': 3
+            }),
+        }

@@ -1,4 +1,4 @@
-{% extends "profile_update.html" %}
+{% extends 'profile_update.html' %}
 {% load static %}
 
 {% block content %}
@@ -173,7 +173,7 @@
 
 
 <div class="leaderboard-section">
-    <h2 class="leaderboard-title">LEADERBOARD</h2>
+    <h2 class="leaderboard-title">{{ community.name }}</h2>
     
     <table class="leaderboard-table">
         <thead>
@@ -184,17 +184,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for user in ranked_users %}
+            {% for entry in leaderboard %}
                 <tr>
                     <td>
-                        <span class="rank-badge">{{ user.rank }}</span>
+                        <span class="rank-badge">{{ forloop.counter }}</span>
                     </td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.total_calories }}</td>
+                    <td>{{ entry.username }}</td>
+                    <td>{{ entry.total_calories }}</td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="3" class="no-data">Start your health journey today! 🌟</td>
+                    <td colspan="3" class="no-data">No members in this community yet! 🌟</td>
                 </tr>
             {% endfor %}
         </tbody>

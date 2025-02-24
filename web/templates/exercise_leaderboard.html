@@ -3,41 +3,9 @@
 
 {% block content %}
 <style>
-    .leaderboard-section {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 40px 20px;
-        min-height: 100vh;
-    }
-
-    .leaderboard-container {
-        max-width: 800px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-    }
-
-    .leaderboard-title {
-        font-size: 2.5rem;
-        color: #333;
-        margin-bottom: 30px;
-        font-weight: bold;
-        text-align: center;
-        letter-spacing: 2px;
-    }
-
-    .leaderboard-table {
-        width: 100%;
-        margin: 20px auto;
-        border-collapse: separate;
-        border-spacing: 0 10px;
-        text-align: center;
-    }
 
     .leaderboard-table th {
         background-color: #3498db;
-        color: white;
         padding: 15px;
         font-weight: bold;
         text-transform: uppercase;
@@ -46,7 +14,6 @@
     }
 
     .leaderboard-table tr {
-        background: #f8f9fa;
         transition: transform 0.3s ease;
     }
 
@@ -59,6 +26,81 @@
         padding: 20px 15px;
         border: none;
         text-align: center;
+    }
+
+
+
+
+    .leaderboard-section {
+        background-color: rgba(96, 165, 250, 0.15);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        padding: 40px 30px;
+        margin: 30px auto;
+        max-width: 900px;
+        box-shadow: 0 10px 10px rgba(115, 175, 248, 0.2);
+    }
+
+    .leaderboard-title {
+        color: white;
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .leaderboard-title:before,
+    .leaderboard-title:after {
+        content: '❤️';
+        font-size: 2rem;
+    }
+
+    .leaderboard-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 15px;
+        text-align: center;
+    }
+
+    .leaderboard-table thead tr {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+    }
+
+    .leaderboard-table th {
+        color: white;
+        padding: 20px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .leaderboard-table tbody tr {
+        background: white;
+        transform: scale(1);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .leaderboard-table tbody tr:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .leaderboard-table td {
+        padding: 20px;
+        font-size: 1.1rem;
+        color: black;
     }
 
     .rank {
@@ -144,7 +186,7 @@
                         {{ entry.user.username }}
                     </div>
                 </td>
-                <td class="calories">{{ entry.total_calories }} kcal</td>
+                <td class="calories">{{ entry.total_calories }} pts</td>
             </tr>
             {% empty %}
             <tr>
