@@ -1,6 +1,4 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django_select2.forms import ModelSelect2MultipleWidget
 
 from web.models import User
 from web.models import UserProfile_Model
@@ -12,6 +10,9 @@ from web.models import Food_Goal
 from web.models import Exercise_Goal_Model
 from web.models import Community
 from web.models import Chat
+from web.models import Community
+
+from django_select2.forms import Select2MultipleWidget
 
 
 class Registration_Form(forms.ModelForm):
@@ -141,10 +142,10 @@ class UserFoodForm(forms.ModelForm):
         fields = ['food', 'quantity']
         read_only_fields=['user','total_calories']
         widgets = {
-            'food': forms.Select(attrs={'class': 'form-control my-1','style':'background-color:rgba(0, 0, 0, 0.3)'}),
+            'food': forms.Select(attrs={'class': 'form-control my-1'}),
 
-            'quantity': forms.TextInput(attrs={'class': 'form-control my-1', 'placeholder': 'Enter how much . . .','style':'background-color:rgba(0, 0, 0, 0.3)'}),
-        }    
+            'quantity': forms.TextInput(attrs={'class': 'form-control my-1', 'placeholder': 'Enter how much . . .'}),
+        }  
 
 
 class Userfood_Daterange(forms.Form):
@@ -231,11 +232,6 @@ class Exercise_Goal_Form(forms.ModelForm):
         }  
 
 
-from django import forms
-from django.contrib.auth.models import User
-from django_select2.forms import Select2MultipleWidget
-from .models import Community
-
 class Community_Form(forms.ModelForm):
     class Meta:
         model = Community
@@ -273,3 +269,13 @@ class Chat_Form(forms.ModelForm):
                 'rows': 3
             }),
         }
+    
+class Groq_Chat_Form(forms.Form):
+    text = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control my-1',
+            'placeholder': 'Ask anything . . .',
+            'style': 'background-color:rgba(255, 255, 255, 0.4); height: 100px;',  # Adjust height
+            'rows': 3,  # Set initial rows
+        })
+    )
