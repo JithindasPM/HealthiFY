@@ -109,29 +109,36 @@ class Update_UserProfile_View(View):
             form = UserProfile_Form(instance=data)
             return render(request, 'profile_update.html', {'form': form,'data':data})
         
+from django.core.exceptions import ObjectDoesNotExist
+
 class Login_View(View):
     def get(Self,request,*args,**kwargs):
         form=Login_Form()
-        return render(request,'login.html',{'form':form})
-    
-    def post(self,request,*args,**kwargs):
-        form=Login_Form(request.POST)
+        return render(request,'login.html',{'form':form}) 
+    def post(self, request, *args, **kwargs):
+        form = Login_Form(request.POST)
         if form.is_valid():
-            u_name=form.cleaned_data.get('username')
-            pswd=form.cleaned_data.get('password')
+            u_name = form.cleaned_data.get('username')
+            pswd = form.cleaned_data.get('password')
 
-            user_obj=authenticate(username=u_name,password=pswd)
+            user_obj = authenticate(username=u_name, password=pswd)
             if user_obj:
-                login(request,user_obj)
-                user_obj=UserProfile_Model.objects.get(user=request.user)
-                if user_obj.age is None or user_obj.height is None or user_obj.weight is None or user_obj.gender is None:
-                    id=user_obj.id 
-                    return redirect('upuser',pk=id)
-                else:
-                    return redirect('profile')
+                login(request, user_obj)
+
+                try:
+                    user_profile = UserProfile_Model.objects.get(user=request.user)
+                    if user_profile.age is None or user_profile.height is None or user_profile.weight is None or user_profile.gender is None:
+                        id = user_profile.id
+                        return redirect('upuser', pk=id)
+                    else:
+                        return redirect('profile')
+                except ObjectDoesNotExist:
+                    # If no UserProfile_Model exists, you can redirect to a page to create it or handle the exception as needed
+                    return redirect('profile')  # You can change this URL name to wherever the user should be directed to create their profile
+
             else:
-                form=Login_Form()
-                return render(request,'login.html',{'form':form})  
+                form = Login_Form()
+                return render(request, 'login.html', {'form': form})
 
             
 class Logout_View(View):
@@ -176,6 +183,7 @@ class Profile_View(View):
             else:
                 state='Obese'
             return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state,"user_obj":user_obj})
+
 
 
 class Add_Food(View):
@@ -551,6 +559,41 @@ class Consultant_List_View(View):
         return render(request,'consultant_list.html',{'data':data})
     
 
+# data=UserProfile_Model.objects.get(user_id=request.user)
+#         height = data.height
+#         weight = data.weight
+#         age = data.age
+#         gender = data.gender
+
+#         user_obj=UserProfile_Model.objects.get(user_id=request.user.id)
+
+#         if height is None or weight is None or age is None:
+#             return render(request,'profile.html',{'data':data})
+#         else:
+#             height = float(height)
+#             weight = float(weight)
+#             age = int(age)
+#             bmr = None
+#             bmi = None
+#             state=None
+#             if gender == 'male':
+#                 bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+#             else:
+#                 bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+
+#             height_in_meters = height / 100  # convert cm to meters
+#             bmi = weight / (height_in_meters ** 2)
+#             if bmi is None:
+#                 state=None
+#             elif bmi <= 18.4:
+#                 state='Underweight'
+#             elif 18.5 <= bmi <= 24.9:
+#                 state='Normal weight'
+#             elif 25 <= bmi <= 39.9:
+#                 state='Overweight'
+#             else:
+#                 state='Obese'
+#             return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state,"user_obj":user_obj})
 class Food_Goal_Add_View(View):
     def get(self, request, *args, **kwargs):
         form = Food_Goal_Form()
@@ -570,10 +613,42 @@ class Food_Goal_Add_View(View):
 
         totalcalorie_today = sum(calorie.total_calories for calorie in datas)
 
-        return render(
-            request, "food_goal.html",
-            {"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today, "goals": goals}
-        )
+        data=UserProfile_Model.objects.get(user_id=request.user)
+        height = data.height
+        weight = data.weight
+        age = data.age
+        gender = data.gender
+
+        if height is None or weight is None or age is None:
+            return render(request,'profile.html',{'data':data})
+        else:
+            height = float(height)
+            weight = float(weight)
+            age = int(age)
+            bmr = None
+            bmi = None
+            state=None
+            if gender == 'male':
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+            else:
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+
+            height_in_meters = height / 100  # convert cm to meters
+            bmi = weight / (height_in_meters ** 2)
+            if bmi is None:
+                state=None
+            elif bmi <= 18.4:
+                state='Underweight'
+            elif 18.5 <= bmi <= 24.9:
+                state='Normal weight'
+            elif 25 <= bmi <= 39.9:
+                state='Overweight'
+            else:
+                state='Obese'
+
+        return render(request, "food_goal.html",{"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today, "goals": goals,'data':data,'bmr':bmr,'bmi':bmi,'state':state})
+#             return render(request,'profile.html',{'data':data,'bmr':bmr,'bmi':bmi,'state':state})
+
 
     def post(self, request, *args, **kwargs):
         form = Food_Goal_Form(request.POST)
@@ -603,9 +678,42 @@ class Food_Goal_Add_View(View):
 
         totalcalorie_today = sum(calorie.total_calories for calorie in datas)
 
+        data=UserProfile_Model.objects.get(user_id=request.user)
+        height = data.height
+        weight = data.weight
+        age = data.age
+        gender = data.gender
+
+        if height is None or weight is None or age is None:
+            return render(request,'profile.html',{'data':data})
+        else:
+            height = float(height)
+            weight = float(weight)
+            age = int(age)
+            bmr = None
+            bmi = None
+            state=None
+            if gender == 'male':
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+            else:
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+
+            height_in_meters = height / 100  # convert cm to meters
+            bmi = weight / (height_in_meters ** 2)
+            if bmi is None:
+                state=None
+            elif bmi <= 18.4:
+                state='Underweight'
+            elif 18.5 <= bmi <= 24.9:
+                state='Normal weight'
+            elif 25 <= bmi <= 39.9:
+                state='Overweight'
+            else:
+                state='Obese'
+
         return render(
             request, "food_goal.html",
-            {"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today}
+            {"form": form, "datas": datas, "totalcalorie_today": totalcalorie_today,'data':data,'bmr':bmr,'bmi':bmi,'state':state}
         )
 
 

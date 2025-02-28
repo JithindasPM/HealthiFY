@@ -1,3 +1,8 @@
+{% extends 'profile_update.html' %}
+{% load static %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,69 +19,18 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            background-color: #f4f4f4;
-        }
-
-         /* navbar  */
-
-         /* Navbar Styles */
-
-        .header {
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-        }
-
-        .nav_heading {
-            font-size: 2rem;
-            color: #4299e1;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .nav_heading:hover {
-            text-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
-        }
-
-        .nav_heading_span {
-            font-size: 2rem;
-            color: #2d3748;
-            font-weight: 700;
-        }
-
-        .navbar_link {
-            text-decoration: none;
-            color: #2d3748;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .navbar_link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #4299e1;
-            transition: width 0.3s ease;
-        }
-
-        .navbar_link:hover:after {
-            width: 100%;
-        }
-
-        /* navbar  ends */
 
         .white {
             background-color: white;
+        }
+        body{
+            background: #0f172a;
+            color: #e2e8f0;
         }
 
         .body {
@@ -88,11 +42,12 @@
 
         h1 {
             color: #333;
+            color: white;
         }
 
         p {
             font-size: 18px;
-            color: #555;
+            color: #888383;
         }
 
         .img1 {
@@ -103,8 +58,7 @@
         .button {
             padding: 10px 20px;
             font-size: 18px;
-            color: #fff;
-            background-color: #28a745;
+            color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -137,14 +91,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
         }
 
         .main-container {
             width: 100%;
             height: 240px;
-            background-color: orange;
-            background-color: #f4f4f4;
         }
 
         /* progress indicator */
@@ -190,7 +141,6 @@
             width: 190px;
             height: 190px;
             background-color: black;
-            background-color: #f4f4f4;
             border-radius: 50%;
             z-index: 5;
         }
@@ -225,36 +175,14 @@
             margin-right: 0;
             padding-bottom: 6px;
         }
+        .crd{
+            background: #0f172a;
+        }
     </style>
 
 </head>
 
 <body>
-
-    <!-- navbar starts -->
-
-    <div class="container-fluid sticky-top">
-        <header>
-            <nav class="navbar navbar-expand-lg header">
-                <div class="container">
-                    <a class="navbar-brand" href="{% url 'profile' %}">
-                        <span class="nav_heading">Healthi</span><span class="nav_heading_span">FY</span>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-                        <div class="d-flex">
-                            <a href="{% url 'logout' %}" class="navbar_link"><b>LogOut</b></a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-    </div>
-
-    <!-- navbar ends -->
 
     <div class="body">
 
@@ -265,7 +193,7 @@
                     <img class="img1" src="{{ exercise.gif.url }}" alt="{{ exercise.name }} GIF">
 
                 </div>
-                <div class="col-6 pt-4">
+                <div class="col-6 pt-4 crd">
                     <h1>{{ exercise.name }}</h1>
                     <p>{{ exercise.description }}</p>
                     <div class="d-flex justify-content-center gap-2">
@@ -297,16 +225,19 @@
             </div>
         </div>
         <!-- new timer ends -->
-
-        <button class="button" id="startButton">Start</button>
+        <div >
+            <button class="button mb-5" id="startButton"><b>Start</b></button>
         <p id="countdown"></p>
+        </div>
+        
         <center>
-            <form id="finishForm" action="{% url 'finish_exercise' exercise.id %}" method="post" style="display:none;">
+            <form id="finishForm" action="{% url 'finish_exercise' exercise.id %}" method="post" style="display: none;">
                 {% csrf_token %}
                 <button class="button" type="submit" id="finishButton"></button>
             </form>
         </center>
     </div>
+    <div style=" margin-bottom: 80px;"></div>
 
     <!-- <button id="finishButton">Go on!!</button> -->
 
@@ -389,7 +320,7 @@
 
                     // countdown.textContent = 'Time\'s up!';
                     finishButton.textContent = 'Next >>';
-                    finishButton.style.backgroundColor = '#28a745';
+                    finishButton.style.backgroundColor = 'rgb(255, 255, 255)';
                     document.getElementById('finishForm').style.display = 'block';
                     finishButton.onclick = function () {
                         window.location.href = '/exerciselist/';  // Replace with the actual URL of the exercise list page
@@ -424,4 +355,4 @@
 </html>
 
 
-
+{% endblock content %}
