@@ -276,78 +276,79 @@
             this.percentage = document.querySelector('.percentage');
             this.actualValues = document.querySelector('.actual-values');
             this.remaining = document.querySelector('.remaining');
-
+            this.goalCompleted = false; // Flag to prevent multiple alerts
+    
             this.radius = this.circle.r.baseVal.value;
             this.circumference = 2 * Math.PI * this.radius;
-
+    
             // Set up circle
             this.circle.style.strokeDasharray = `${this.circumference} ${this.circumference}`;
             this.circle.style.strokeDashoffset = this.circumference;
-
+    
             this.updateProgress(totalCalories, goal);
         }
-
+    
         getColor(percentage) {
             if (percentage <= 75) return '#00f7ff';  // Fluorescent Cyan
             if (percentage <= 90) return '#fffc00';  // Fluorescent Yellow
             return '#ff0055';  // Fluorescent Pink-Red
         }
-
+    
         updateProgress(totalCalories, goal) {
-            // Check if goal is valid (greater than 0)
             if (!goal || goal <= 0) {
-                // Handle case where no goal is set
                 this.circle.style.strokeDashoffset = this.circumference;
                 this.circle.style.stroke = '#808080'; // Gray color when no goal
                 
-                // Update text values for no goal
                 this.percentage.textContent = `0%`;
                 this.actualValues.textContent = `${totalCalories} / No goal set`;
                 this.remaining.textContent = 'Please set a goal';
                 this.remaining.style.color = '#808080';
                 return;
             }
-            
-            // Normal case when goal is set
+    
             const percentage = Math.min((totalCalories / goal) * 100, 100);
             const offset = this.circumference - (percentage / 100 * this.circumference);
-
-            // Update circle
+    
             this.circle.style.strokeDashoffset = offset;
             this.circle.style.stroke = this.getColor(percentage);
-
-            // Update text values
+    
             this.percentage.textContent = `${Math.round(percentage)}%`;
             this.actualValues.textContent = `${totalCalories} / ${goal}`;
-
+    
             const remaining = goal - totalCalories;
-            this.remaining.textContent = remaining > 0
-                ? `${Math.round(remaining)} calories remaining`
-                : 'Daily goal reached!';
-            this.remaining.style.color = this.getColor(percentage);
+            if (remaining > 0) {
+                this.remaining.textContent = `${Math.round(remaining)} calories remaining`;
+            } else {
+                this.remaining.textContent = 'Daily goal reached!';
+                this.remaining.style.color = this.getColor(percentage);
+    
+                // Show alert once when the goal is reached
+                if (!this.goalCompleted) {
+                    alert('🎉 Congratulations! Your daily calorie goal is completed!');
+                    this.goalCompleted = true;
+                }
+            }
         }
     }
-
+    
     // Initialize when the DOM is fully loaded
     document.addEventListener('DOMContentLoaded', function() {
-        // Parse values from template with error handling
         try {
             let totalCalories = parseInt("{{ total_calories|default:'0' }}", 10);
             let goal = parseInt("{{ goal|default:'0' }}", 10);
-            
-            // Verify the values are valid numbers
+    
             totalCalories = isNaN(totalCalories) ? 0 : totalCalories;
             goal = isNaN(goal) ? 0 : goal;
-            
+    
             console.log("Initializing with:", { totalCalories, goal });
-            
+    
             // Create the progress ring
             const progressRing = new CalorieProgressRing(totalCalories, goal);
         } catch (error) {
             console.error("Error initializing calorie tracker:", error);
-            // Fallback initialization with zeros if there's an error
             const progressRing = new CalorieProgressRing(0, 0);
         }
     });
+    
 </script>
 {% endblock content %}

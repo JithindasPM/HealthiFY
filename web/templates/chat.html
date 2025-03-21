@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,7 @@
             --gradient-start: #7e57c2;
             --gradient-end: #5e35b1;
         }
-        
+
         body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,7 +29,7 @@
             margin: 0;
             background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
         }
-        
+
         .chat-container {
             max-width: 90%;
             width: 800px;
@@ -42,7 +43,7 @@
             background-color: white;
             position: relative;
         }
-        
+
         .chat-header {
             background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
             color: white;
@@ -56,12 +57,12 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .chat-header .logo {
             margin-right: 10px;
             font-size: 1.5rem;
         }
-        
+
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -69,7 +70,7 @@
             background-color: #ffffff;
             background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23f3f3f3' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
-        
+
         .message {
             margin-bottom: 20px;
             max-width: 75%;
@@ -80,12 +81,19 @@
             line-height: 1.5;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .user-message {
             background-color: var(--user-msg-color);
             color: #333;
@@ -95,7 +103,7 @@
             border-top-left-radius: 18px;
             border-bottom-left-radius: 18px;
         }
-        
+
         .bot-message {
             background-color: var(--bot-msg-color);
             color: #333;
@@ -105,7 +113,7 @@
             border-top-left-radius: 18px;
             border-bottom-right-radius: 18px;
         }
-        
+
         .message-time {
             font-size: 11px;
             color: #999;
@@ -115,12 +123,12 @@
             align-items: center;
             justify-content: flex-end;
         }
-        
+
         .message-time i {
             margin-right: 4px;
             font-size: 10px;
         }
-        
+
         .chat-input {
             padding: 20px;
             background-color: white;
@@ -129,12 +137,12 @@
             position: relative;
             z-index: 2;
         }
-        
+
         .chat-form {
             display: flex;
             align-items: center;
         }
-        
+
         .form-control {
             border-radius: 30px;
             border: 1px solid #e0e0e0;
@@ -144,12 +152,12 @@
             transition: all 0.3s;
             background-color: var(--light-color);
         }
-        
+
         .form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.25rem rgba(126, 87, 194, 0.25);
         }
-        
+
         .btn-send {
             background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
             color: white;
@@ -164,27 +172,27 @@
             box-shadow: 0 3px 10px rgba(126, 87, 194, 0.3);
             transition: all 0.3s;
         }
-        
+
         .btn-send:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(126, 87, 194, 0.4);
         }
-        
+
         .btn-send:active {
             transform: scale(0.95);
         }
-        
+
         .btn-send i {
             font-size: 18px;
         }
-        
+
         /* For maintaining message layout after float */
         .clearfix::after {
             content: "";
             clear: both;
             display: table;
         }
-        
+
         /* Typing indicator */
         .typing-indicator {
             display: none;
@@ -198,7 +206,7 @@
             animation: fadeIn 0.3s ease-in-out;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
-        
+
         .typing-indicator span {
             height: 10px;
             width: 10px;
@@ -207,26 +215,33 @@
             display: inline-block;
             border-radius: 50%;
         }
-        
+
         .typing-indicator span:nth-child(1) {
             animation: bounce 1s infinite;
         }
-        
+
         .typing-indicator span:nth-child(2) {
             animation: bounce 1s infinite;
             animation-delay: 0.2s;
         }
-        
+
         .typing-indicator span:nth-child(3) {
             animation: bounce 1s infinite;
             animation-delay: 0.4s;
         }
-        
+
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
-        
+
         /* Welcome message */
         .welcome-message {
             text-align: center;
@@ -236,37 +251,37 @@
             font-size: 15px;
             animation: fadeIn 1s ease-in-out;
         }
-        
+
         .welcome-message h3 {
             color: var(--dark-color);
             margin-bottom: 10px;
             font-weight: 600;
         }
-        
+
         /* Scrollbar styles */
         .chat-messages::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .chat-messages::-webkit-scrollbar-track {
             background: #f1f1f1;
         }
-        
+
         .chat-messages::-webkit-scrollbar-thumb {
             background: var(--secondary-color);
             border-radius: 10px;
         }
-        
+
         .chat-messages::-webkit-scrollbar-thumb:hover {
             background: var(--primary-color);
         }
 
-        .header_a{
+        .header_a {
             text-decoration: none;
             color: white;
             text-shadow: 0 0 2px;
         }
-        
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .chat-container {
@@ -275,33 +290,45 @@
                 max-width: none;
                 margin: 10px;
             }
-            
+
             .message {
                 max-width: 85%;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid p-0">
         <div class="chat-container">
             <div class="chat-header d-flex justify-content-between align-items-center">
                 <span><i class="fas fa-robot ms-3"></i> HealthiFY AI Assistant</span>
-                <a class="header_a" href="{% url 'home' %}"><p class="pt-3 me-3">Home</p></a>
+                <!-- <a class="header_a" href="{% url 'home' %}">
+                    <p class="pt-3 me-3">Home</p>
+                </a> -->
+                {% if user.is_authenticated %}
+                <a class="header_a" href="{% url 'home' %}">
+                    <p class="pt-3 me-3">Home</p>
+                </a>
+                {% else %}
+                <a class="header_a" href="{% url 'profile' %}">
+                    <p class="pt-3 me-3">Home</p>
+                </a>
+                {% endif %}
             </div>
-            
+
             <div class="chat-messages" id="chatMessages">
                 {% if error %}
                 <div class="alert alert-danger">{{ error }}</div>
                 {% endif %}
-                
+
                 {% if not chat_history %}
                 <div class="welcome-message">
                     <h3>Welcome to HealthBot AI Chat</h3>
                     <p>How can I assist you today? Type a message to get started.</p>
                 </div>
                 {% endif %}
-                
+
                 {% for message in chat_history %}
                 <div class="message user-message">
                     {{ message.user }}
@@ -310,7 +337,7 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                
+
                 <div class="message bot-message">
                     {{ message.bot }}
                     <div class="message-time">
@@ -319,7 +346,7 @@
                 </div>
                 <div class="clearfix"></div>
                 {% endfor %}
-                
+
                 <div class="typing-indicator" id="typingIndicator">
                     <span></span>
                     <span></span>
@@ -327,7 +354,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            
+
             <div class="chat-input">
                 <form method="post" class="chat-form" id="chatForm">
                     {% csrf_token %}
@@ -341,59 +368,60 @@
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Auto-scroll to bottom of chat on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             scrollToBottom();
-            
+
             // Focus the input field on page load
             document.querySelector('textarea').focus();
         });
-        
+
         function scrollToBottom() {
             var chatMessages = document.getElementById('chatMessages');
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-        
+
         // Add event listener to the form
-        document.getElementById('chatForm').addEventListener('submit', function(event) {
+        document.getElementById('chatForm').addEventListener('submit', function (event) {
             var input = document.querySelector('textarea');
             var submitBtn = document.querySelector('.btn-send');
-            
+
             // Don't submit if empty
             if (!input.value.trim()) {
                 event.preventDefault();
                 return false;
             }
-            
+
             // Disable button and show typing indicator
             submitBtn.disabled = true;
-            
+
             // Show typing indicator
             var typingIndicator = document.getElementById('typingIndicator');
             typingIndicator.style.display = 'inline-block';
             scrollToBottom();
-            
+
             // Let the form submit continue
             return true;
         });
-        
+
         // Make textarea expand as user types
         const textarea = document.querySelector('textarea');
-        textarea.addEventListener('input', function() {
+        textarea.addEventListener('input', function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
-        
+
         // Allow Enter key to submit, Shift+Enter for new line
-        textarea.addEventListener('keydown', function(e) {
+        textarea.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+                e.preventDefault();  // Prevent the default 'Enter' behavior (new line)
+                document.getElementById('chatForm').submit();  // Submit the form directly
             }
         });
     </script>
 </body>
+
 </html>

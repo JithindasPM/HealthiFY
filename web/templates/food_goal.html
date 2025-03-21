@@ -229,67 +229,71 @@
 
 <script>
     class CalorieProgressRing {
-    constructor(totalCalories, goal) {
-        this.circle = document.querySelector('.progress-ring__circle');
-        this.percentage = document.querySelector('.percentage');
-        this.actualValues = document.querySelector('.actual-values');
-        this.remaining = document.querySelector('.remaining');
-
-        this.radius = this.circle.r.baseVal.value;
-        this.circumference = 2 * Math.PI * this.radius;
-
-        // Set up circle
-        this.circle.style.strokeDasharray = `${this.circumference} ${this.circumference}`;
-        this.circle.style.strokeDashoffset = this.circumference;
-
-        this.updateProgress(totalCalories, goal);
-    }
-
-    getColor(percentage) {
-        if (percentage <= 75) return '#00f7ff';  // Fluorescent Cyan
-        if (percentage <= 90) return '#fffc00';  // Fluorescent Yellow
-        return '#ff0055';  // Fluorescent Pink-Red
-    }
-
-    updateProgress(totalCalories, goal) {
-        // Check if goal is valid (greater than 0)
-        if (!goal || goal <= 0) {
-            // Handle case when no goal is set
-            this.circle.style.strokeDashoffset = this.circumference; // Empty circle
-            this.circle.style.stroke = '#cccccc'; // Gray color
-            
-            this.percentage.textContent = `--`;
-            this.actualValues.textContent = `${totalCalories} / No goal`;
-            this.remaining.textContent = `Set a goal to track progress`;
-            this.remaining.style.color = '#666';
-            return;
+        constructor(totalCalories, goal) {
+            this.circle = document.querySelector('.progress-ring__circle');
+            this.percentage = document.querySelector('.percentage');
+            this.actualValues = document.querySelector('.actual-values');
+            this.remaining = document.querySelector('.remaining');
+            this.goalCompleted = false; // Flag to track if the goal alert has been shown
+    
+            this.radius = this.circle.r.baseVal.value;
+            this.circumference = 2 * Math.PI * this.radius;
+    
+            // Set up circle
+            this.circle.style.strokeDasharray = `${this.circumference} ${this.circumference}`;
+            this.circle.style.strokeDashoffset = this.circumference;
+    
+            this.updateProgress(totalCalories, goal);
         }
-
-        // Normal calculation when goal is set
-        const percentage = Math.min((totalCalories / goal) * 100, 100);
-        const offset = this.circumference - (percentage / 100 * this.circumference);
-
-        // Update circle
-        this.circle.style.strokeDashoffset = offset;
-        this.circle.style.stroke = this.getColor(percentage);
-
-        // Update text values
-        this.percentage.textContent = `${Math.round(percentage)}%`;
-        this.actualValues.textContent = `${totalCalories} / ${goal}`;
-
-        const remaining = goal - totalCalories;
-        if (remaining > 0) {
-            this.remaining.textContent = `${Math.round(remaining)} calories remaining`;
-        } else {
-            this.remaining.textContent = 'Daily goal reached!';
+    
+        getColor(percentage) {
+            if (percentage <= 75) return '#00f7ff';  // Fluorescent Cyan
+            if (percentage <= 90) return '#fffc00';  // Fluorescent Yellow
+            return '#ff0055';  // Fluorescent Pink-Red
         }
-        this.remaining.style.color = this.getColor(percentage);
+    
+        updateProgress(totalCalories, goal) {
+            if (!goal || goal <= 0) {
+                this.circle.style.strokeDashoffset = this.circumference;
+                this.circle.style.stroke = '#cccccc';
+        
+                this.percentage.textContent = `--`;
+                this.actualValues.textContent = `${totalCalories} / No goal`;
+                this.remaining.textContent = `Set a goal to track progress`;
+                this.remaining.style.color = '#666';
+                return;
+            }
+        
+            const percentage = Math.min((totalCalories / goal) * 100, 100);
+            const offset = this.circumference - (percentage / 100 * this.circumference);
+        
+            this.circle.style.strokeDashoffset = offset;
+            this.circle.style.stroke = this.getColor(percentage);
+        
+            this.percentage.textContent = `${Math.round(percentage)}%`;
+            this.actualValues.textContent = `${totalCalories} / ${goal}`;
+        
+            const remaining = goal - totalCalories;
+            if (remaining > 0) {
+                this.remaining.textContent = `${Math.round(remaining)} calories remaining`;
+            } else {
+                this.remaining.textContent = 'Daily goal reached!';
+                if (!this.goalCompleted) {
+                    // Set a flag in localStorage when the goal is completed
+                    localStorage.setItem('goalCompleted', 'true');
+                    alert('Congratulations! Your daily calorie goal is completed!');
+                    this.goalCompleted = true;
+                }
+            }
+            this.remaining.style.color = this.getColor(percentage);
+        }
+        
     }
-}
-
-// Initialize with your Django template values
-const totalCalories = parseInt("{{totalcalorie_today|default:0}}", 10) || 0;
-const goal = parseInt("{% if goals %}{{ goals.goal|default:0 }}{% else %}0{% endif %}", 10) || 0;
-const progressRing = new CalorieProgressRing(totalCalories, goal);
+    
+    // Initialize with your Django template values
+    const totalCalories = parseInt("{{totalcalorie_today|default:0}}", 10) || 0;
+    const goal = parseInt("{% if goals %}{{ goals.goal|default:0 }}{% else %}0{% endif %}", 10) || 0;
+    const progressRing = new CalorieProgressRing(totalCalories, goal);
+    
 </script>
 {% endblock content %}

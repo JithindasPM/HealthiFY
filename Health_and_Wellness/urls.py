@@ -60,9 +60,9 @@ from web.views import CommunityLeaderboardView
 from web.views import Groq_View
 
 
-
 urlpatterns = [
 
+    path('admin/', admin.site.urls),
     path('',Home_View.as_view(),name='home'),
     path('reg/', Registration_View.as_view(),name='reg'),
     path('upuser/<int:pk>', Update_UserProfile_View.as_view(),name='upuser'),
@@ -103,6 +103,7 @@ urlpatterns = [
     path('delete_message/<int:message_id>/', DeleteMessageView.as_view(), name='delete_message'),
     path('community/<int:community_id>/leaderboard/', CommunityLeaderboardView.as_view(), name='community_leaderboard'),
     path("chatbot/", Groq_View.as_view(), name="chatbot"),
+    
 
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  

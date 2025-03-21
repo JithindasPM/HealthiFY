@@ -59,12 +59,23 @@ class UserProfile_Form(forms.ModelForm):
 
 class Login_Form(forms.Form):
 
-    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
-                                                                            'placeholder':'Username . . .',
-                                                                            'style':'background-color:rgba(255, 255, 255, 0.4)'}))
-    password=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control my-1',
-                                                                           'placeholder':'Password . . .',
-                                                                           'style':'background-color:rgba(0, 0, 0, 0.7)'}))
+    username = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control my-1',
+            'placeholder': 'Username . . .',
+            'style': 'background-color:rgba(255, 255, 255, 0.4)'
+        })
+    )
+
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control my-1',
+            'placeholder': 'Password . . .',
+            'style': 'background-color:rgba(0, 0, 0, 0.7)'
+        })
+    )
     
 class BMRForm(forms.Form):
     choice = [
@@ -133,7 +144,7 @@ class SleepForm(forms.Form):
 
     sleep_end_time=forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local',"class":"form-control"}))
 
-    notes=forms.CharField(max_length=100,widget=forms.Textarea(attrs={"class":"form-control","rows":3}))
+    notes=forms.CharField(max_length=100,widget=forms.Textarea(attrs={"class":"form-control","rows":3,"style": "background-color: rgba(255, 255, 255, 0.45);color: black;"}))
 
     
 class UserFoodForm(forms.ModelForm):

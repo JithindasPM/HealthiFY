@@ -988,3 +988,4 @@ class Groq_View(View):
             'form': form, 
             'chat_history': chat_history
         })
+        

@@ -416,6 +416,19 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        window.onload = function() {
+            // Check if the 'goalCompleted' flag is set in localStorage
+            if (localStorage.getItem('goalCompleted') === 'true') {
+                // Show the alert on the add_userfood page
+                alert('Congratulations! Your daily calorie goal is completed!');
+                
+                // Optionally clear the flag if you don't want it to show again after page refresh
+                localStorage.removeItem('goalCompleted');
+            }
+        };
+        
+    </script>
 </body>
 
 </html>
